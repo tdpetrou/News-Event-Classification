@@ -1,0 +1,25 @@
+.classname {
+    height:100px;
+}
+
+/* {
+	border:1px red dotted;
+}  */
+
+#boxContainerContainer {
+    text-align: center;
+}
+
+#boxContainer {
+    display:inline-block;
+    text-align: left;
+}
+
+#box1 {
+    display: inline-block;
+    
+}
+#box2 {
+    display: inline-block;
+    vertical-align:top;
+}

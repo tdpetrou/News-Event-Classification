@@ -1,0 +1,38 @@
+<link rel=stylesheet type=text/css href="{{ url_for('static', filename='tedstyles.css') }}">
+<body onload=changeBiasSentence()>
+<script>
+        function changeBiasSentence(){
+      		var score = "{{ prediction }}";
+            
+        	if (score < .2)
+        	{ 
+                document.getElementById("biasSentence").innerHTML = "This article has a great low bias score. Read and shrare with your friends";
+        	}
+            else if (score < .6) {
+                document.getElementById("biasSentence").innerHTML = "This article has a mediocre bias score. Proceed with caution";
+            }
+            else {
+                document.getElementById("biasSentence").innerHTML = "Danger!!! High bias detected. Click another article fast"
+            }
+        }
+</script>
+
+
+
+<div>
+	Based on a random forest regressor the biased score is:<strong> {{ prediction }} </strong>
+	<a href = "/">Home </a>
+</div>
+
+
+<div id="boxContainer">
+    <div id="box1">
+    	<p id ="biasSentence"></p>
+    </div>
+   
+</div>
+
+
+
+
+</body>
