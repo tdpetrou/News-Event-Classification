@@ -31,19 +31,20 @@ def classify_document():
     # get data from request form, the key is the name you set in your form
     data = request.form['user_input']
     data = data.encode('ascii', 'ignore')
+    return "poop"
     # convert data from unicode to string
-    data = str(data)
+    # data = str(data)
 
-    data = data.encode('ascii', 'ignore')
+    # data = data.encode('ascii', 'ignore')
     
-    # run a simple program that counts all the words
-    model = pickle.load( open( "model.pkl", "rb" ) )
-    vec  = pickle.load( open( "vectorizer.pkl", "rb" ) )
-    prediction = model.predict(vec.transform([data]).toarray())[0]
+    # # run a simple program that counts all the words
+    # model = pickle.load( open( "model.pkl", "rb" ) )
+    # vec  = pickle.load( open( "vectorizer.pkl", "rb" ) )
+    # prediction = model.predict(vec.transform([data]).toarray())[0]
     
 
-    # now return your results 
-    return render_template('model_results.html', prediction = prediction)
+    # # now return your results 
+    # return render_template('model_results.html', prediction = prediction)
 
 
 if __name__ == '__main__':
