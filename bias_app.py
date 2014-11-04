@@ -13,7 +13,7 @@ app = Flask(__name__)
 @app.route('/')
 def index():
         return '''
-            <h2>Enter in the text of your article to get a bias score</h2>
+            <h2>Enter in the text of your article to get a bias score poop</h2>
             <form action="/classify_document" method='POST' >
                 <input type="text" name="user_input" size = 40 />
                 <input type="submit" />
