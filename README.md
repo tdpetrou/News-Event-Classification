@@ -1,4 +1,4 @@
 News-Bias
 =========
 
-All files for the news bias project will go here
+Go to the live version of the [bias detector] (http://greeksquared.pythonanywhere.com)
