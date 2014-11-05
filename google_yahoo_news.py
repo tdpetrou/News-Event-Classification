@@ -12,7 +12,7 @@ import datetime
 model = pickle.load( open( "pickles/model.pkl", "rb" ) )
 vec  = pickle.load( open( "pickles/vectorizer.pkl", "rb" ) )
 
-def google_yahoo_news():
+def google_yahoo_news_updater():
     alchemyapi = AlchemyAPI()
     r = requests.get("http://news.google.com")
     soup = BeautifulSoup(r.text, "html.parser")
@@ -44,4 +44,4 @@ def google_yahoo_news():
     pickle.dump(datetime.datetime.now(), open("pickles/last_update.pkl", "wb"))
 
 if __name__ == '__main__':
-    google_yahoo_news()
+    google_yahoo_news_updater()

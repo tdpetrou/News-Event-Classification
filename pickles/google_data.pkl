@@ -1,9 +1,9 @@
 (lp0
-(VAs More Election Results Come In, Democratic Losses Grow
+(VGOP Plans Congress Agenda After Midterm Election Sweep
 p1
-Vhttp://www.nytimes.com/2014/11/06/us/politics/midterm-democratic-losses-grow.html
+Vhttp://online.wsj.com/articles/gop-plans-congress-agenda-after-midterm-election-sweep-1415199710
 p2
-VNew York Times
+VWall Street Journal
 p3
 cnumpy.core.multiarray
 scalar
@@ -24,88 +24,88 @@ NNNI-1
 I-1
 I0
 tp10
-bS'ffffff\xe6?'
+bS'\x1e\x85\xebQ\xb8\x1e\xd5?'
 p11
 tp12
 Rp13
 Vnegative
 p14
-V-0.260663
+V-0.655083
 p15
 tp16
-a(VChristie Heads to 2016 Decision With Republican Favor Bank Full
+a(VChris Christie wasn't on midterm ballot. Big winner anyway?
 p17
-Vhttp://www.businessweek.com/news/2014-11-05/christie-heads-to-2016-decision-with-republican-favor-bank-full
+Vhttp://www.csmonitor.com/USA/DC-Decoder/Decoder-Buzz/2014/1105/Chris-Christie-wasn-t-on-midterm-ballot.-Big-winner-anyway
 p18
-VBusinessweek
+VChristian Science Monitor
 p19
 g4
 (g8
-S'\x9d\x99\x99\x99\x99\x99\xd9?'
+S'\xecQ\xb8\x1e\x85\xeb\xe1?'
 p20
 tp21
 Rp22
-Vpositive
+Vnegative
 p23
-V0.165554
+V-0.0286453
 p24
 tp25
-a(VVoters pass wage hikes and legal pot, divide on abortion
+a(VFormer NFL Cheerleader Molly Shattuck Repeatedly Raped 15-Year-Old Boy ...
 p26
-Vhttp://www.washingtonpost.com/national/religion/voters-pass-wage-hikes-and-legal-pot-divide-on-abortion/2014/11/05/f0412ae8-650b-11e4-ab86-46000e1d0035_story.html
+Vhttp://www.huffingtonpost.com/2014/11/05/cheerleader-molly-shattuck_n_6108168.html
 p27
-VWashington Post
+VHuffington Post
 p28
 g4
 (g8
-S'\x82fffff\xd6?'
+S'ffffff\xd6?'
 p29
 tp30
 Rp31
 Vnegative
 p32
-V-0.207572
+V-0.0130863
 p33
 tp34
-a(VDriver Plows Into Pedestrians Near Jerusalem Train Station
+a(VBaker Jobs Promises Will Now Take Center Stage
 p35
-Vhttp://www.nytimes.com/2014/11/06/world/middleeast/jerusalem-driver-plows-into-pedestrians.html
+Vhttp://www.boston.com/jobs/news/2014/11/05/baker-jobs-promises-will-now-take-center-stage/clBuXvvOdy1rm6uXJfD3iL/story.html?p1=Must_Reads
 p36
-VNew York Times
+VBoston.com
 p37
 g4
 (g8
-S'ffffff\xe6?'
+S')\\\x8f\xc2\xf5(\xe4?'
 p38
 tp39
 Rp40
 Vnegative
 p41
-V-0.506673
+V-0.104776
 p42
 tp43
-a(VAccomplished stage director engaged to Benedict Cumberbatch
+a(VJerusalem terror attack leaves 1 dead and 3 critically wounded
 p44
-Vhttp://news-briefs.ew.com/2014/11/05/benedict-cumberbatch-to-be-married/
+Vhttp://www.haaretz.com/news/diplomacy-defense/1.624806
 p45
-VEntertainment Weekly
+VHaaretz
 p46
 g4
 (g8
-S'\xebQ\xb8\x1e\x85\xeb\xd1?'
+S'\xecQ\xb8\x1e\x85\xeb\xe1?'
 p47
 tp48
 Rp49
-Vpositive
+Vnegative
 p50
-V0.306159
+V-0.389457
 p51
 tp52
-a(VReport: A-Rod admits to PED use under oath
+a(VObama seeks $6.2 billion to combat Ebola: officials
 p53
-Vhttp://www.foxnews.com/sports/2014/11/05/report-rod-admits-to-ped-use-under-oath/
+Vhttp://www.reuters.com/article/2014/11/05/us-health-ebola-obama-idUSKBN0IP2EE20141105
 p54
-VFox News
+VReuters
 p55
 g4
 (g8
@@ -115,65 +115,65 @@ tp57
 Rp58
 Vnegative
 p59
-V-0.423179
+V-0.412802
 p60
 tp61
-a(VBritain sending more troops to train Iraqis
+a(VCease-Fire in Ukraine Fails and Preparations for War Begin
 p62
-Vhttp://www.chron.com/news/world/article/Britain-sending-more-troops-to-train-Iraqis-5872844.php
+Vhttp://time.com/3558451/ukraine-russia-separatists-mariupol-war/
 p63
-VChron.com
+VTIME
 p64
 g4
 (g8
-S'*\\\x8f\xc2\xf5(\xe4?'
+S'\xecQ\xb8\x1e\x85\xeb\xe1?'
 p65
 tp66
 Rp67
 Vnegative
 p68
-V-0.0799082
+V-0.336517
 p69
 tp70
-a(VFinland warns Europe is 'at the gates of a new cold war' in wake of Russian ...
+a(VFormer Aide Says Putin Has No Strategic Plans
 p71
-Vhttp://www.independent.co.uk/news/world/europe/finland-warns-europe-is-at-the-gates-of-a-new-cold-war-in-wake-of-russian-military-activity-9841867.html
+Vhttp://time.com/3547935/putin-pugachev-oligarchs/
 p72
-VThe Independent
+VTIME
 p73
 g4
 (g8
-S'\xecQ\xb8\x1e\x85\xeb\xe1?'
+S'\xebQ\xb8\x1e\x85\xeb\xe1?'
 p74
 tp75
 Rp76
 Vnegative
 p77
-V-0.219638
+V-0.0767927
 p78
 tp79
-a(VIran hardliners want nuclear deal but no ties with Washington
+a(VBritain sending more troops to train Iraqi and Kurdish fighters
 p80
-Vhttp://www.thestar.com.my/News/World/2014/11/06/Iran-hardliners-want-nuclear-deal-but-no-ties-with-Washington/
+Vhttp://indianexpress.com/article/world/europe/britain-sending-more-troops-to-train-iraqi-and-kurdish-fighters/
 p81
-VThe Star Online
+VIndian Express
 p82
 g4
 (g8
-S']\x8f\xc2\xf5(\\\xdf?'
+S'*\\\x8f\xc2\xf5(\xe4?'
 p83
 tp84
 Rp85
 Vnegative
 p86
-V-0.304726
+V-0.366095
 p87
 tp88
-a(VOnline Photos Claim to Show Slain Woman's Body
+a(VPot proponents look to California after victories
 p89
-Vhttp://abcnews.go.com/US/wireStory/photos-purport-show-slain-washington-woman-26698091
+Vhttp://www.sfgate.com/news/article/Ballot-measures-California-next-for-pot-activists-5872403.php
 p90
-VABC News
+VSFGate
 p91
 g4
 (g8
@@ -183,14 +183,14 @@ tp93
 Rp94
 Vnegative
 p95
-V-0.201353
+V-0.188233
 p96
 tp97
-a(VCoakley concedes to Baker in governor's race
+a(VSullivan maintains lead in U.S. Senate race
 p98
-Vhttp://www.bostonglobe.com/news/politics/2014/11/05/martha-coakley-concedes-gubernatorial-race-telephone-call-charlie-baker/bbef08yOW5tPJAkYzBNfMK/story.html
+Vhttp://www.ktva.com/sullivan-maintains-lead-in-u-s-senate-race-728/
 p99
-VBoston Globe
+VKTVA CBS 11 News Alaska
 p100
 g4
 (g8
@@ -200,48 +200,48 @@ tp102
 Rp103
 Vpositive
 p104
-V0.0559416
+V0.0628261
 p105
 tp106
-a(VElection Results 2014: Here Are the Key Races That Are Still Too Close to Project
+a(VThough Bells Toll for Us All, Men and Boys Bear the Brunt of Our Nation's Gun ...
 p107
-Vhttp://abcnews.go.com/Politics/election-results-2014-key-races-close-call/story?id=26703958
+Vhttp://www.huffingtonpost.com/craig-k-collins/though-bells-toll-for-us-_b_6108484.html
 p108
-VABC News
+VHuffington Post
 p109
 g4
 (g8
-S')\\\x8f\xc2\xf5(\xe4?'
+S'\xb8\x1e\x85\xebQ\xb8\xde?'
 p110
 tp111
 Rp112
 Vnegative
 p113
-V-0.188121
+V-0.25471
 p114
 tp115
-a(VColorado's Democratic Gov. Hickenlooper wins in a squeaker
+a(VU.S. stocks head higher after midterm elections, jobs data
 p116
-Vhttp://www.latimes.com/nation/politics/politicsnow/la-pn-colorado-democrat-governor-hickenlooper-wins-squeaker-20141105-story.html
+Vhttp://www.marketwatch.com/story/us-stocks-futures-higher-as-republicans-sweep-midterms-2014-11-05
 p117
-VLos Angeles Times
+VMarketWatch
 p118
 g4
 (g8
-S'ffffff\xe6?'
+S'3\x9a\x99\x99\x99\x99\xc9?'
 p119
 tp120
 Rp121
 Vnegative
 p122
-V-0.3271
+V-0.140334
 p123
 tp124
-a(VWall Street Up After Jobs Data; Dow Hits Record
+a(VStocks Climb on GOP Wave Election
 p125
-Vhttp://profit.ndtv.com/news/market/article-wall-street-up-after-jobs-data-dow-hits-record-689304
+Vhttp://www.foxbusiness.com/markets/2014/11/05/stocks-climb-on-gop-wave-election/
 p126
-VNDTV
+VFox Business
 p127
 g4
 (g8
@@ -251,48 +251,48 @@ tp129
 Rp130
 Vnegative
 p131
-V-0.304647
+V-0.40953
 p132
 tp133
-a(VUS services sector slows; private payrolls increase
+a(VMinimum Wage And Sick Leave Victories Buck The Conservative Voting Trend
 p134
-Vhttp://www.reuters.com/article/2014/11/05/us-usa-economy-employment-adp-idUSKBN0IP1M420141105
+Vhttp://www.forbes.com/sites/susanadams/2014/11/05/minimum-wage-and-sick-leave-victories-buck-the-conservative-voting-trend/
 p135
-VReuters
+VForbes
 p136
 g4
 (g8
-S'\x00\x00\x00\x00\x00\x00\xe0?'
+S'\xf6(\\\x8f\xc2\xf5\xd8?'
 p137
 tp138
 Rp139
 Vnegative
 p140
-V-0.0585054
+V-0.085934
 p141
 tp142
-a(VUS Services Firms Grow More Slowly, but Hiring Up
+a(VBallot Question One: Does The Yes Vote Change My Commute?
 p143
-Vhttp://abcnews.go.com/Business/wireStory/us-services-firms-grow-slowly-hiring-26704199
+Vhttp://www.boston.com/cars/news-and-reviews/2014/11/05/ballot-question-one-does-the-yes-vote-change-commute/AzVllRNqQ3EB3U3BtpzqZN/story.html
 p144
-VABC News
+VBoston.com
 p145
 g4
 (g8
-S'r=\n\xd7\xa3p\xdd?'
+S')\\\x8f\xc2\xf5(\xe4?'
 p146
 tp147
 Rp148
-Vpositive
+Vnegative
 p149
-V0.245577
+V-0.383246
 p150
 tp151
-a(VJawbone launches UP3 and UP Move fitness trackers
+a(VWorkday plots wave of predictive analytic apps
 p152
-Vhttp://www.telegraph.co.uk/technology/news/11210342/UP3-and-UP-Move-Jawbone-launches-new-fitness-trackers.html
+Vhttp://www.itworld.com/article/2843677/workday-plots-wave-of-predictive-analytic-apps.html
 p153
-VTelegraph.co.uk
+VITworld.com
 p154
 g4
 (g8
@@ -302,228 +302,262 @@ tp156
 Rp157
 Vpositive
 p158
-V0.520264
+V0.370527
 p159
 tp160
-a(VIBM launches new cloud security practice
+a(VJawbone Unveils UP Move, UP3 Trackers
 p161
-Vhttp://www.usatoday.com/story/tech/2014/11/05/ibm-cloud-security/18424315/
+Vhttp://www.pcmag.com/article2/0,2817,2471645,00.asp
 p162
-VUSA TODAY
+VPC Magazine
 p163
 g4
 (g8
-S')\\\x8f\xc2\xf5(\xe4?'
+S'ffffff\xe6?'
 p164
 tp165
 Rp166
 Vpositive
 p167
-V0.0464336
+V0.431746
 p168
 tp169
-a(VThe white knight rises: Christopher Nolan's space odyssey boldly blends the ...
+a(VMiranda Lambert Planning Five Outfit Changes for the CMA Awards
 p170
-Vhttp://www.rollingstone.com/movies/reviews/interstellar-20141105
+Vhttp://www.people.com/people/package/article/0,,20316530_20869458,00.html
 p171
-VRollingStone.com
+VPeople Magazine
 p172
 g4
 (g8
-S'\xadG\xe1z\x14\xae\xd7?'
+S'\xecQ\xb8\x1e\x85\xeb\xe1?'
 p173
 tp174
 Rp175
 Vpositive
 p176
-V0.2036
+V0.274559
 p177
 tp178
-a(VLena Dunham's Lawyers Threaten to Sue Truth Revolt Over Sexual Abuse Story
+a(VBenedict Cumberbatch engaged: 'Sherlock' goes old school, shuns Twitter
 p179
-Vhttp://www.eonline.com/news/595004/lena-dunham-s-lawyers-threaten-to-sue-truth-revolt-over-sexual-abuse-story
+Vhttp://www.csmonitor.com/The-Culture/2014/1105/Benedict-Cumberbatch-engaged-Sherlock-goes-old-school-shuns-Twitter
 p180
-VE! Online
+VChristian Science Monitor
 p181
 g4
 (g8
-S'R\xb8\x1e\x85\xebQ\xc8?'
+S'\x95\x99\x99\x99\x99\x99\xd9?'
 p182
 tp183
 Rp184
-Vnegative
+Vpositive
 p185
-V-0.457164
+V0.329932
 p186
 tp187
-a(VNFL's Ray Rice arrives for appeal hearing in New York
+a(VReview: 'Interstellar' a sublime cosmic knockout
 p188
-Vhttp://www.foxnews.com/sports/2014/11/05/ray-rice-appeal-hearing-set-to-begin-wednesday/
+Vhttp://www.thestarpress.com/story/news/local/2014/11/05/review-interstellar-sublime-cosmic-knockout/18537495/
 p189
-VFox News
+VMuncie Star Press
 p190
 g4
 (g8
-S'\x9a\x99\x99\x99\x99\x99\xc9?'
+S'\n\xd7\xa3p=\n\xd7?'
 p191
 tp192
 Rp193
-Vnegative
+Vpositive
 p194
-V-0.193487
+V0.228615
 p195
 tp196
-a(VIn latest College Football Playoff rankings, Oregon moves into a coveted top-four ...
+a(VBill O'Brien tabs Ryan Mallett as Texans' starting QB
 p197
-Vhttp://www.washingtonpost.com/sports/colleges/in-latest-college-football-playoff-rankings-oregon-moves-into-a-coveted-top-four-spot/2014/11/04/fad48afe-6475-11e4-836c-83bc4f26eb67_story.html?tid=pm_sports_pop
+Vhttp://www.nfl.com/news/story/0ap3000000423288/article/bill-obrien-tabs-ryan-mallett-as-texans-starting-qb
 p198
-VWashington Post
+VNFL.com
 p199
 g4
 (g8
-S'R\xb8\x1e\x85\xebQ\xc8?'
+S'ffffff\xe6?'
 p200
 tp201
 Rp202
-Vnegative
+Vpositive
 p203
-V-0.321666
+V0.294493
 p204
 tp205
-a(VJackie Bradley Jr.'s Gold Glove Snub A Reminder Of Red Sox's Dilemma
+a(VAlex Rodriguez will talk to feds about Biogenesis after agreeing to 'queen for a ...
 p206
-Vhttp://nesn.com/2014/11/jackie-bradley-jr-s-gold-glove-snub-a-reminder-of-red-soxs-dilemma/
+Vhttp://www.nydailynews.com/sports/i-team/a-rod-sing-feds-biogenesis-agreeing-queen-day-immunity-deal-article-1.1999653
 p207
-VNESN.com
+VNew York Daily News
 p208
 g4
 (g8
-S'>\n\xd7\xa3p=\xda?'
+S'\xecQ\xb8\x1e\x85\xeb\xe1?'
 p209
 tp210
 Rp211
 Vnegative
 p212
-V-0.228848
+V-0.328248
 p213
 tp214
-a(VGrowing Pains For Cavs
+a(VNCAA officials debated PSU penalty
 p215
-Vhttp://espn.go.com/los-angeles/nba/story/_/id/11824862/lebron-james-cleveland-cavaliers-loss-going-long-process
+Vhttp://abcnews.go.com/Sports/ncaa-officials-debated-psu-penalty/story?id=26711452
 p216
-VESPN
+VABC News
 p217
 g4
 (g8
-S'\xecQ\xb8\x1e\x85\xeb\xe1?'
+S'(\\\x8f\xc2\xf5(\xbc?'
 p218
 tp219
 Rp220
-Vpositive
+Vnegative
 p221
-V0.0499137
+V-0.270314
 p222
 tp223
-a(VThree fireballs lit up US skies Monday, but one might be fake
+a(VLeBron James decries Cleveland Cavaliers bad habits after blowout loss to ...
 p224
-Vhttp://www.foxnews.com/science/2014/11/05/three-fireballs-lit-up-us-skies-monday-but-one-might-be-fake/
+Vhttp://www.foxsports.com/nba/story/lebron-james-bad-habits-cleveland-cavaliers-blowout-loss-portland-trail-blazers-110514
 p225
-VFox News
+VFOXSports.com
 p226
 g4
 (g8
-S']\x8f\xc2\xf5(\\\xdf?'
+S'ffffff\xe6?'
 p227
 tp228
 Rp229
 Vnegative
 p230
-V-0.016952
+V-0.0296363
 p231
 tp232
-a(VDeer with 'vampire fangs' spotted for 1st time in decades
+a(VLimb cells turned into genitals in lab
 p233
-Vhttp://www.foxnews.com/science/2014/11/05/deer-with-vampire-fangs-spotted-for-1st-time-in-decades/
+Vhttp://www.bbc.co.uk/news/science-environment-29899756
 p234
-VFox News
+VBBC News
 p235
 g4
 (g8
-S'\xecQ\xb8\x1e\x85\xeb\xe1?'
+S'\xe0z\x14\xaeG\xe1\xda?'
 p236
 tp237
 Rp238
 Vnegative
 p239
-V-0.0435373
+V-0.209808
 p240
 tp241
-a(VThree Ways Health Officials And Doctors Fumbled In Communicating Ebola Risk
+a(VThree fireballs \u2013 one courtesy of Red Bull \u2013 light up US skies (+video)
 p242
-Vhttp://www.forbes.com/sites/fayeflam/2014/11/05/three-ways-health-officials-and-doctors-fumbled-in-communicating-ebola-risk/
+Vhttp://www.csmonitor.com/Science/2014/1105/Three-fireballs-one-courtesy-of-Red-Bull-light-up-US-skies-video
 p243
-VForbes
+VChristian Science Monitor
 p244
 g4
 (g8
-S'\x9d\x99\x99\x99\x99\x99\xd9?'
+S'\x82fffff\xd6?'
 p245
 tp246
 Rp247
-Vnegative
+Vpositive
 p248
-V-0.453106
+V0.0386928
 p249
 tp250
-a(VResearchers reveal the secret to fending off kidney stones
+a(VMadagascar Fossil Offers Clues in Evolution of Mammals
 p251
-Vhttp://dailydigestnews.com/2014/11/researchers-reveal-the-secret-to-fending-off-kidney-stones/
+Vhttp://www.nytimes.com/2014/11/06/science/madagascar-fossil-vintana-mammals-evolution.html
 p252
-VDaily Digest
+VNew York Times
 p253
 g4
 (g8
-S'333333\xc3?'
+S'[\x8f\xc2\xf5(\\\xdf?'
 p254
 tp255
 Rp256
 Vnegative
 p257
-V-0.518278
+V-0.00170842
 p258
 tp259
-a(VChagas, 'kissing bug' disease, worries U.S. health officials
+a(VFirst Amphibious "Sea Monster" Found; Fills Evolutionary Gap
 p260
-Vhttp://www.upi.com/Health_News/2014/11/05/Chagas-kissing-bug-disease-worries-US-health-officials/7991415199409/?spt=rrs&or=1
+Vhttp://news.nationalgeographic.com/news/2014/11/141105-ichthyosaurs-sea-monsters-dinosaurs-science-fossils/
 p261
-VUPI.com
+VNational Geographic
 p262
 g4
 (g8
-S'333333\xe3?'
+S'[\x8f\xc2\xf5(\\\xdf?'
 p263
 tp264
 Rp265
 Vnegative
 p266
-V-0.273864
+V-0.121291
 p267
 tp268
-a(VWHO's Next Africa Chief Is Elected
+a(VWith Scott victory, Florida Medicaid expansion hopes dim
 p269
-Vhttp://abcnews.go.com/International/wireStory/voting-begins-pick-africa-chief-26698311
+Vhttp://www.tampabay.com/news/politics/gubernatorial/with-scott-victory-florida-medicaid-expansion-hopes-dim/2205244
 p270
-VABC News
+VTampabay.com
 p271
 g4
 (g8
-S'\xecQ\xb8\x1e\x85\xeb\xe1?'
+S'ffffff\xe6?'
 p272
 tp273
 Rp274
 Vnegative
 p275
-V-0.273302
+V-0.148455
 p276
 tp277
+a(VFree of Ebola, Nurse's Aide Is Released From Madrid Hospital
+p278
+Vhttp://www.nytimes.com/2014/11/06/world/europe/ebola-outbreak-spain.html
+p279
+VNew York Times
+p280
+g4
+(g8
+S'ffffff\xe6?'
+p281
+tp282
+Rp283
+Vnegative
+p284
+V-0.288752
+p285
+tp286
+a(VSMS service tackles Ebola in Sierra Leone, expands in West Africa
+p287
+Vhttp://in.reuters.com/article/2014/11/05/health-ebola-leone-mobilephone-idINKBN0IP2BT20141105
+p288
+VReuters
+p289
+g4
+(g8
+S']\x8f\xc2\xf5(\\\xdf?'
+p290
+tp291
+Rp292
+Vpositive
+p293
+V0.160666
+p294
+tp295
 a.

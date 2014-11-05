@@ -11,6 +11,7 @@ import re
 import datetime
 import os
 from get_pickles import get_pickles
+from google_yahoo_news import google_yahoo_news_updater
 
 model, vec, google_data, last_update = get_pickles()
 app = Flask(__name__)
@@ -81,4 +82,6 @@ if __name__ == '__main__':
       
     time = datetime.datetime.now()
     time_diff = time - last_update
+    if time_diff.seconds > 3600:
+        google_yahoo_news_updater()
     app.run(host='0.0.0.0', port=7070, debug=True)
