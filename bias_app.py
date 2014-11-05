@@ -10,18 +10,31 @@ from alchemyapi import AlchemyAPI
 import re
 
 
+model = pickle.load( open( "model.pkl", "rb" ) )
+vec  = pickle.load( open( "vectorizer.pkl", "rb" ) )
+
 app = Flask(__name__)
+
+
 
 # our home page
 @app.route('/')
 def index():
         return '''
-            <h2>Enter in url that you want to detect bias</h2>
-            <form action="/classify_document" method='POST' >
-                <input type="text" name="user_input" size = 40 />
-                <input type="submit" />
-            </form>
-            <a href = '/'>home</a>
+            <div>
+                <h2>Enter in url that you want to detect bias</h2>
+                <form action="/classify_document" method='POST' >
+                    <input type="text" name="user_input" size = 40 />
+                    <input type="submit" />
+                </form>
+                
+            </div>
+            <div>
+                <h1> <a href = '/google_yahoo_news'>Get Bias scores for Google and yahoo news</a></h1>
+            </div>
+            <div>
+                <h1> <a href = '/Rate_Articles'>Give us your rating of bias</a></h1>
+            </div>
             '''
 
 
@@ -38,8 +51,8 @@ def classify_document():
     alchemyapi = AlchemyAPI()
     
     # # run a simple program that counts all the words
-    model = pickle.load( open( "model.pkl", "rb" ) )
-    vec  = pickle.load( open( "vectorizer.pkl", "rb" ) )
+    # model = pickle.load( open( "model.pkl", "rb" ) )
+    # vec  = pickle.load( open( "vectorizer.pkl", "rb" ) )
     
     alc = alchemyapi.text('url', url)   
 
@@ -51,6 +64,25 @@ def classify_document():
     # # now return your results 
     return render_template('model_results.html', prediction = prediction)
 
+
+
+@app.route('/google_yahoo_news')
+def google_yahoo_news():
+    alchemyapi = AlchemyAPI()
+    r = requests.get("http://news.google.com")
+    soup = BeautifulSoup(r.text, "html.parser")
+    divs = [div for div in soup.findAll('div', 'esc-lead-article-title-wrapper')]
+    links = []
+    bias_scores = []
+    for div in divs:
+        link = div.find_all('a', href=True)
+        links.append(link[0]['href'])
+    for link in links:
+        response = alchemyapi.text('url', link)
+        text = str(re.sub('[^\w\s]+', '', response['text']))
+        text = str(re.sub('\n+', '', text)) 
+        bias_scores.append(model.predict(vec.transform([text]).toarray())[0])
+    return render_template('google_news_temp.html', data = zip(links, bias_scores ))
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=7070, debug=True)
