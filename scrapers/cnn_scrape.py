@@ -46,4 +46,6 @@ if __name__ == '__main__':
 	topics = [link.split('/')[5][4:] for link in sublinks]
 	articles = get_article_text(sublinks)
 	frame = pd.DataFrame({'text' : articles, 'topic' : topics, 'source' : 'CNN', 'rating' : .4}, columns = ['source', 'topic', 'text', 'rating'])
+	frame = frame[frame['text'].apply(str) != 'nan']
+	frame = frame.reset_index(drop = True)
 	frame.to_csv('cnn_data.csv', index=False)
