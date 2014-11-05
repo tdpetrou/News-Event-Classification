@@ -11,7 +11,7 @@ import re
 import datetime
 import os
 
-
+model, vec, google_data, last_update = get_pickles()
 app = Flask(__name__)
 
 
@@ -95,7 +95,7 @@ if __name__ == '__main__':
     # if path not in sys.path:
     #     sys.path.append(path)
     # from bias_app import app as application
-    model, vec, google_data, last_update = get_pickles()  
+      
     print google_data
     time = datetime.datetime.now()
     time_diff = time - last_update
