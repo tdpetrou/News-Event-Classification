@@ -9,6 +9,7 @@ import pickle
 from alchemyapi import AlchemyAPI
 import re
 import datetime
+import os
 
 
 app = Flask(__name__)
@@ -31,7 +32,7 @@ def index():
                 <h1> <a href = '/google_yahoo_news'>Get Bias scores for Google and yahoo news</a></h1>
             </div>
             <div>
-                <h1> <a href = '/Rate_Articles'>Give us your rating of bias</a></h1>
+                <h1> <a href = '/rate_articles'>Give us your rating of bias</a></h1>
             </div>
             '''
 
@@ -65,11 +66,41 @@ def google_yahoo_news():
     
     return render_template('google_news_temp.html', data = google_data)
 
+@app.route('/rate_articles')
+def rate_articles():
+    return "under construction"
+
+def get_pickles():
+    print os.getcwd()
+    if os.getcwd().split('/')[1] != 'Users':
+        my_dir = os.path.dirname(__file__)
+        model_path = os.path.join(my_dir, 'pickles/model.pkl')
+        vec_path = os.path.join(my_dir, 'pickles/vectorizer.pkl')
+        google_data_path = os.path.join(my_dir, 'pickles/model.pkl')
+        last_update_path = os.path.join(my_dir, 'pickles/vectorizer.pkl')
+
+        model = pickle.load( open( model_path, "rb" ) )
+        vec  = pickle.load( open( vec_path, "rb" ) )
+        google_data = pickle.load( open( google_data_path, "rb" ) )
+        last_update  = pickle.load( open( last_update_path, "rb" ) )
+    else:    
+        model = pickle.load( open( "pickles/model.pkl", "rb" ) )
+        vec  = pickle.load( open( "pickles/vectorizer.pkl", "rb" ) )
+        google_data = pickle.load( open( "pickles/google_data.pkl", "rb" ) )
+        last_update  = pickle.load( open( "pickles/last_update.pkl", "rb" ) )
+    return model, vec, google_data, last_update   
+
+
 if __name__ == '__main__':
-    model = pickle.load( open( "pickles/model.pkl", "rb" ) )
-    vec  = pickle.load( open( "pickles/vectorizer.pkl", "rb" ) )
-    google_data = pickle.load( open( "pickles/google_data.pkl", "rb" ) )
-    last_update  = pickle.load( open( "pickles/last_update.pkl", "rb" ) )
+    #comments below are for pythonanywhere
+    ######## WSGI Web file #############
+    # import sys
+    # path = '/home/greeksquared/News-bias'
+    # if path not in sys.path:
+    #     sys.path.append(path)
+    # from bias_app import app as application
+    model, vec, google_data, last_update = get_pickles()  
+
     time = datetime.datetime.now()
     time_diff = time - last_update
     app.run(host='0.0.0.0', port=7070, debug=True)
