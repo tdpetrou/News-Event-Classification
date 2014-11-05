@@ -91,7 +91,6 @@ def google_yahoo_news():
         #get sentiment
         response = alchemyapi.sentiment('url', link)
         if response.has_key('docSentiment'):
-            print response['docSentiment'].get('type', 0) , response['docSentiment'].get('score', 0)
             sentiments.append(response['docSentiment']['type'])
             sentiment_scores.append(response['docSentiment'].get('score', 0))
     return render_template('google_news_temp.html', data = zip(titles, links, sources, bias_scores, sentiments, sentiment_scores))

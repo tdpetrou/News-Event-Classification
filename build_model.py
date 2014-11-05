@@ -12,10 +12,10 @@ def read_data():
 	reads data from csv that I generated from copying and pasting articles from
 	5 different news sources
 	'''
-	wiki = pd.read_csv("wikipedia_data.csv")
-	fox = pd.read_csv("fox_data.csv")
-	npr = pd.read_csv("npr_data.csv")
-	cnn = pd.read_csv("cnn_data.csv")
+	wiki = pd.read_csv("data/wikipedia_data.csv")
+	fox = pd.read_csv("data/fox_data.csv")
+	npr = pd.read_csv("data/npr_data.csv")
+	cnn = pd.read_csv("data/cnn_data.csv")
 	cnn = cnn[cnn['text'].apply(str) != 'nan']
 	data = pd.concat((wiki[['source', 'text', 'rating']], fox[['source', 'text', 'rating']], 
 		npr[['source', 'text', 'rating']], cnn[['source', 'text', 'rating']] ), ignore_index=True)
@@ -31,7 +31,7 @@ def get_features(data):
 
 	X_train_mat = vec.fit_transform(X_train).toarray()
 	X_test_mat = vec.transform(X_test).toarray()
-	pickle.dump(vec, open("vectorizer.pkl", "wb"))
+	pickle.dump(vec, open("pickles/vectorizer.pkl", "wb"))
 
 	return X_train_mat, X_test_mat, y_train, y_test
 
@@ -48,7 +48,7 @@ if __name__ == '__main__':
 	X_train_mat, X_test_mat, y_train, y_test = get_features(data)
 	model = fit_model(X_train_mat, y_train)
 	predictions = predict_model(model, X_test_mat)
-	pickle.dump(model, open("model.pkl", "wb"))
+	pickle.dump(model, open("pickles/model.pkl", "wb"))
 	print "Predictions for your articles are", predictions
 	print "R-squared for model is", model.score(X_test_mat, y_test)
 
