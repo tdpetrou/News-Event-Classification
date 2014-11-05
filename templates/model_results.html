@@ -3,8 +3,8 @@
 <script>
         function changeBiasSentence(){
       		var score = "{{ prediction }}";
-            
-        	if (score < .2)
+
+        	if (score < .3)
         	{ 
                 document.getElementById("biasSentence").innerHTML = "This article has a great low bias score. Read and shrare with your friends";
         	}

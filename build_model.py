@@ -4,6 +4,7 @@ from sklearn.feature_extraction.text import TfidfVectorizer
 import re
 from sklearn.naive_bayes import MultinomialNB
 from sklearn.ensemble import RandomForestRegressor
+from sklearn.cross_validation import train_test_split
 import pickle
 
 def read_data():
@@ -11,29 +12,27 @@ def read_data():
 	reads data from csv that I generated from copying and pasting articles from
 	5 different news sources
 	'''
-	data = pd.read_csv("prelim_data.csv")
-	data['Article'] = data['Article'].apply(lambda x: str(re.sub('[^\w\s]+', '', x)))
-	data['Article'] = data['Article'].apply(lambda x: str(re.sub('[\r]+', ' ', x)))
+	wiki = pd.read_csv("wikipedia_data.csv")
+	fox = pd.read_csv("fox_data.csv")
+	npr = pd.read_csv("npr_data.csv")
+	cnn = pd.read_csv("cnn_data.csv")
+	cnn = cnn[cnn['text'].apply(str) != 'nan']
+	data = pd.concat((wiki[['source', 'text', 'rating']], fox[['source', 'text', 'rating']], 
+		npr[['source', 'text', 'rating']], cnn[['source', 'text', 'rating']] ), ignore_index=True)
 	return data
 
 def get_features(data):
-	vec = TfidfVectorizer(stop_words='english')
-
-	X = data['Article'].values
-	label = data['source'].values
+	vec = TfidfVectorizer(stop_words='english', max_features = 1000)
+	X = data['text'].values
 	y = data['rating']
 
-	test_indices = [0, 5, 10, 15, 20]
-	train_indices = [num for num in range(25) if num not in test_indices]
 
-	X_train, X_test = X[train_indices], X[test_indices]
-	y_train, y_test = y[train_indices], y[test_indices]
-	label_train, label_test = label[train_indices], label[test_indices]
+	X_train, X_test, y_train, y_test = train_test_split(X, y)
 
 	X_train_mat = vec.fit_transform(X_train).toarray()
 	X_test_mat = vec.transform(X_test).toarray()
 	pickle.dump(vec, open("vectorizer.pkl", "wb"))
-	
+
 	return X_train_mat, X_test_mat, y_train, y_test
 
 def fit_model(X_train_mat, y_train):

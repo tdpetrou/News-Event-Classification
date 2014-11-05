@@ -6,6 +6,9 @@ import numpy as np
 import requests
 from bs4 import BeautifulSoup
 import pickle
+from alchemyapi import AlchemyAPI
+import re
+
 
 app = Flask(__name__)
 
@@ -13,7 +16,7 @@ app = Flask(__name__)
 @app.route('/')
 def index():
         return '''
-            <h2>Enter in the text of your article to get a bias score poop times 2</h2>
+            <h2>Enter in url that you want to detect bias</h2>
             <form action="/classify_document" method='POST' >
                 <input type="text" name="user_input" size = 40 />
                 <input type="submit" />
@@ -29,22 +32,24 @@ def index():
 @app.route('/classify_document', methods=['POST'] )
 def classify_document():
     # get data from request form, the key is the name you set in your form
-    data = request.form['user_input']
-    data = data.encode('ascii', 'ignore')
-    return "poop"
+    url = request.form['user_input']
+    #data = data.encode('ascii', 'ignore')
     # convert data from unicode to string
-    # data = str(data)
-
-    # data = data.encode('ascii', 'ignore')
+    alchemyapi = AlchemyAPI()
     
     # # run a simple program that counts all the words
-    # model = pickle.load( open( "model.pkl", "rb" ) )
-    # vec  = pickle.load( open( "vectorizer.pkl", "rb" ) )
-    # prediction = model.predict(vec.transform([data]).toarray())[0]
+    model = pickle.load( open( "model.pkl", "rb" ) )
+    vec  = pickle.load( open( "vectorizer.pkl", "rb" ) )
     
+    alc = alchemyapi.text('url', url)   
 
+    text = str(re.sub('[^\w\s]+', '', alc['text']))
+    text = str(re.sub('\n+', '', text)) 
+
+
+    prediction = model.predict(vec.transform([text]).toarray())[0]
     # # now return your results 
-    # return render_template('model_results.html', prediction = prediction)
+    return render_template('model_results.html', prediction = prediction)
 
 
 if __name__ == '__main__':

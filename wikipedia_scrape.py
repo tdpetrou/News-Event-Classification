@@ -6,7 +6,7 @@ from bs4 import BeautifulSoup
 def get_articles():
 	urls = []
 	articles = []
-	for i in range(1000):
+	for i in range(5000):
 	    req = requests.get('https://en.wikipedia.org/wiki/Special:Random')
 	    soup = BeautifulSoup(req.text)
 	    paragraphs =  soup.findAll("div", {"id" : "mw-content-text"})[0].findAll('p')
