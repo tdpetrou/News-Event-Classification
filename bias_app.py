@@ -36,10 +36,6 @@ def index():
             </div>
             '''
 
-
-
-# My word counter app
-#==============================================
 # create the page the form goes to
 @app.route('/classify_document', methods=['POST'] )
 def classify_document():
@@ -76,8 +72,8 @@ def get_pickles():
         my_dir = os.path.dirname(__file__)
         model_path = os.path.join(my_dir, 'pickles/model.pkl')
         vec_path = os.path.join(my_dir, 'pickles/vectorizer.pkl')
-        google_data_path = os.path.join(my_dir, 'pickles/model.pkl')
-        last_update_path = os.path.join(my_dir, 'pickles/vectorizer.pkl')
+        google_data_path = os.path.join(my_dir, 'pickles/google_data.pkl')
+        last_update_path = os.path.join(my_dir, 'pickles/last_update.pkl')
 
         model = pickle.load( open( model_path, "rb" ) )
         vec  = pickle.load( open( vec_path, "rb" ) )
