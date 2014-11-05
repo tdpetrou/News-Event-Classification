@@ -96,7 +96,7 @@ if __name__ == '__main__':
     #     sys.path.append(path)
     # from bias_app import app as application
     model, vec, google_data, last_update = get_pickles()  
-
+    print google_data
     time = datetime.datetime.now()
     time_diff = time - last_update
     app.run(host='0.0.0.0', port=7070, debug=True)
