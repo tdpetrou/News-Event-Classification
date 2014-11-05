@@ -7,10 +7,9 @@ import pickle
 from alchemyapi import AlchemyAPI
 import re
 import datetime
+from get_pickles import get_pickles
 
-
-model = pickle.load( open( "pickles/model.pkl", "rb" ) )
-vec  = pickle.load( open( "pickles/vectorizer.pkl", "rb" ) )
+model, vec, google_data, last_update = get_pickles()
 
 def google_yahoo_news_updater():
     alchemyapi = AlchemyAPI()
