@@ -39,8 +39,15 @@ def google_yahoo_news_updater():
             sentiments.append(response['docSentiment']['type'])
             sentiment_scores.append(response['docSentiment'].get('score', 0))
     google_data = zip(titles, links, sources, bias_scores, sentiments, sentiment_scores)
-    pickle.dump(google_data, open("pickles/google_data.pkl", "wb"))
-    pickle.dump(datetime.datetime.now(), open("pickles/last_update.pkl", "wb"))
+    if os.getcwd().split('/')[1] != 'Users':
+        my_dir = os.path.dirname(__file__)
+        google_data_path = os.path.join(my_dir, 'pickles/google_data.pkl')
+        last_update_path = os.path.join(my_dir, 'pickles/last_update.pkl')
+        google_data = pickle.dump(google_data, open( "pickles/google_data.pkl", "wb" ) )
+        last_update  = pickle.dump(datetime.datetime.now(), open( "pickles/last_update.pkl", "wb" ) )
+    else:
+        pickle.dump(google_data, open("pickles/google_data.pkl", "wb"))
+        pickle.dump(datetime.datetime.now(), open("pickles/last_update.pkl", "wb"))
 
 if __name__ == '__main__':
     google_yahoo_news_updater()
