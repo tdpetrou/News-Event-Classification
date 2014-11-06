@@ -9,7 +9,8 @@ def get_articles(base, key):
 	links = []
 	pub_date = []
 	for i in range(200):
-		params = {'api-key' : key, 'page' : i, 'begin_date' : '20010101', 'q' : 'legalize drug' }
+		print i
+		params = {'api-key' : key, 'page' : i, 'begin_date' : '20010101', 'q' : 'legal marijuana' }
 		req = requests.get(base, params=params)
 		try:
 			docs = req.json()['response']['docs']
@@ -43,4 +44,6 @@ if __name__ == '__main__':
 	links, articles, pub_date = get_articles(base, key)
 	frame = pd.DataFrame({'text' : articles, 'url' : links, 'source' : 'NYT', 'publish_date' : pub_date, 'category' : 'drugs'}, \
              columns = ['source', 'url', 'text', 'publish_date', 'category'])
-	frame.to_csv('data/nyt_data.csv', index=False)
+	frame = frame[frame['text'].apply(lambda x: 'legal' in x and 'marijuana' in x)]
+	frame = frame.drop_duplicates()
+	frame.to_csv('data/nyt_drug_data.csv', index=False)
