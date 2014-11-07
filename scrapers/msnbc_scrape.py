@@ -7,7 +7,10 @@ import sys
 
 def get_links(base):
 	links = []
-	for i in range(3):
+	for i in range(100):
+		if (i + 1) % 50 == 0:
+			print "article page link", i
+			time.sleep(30)
 		req = requests.get(base + str(i) + '&f[0]=bundle%3Aarticle')
 		soup = BeautifulSoup(req.text)
 		#msnbc does not return the base link. must add it here
@@ -18,13 +21,19 @@ def get_articles(links):
 	articles = []
 	pub_dates = []
 	final_links = []
-	for link in links:
-		req = requests.get(link)
+	for i, link in enumerate(links):
+		if (i + 1) % 50 == 0:
+			print "article scraped",i
+			time.sleep(30)
+		try:
+			req = requests.get(link)
+		except:
+			time.sleep(33)
 		if req.status_code == 200:
 			soup = BeautifulSoup(req.text)
 			try:
 				text = soup.findAll('div', {'class':'field field-name-body field-type-text-with-summary field-label-hidden'})[0].text
-			except IndexError: #some links return videos or polls that have no article
+			except IndexError:
 				print link
 				continue
 			text = str(re.sub('[^\w\s]+', ' ',text))

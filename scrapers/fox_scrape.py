@@ -16,23 +16,22 @@ def create_base(start_date, end_date, search_term):
 def get_links(search_term):
 	start_date = "2014-10-01"
 	end_date = "2014-11-01"
-	earliest_date = "2014-08-01"
+	earliest_date = "2011-01-01"
 	date_diff = parser.parse(end_date) - parser.parse(start_date)
 	base = create_base(start_date, end_date, search_term)
 	links = []
-	print base
-	while start_date >= earliest_date:
+	total_links = 0
+	while start_date >= earliest_date and total_links < 1000:
 		new_links =['temp']
 		i = 0
 		while new_links:
-			print 'in here'
 			req = requests.get(base + str(i * 10))
-			print req.url
-			print req.status_code
 			soup = BeautifulSoup(req.text, 'html.parser')
 			new_links = [a['href'] for a in soup.findAll('a', {'class' : 'ez-title'})]
 			links.extend(new_links)
 			i += 1
+			total_links += len(new_links)
+			print "total links", total_links
 		start_date = (parser.parse(start_date) - date_diff).strftime("%Y-%m-%d")
 		end_date = (parser.parse(end_date) - date_diff).strftime("%Y-%m-%d")
 		base = create_base(start_date, end_date, search_term)
@@ -44,7 +43,10 @@ def get_articles(links):
 	pub_dates = []
 	final_links = []
 	print "length of links", len(links)
-	for link in links:
+	for i, link in enumerate(links):
+		if (i + 1) % 50 == 0:
+			print "article scraped", i
+			time.sleep(30)
 		req = requests.get(link)
 		if req.status_code == 200:
 			soup = BeautifulSoup(req.text)
@@ -58,7 +60,7 @@ def get_articles(links):
 			final_links.append(link)
 		else:
 			print "sleeping"
-			time.sleep(2)
+			time.sleep(5)
 	return articles, pub_dates, final_links
 
 if __name__ == '__main__':

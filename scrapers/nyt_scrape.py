@@ -15,7 +15,7 @@ def get_links(search_word):
     total_articles = articles_left = api.json()['response']['meta']['hits']
 
 
-    max_pages = 10000
+    max_pages = 300
     page = 0
     final_page = 0
     page_count = 0
@@ -81,11 +81,14 @@ def get_articles(links, pub_dates):
             text = str(re.sub('[\n]+', '', text))
             if len(text) < 500:
                 continue
+            if i % 100 == 0:
+                print "article number", i
+                time.sleep(30)
             articles.append(text)
             new_links.append(link)
             new_dates.append(pub_dates[i])
         else:
-            print "Sleepy..."
+            print "Sleepy...", i
             # account for rate limiting
             time.sleep(2)
     return new_links, articles, new_dates
