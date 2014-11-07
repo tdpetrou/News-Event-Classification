@@ -4,11 +4,13 @@ import pandas as pd
 from bs4 import BeautifulSoup
 from dateutil import parser
 from itertools import izip
+import time
+import sys
 
 
-def get_links():
+def get_links(search_word):
     api_key = "06085d751562b32ec4929cc0537bf9cc:8:69947278"
-    url = 'http://api.nytimes.com/svc/search/v2/articlesearch.json?sort=newest&api-key=' + api_key + '&q=abortion'
+    url = 'http://api.nytimes.com/svc/search/v2/articlesearch.json?sort=newest&api-key=' + api_key + '&q=' + search_word
     api = requests.get(url)
     total_articles = articles_left = api.json()['response']['meta']['hits']
 
@@ -89,12 +91,13 @@ def get_articles(links, pub_dates):
     return new_links, articles, new_dates
 
 if __name__ == '__main__':
-    links, pub_dates = get_links()
+    search_word = sys.argv[1]
+    links, pub_dates = get_links(search_word)
     links, articles, pub_dates = get_articles(links, pub_dates)
-    frame = pd.DataFrame({'text' : articles, 'url' : links, 'source' : 'NYT', 'publish_date' : pub_dates, 'category' : 'abortion'}, \
+    frame = pd.DataFrame({'text' : articles, 'url' : links, 'source' : 'NYT', 'publish_date' : pub_dates, 'category' : search_word}, \
              columns = ['source', 'url', 'text', 'publish_date', 'category'])
-    frame = frame[frame['text'].apply(lambda x: 'abortion' in x)]
+    #frame = frame[frame['text'].apply(lambda x: search_word in x)]
     #frame = frame.drop_duplicates()
-    frame.to_csv('data/nyt_abortion_data.csv', index=False)
+    frame.to_csv('data/nyt_' + search_word + '_data.csv', index=False)
 
 

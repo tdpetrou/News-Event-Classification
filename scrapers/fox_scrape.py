@@ -2,15 +2,41 @@ import requests
 import re
 import pandas as pd
 from bs4 import BeautifulSoup
+import time
+import sys
+from dateutil import parser
 
-def get_links(base):
+
+def create_base(start_date, end_date, search_term):
+	base = 'http://www.foxnews.com/search-results/search?&sort=date&q=' + search_term + \
+			'&ss=fn&mediatype=Text&daterange=' + \
+				start_date + '%2C' + end_date + '&start='
+	return base
+
+def get_links(search_term):
+	start_date = "2014-10-01"
+	end_date = "2014-11-01"
+	earliest_date = "2014-08-01"
+	date_diff = parser.parse(end_date) - parser.parse(start_date)
+	base = create_base(start_date, end_date, search_term)
 	links = []
-	for i in range(10):
-		req = requests.get(base + str(i * 10))
-		print req.url
-		soup = BeautifulSoup(req.text, 'html.parser')
-		#get all links that are not videos
-		links.extend([a['href'] for a in soup.findAll('a', {'class' : 'ez-title'})])# if a['href'].split('//')[1][0] != 'v'])
+	print base
+	while start_date >= earliest_date:
+		new_links =['temp']
+		i = 0
+		while new_links:
+			print 'in here'
+			req = requests.get(base + str(i * 10))
+			print req.url
+			print req.status_code
+			soup = BeautifulSoup(req.text, 'html.parser')
+			new_links = [a['href'] for a in soup.findAll('a', {'class' : 'ez-title'})]
+			links.extend(new_links)
+			i += 1
+		start_date = (parser.parse(start_date) - date_diff).strftime("%Y-%m-%d")
+		end_date = (parser.parse(end_date) - date_diff).strftime("%Y-%m-%d")
+		base = create_base(start_date, end_date, search_term)
+		print "new dates ", start_date, end_date
 	return list(set(links))
 
 def get_articles(links):
@@ -20,25 +46,29 @@ def get_articles(links):
 	print "length of links", len(links)
 	for link in links:
 		req = requests.get(link)
-		soup = BeautifulSoup(req.text)
-		try:
-			text = ' '.join([str(re.sub('[^\w\s]+', '', par.text)) for par in soup.findAll('div', {'itemprop': 'articleBody'})[0].findAll('p')])
-		except IndexError:
-			continue
-		text = text.replace('ADVERTISEMENT', ' ')
-		articles.append(text)
-		pub_dates.append(soup.findAll('time')[0]['datetime'])
-		final_links.append(link)
+		if req.status_code == 200:
+			soup = BeautifulSoup(req.text)
+			try:
+				text = ' '.join([str(re.sub('[^\w\s]+', '', par.text)) for par in soup.findAll('div', {'itemprop': 'articleBody'})[0].findAll('p')])
+			except IndexError:
+				continue
+			text = text.replace('ADVERTISEMENT', ' ')
+			articles.append(text)
+			pub_dates.append(soup.findAll('time')[0]['datetime'])
+			final_links.append(link)
+		else:
+			print "sleeping"
+			time.sleep(2)
 	return articles, pub_dates, final_links
 
 if __name__ == '__main__':
-	base = 'http://www.foxnews.com/search-results/search?&q=abortion&sort=date&ss=fn&start='
-	#base = 'http://www.foxnews.com/search-results/search?&submit=Search&q=legalize+drug&ss=fn&start='
-	links = get_links(base)
+	search_term = sys.argv[1]
+	print search_term
+	links = get_links(search_term)
 	articles, pub_dates, links = get_articles(links)
-	frame = pd.DataFrame({'text' : articles, 'url' : links, 'source' : 'Fox', 'publish_date' : pub_dates, 'category' : 'abortion'}, \
+	frame = pd.DataFrame({'text' : articles, 'url' : links, 'source' : 'Fox', 'publish_date' : pub_dates, 'category' : search_term}, \
              columns = ['source', 'url', 'text', 'publish_date', 'category'])	
 	#frame = frame[frame['text'].apply(len) > 500]
-	frame = frame[frame['text'].apply(lambda x: 'abortion' in x or 'Abortion' in x)]
-	frame.to_csv('data/fox_abortion_data.csv', index = False)
+	#frame = frame[frame['text'].apply(lambda x: search_term in x)]
+	frame.to_csv('data/fox_' + search_term + '_data.csv', index = False)
 
