@@ -5,11 +5,11 @@ from bs4 import BeautifulSoup
 
 def get_links(base):
 	links = []
-	for i in range(200):
+	for i in range(10):
 		req = requests.get(base + str(i))
 		soup = BeautifulSoup(req.text)
 		#msnbc does not return the base link. must add it here
-		links.extend(['http://www.msnbc.com' + a['href'] for a in soup.findAll('a', {'class': 'search-result__teaser__title__link'}) if a['href'][:6] == '/msnbc'])
+		links.extend(['http://www.msnbc.com' + a['href'] for a in soup.findAll('a', {'class': 'search-result__teaser__title__link'})]) # if a['href'][:6] == '/msnbc'])
 	return list(set(links))
 
 def get_articles(links):
@@ -32,12 +32,13 @@ def get_articles(links):
 	return final_links, articles, pub_dates
 
 if __name__ == '__main__':
-	base = 'http://www.msnbc.com/search/legal%20marijuana?sm_field_issues=&sm_field_show=&date[min]&date[max]&date[date_selector]=&page='
+	base = 'http://www.msnbc.com/search/abortion?sm_field_issues=&sm_field_show=&date[min]&date[max]&date[date_selector]=&page='
 	links = get_links(base)
+	print "num links is", len(links)
 	links, articles, pub_dates = get_articles(links)
-	frame = pd.DataFrame({'text' : articles, 'url' : links, 'source' : 'MSNBC', 'publish_date': pub_dates, 'category' : 'drugs'}, \
+	frame = pd.DataFrame({'text' : articles, 'url' : links, 'source' : 'MSNBC', 'publish_date': pub_dates, 'category' : 'abortion'}, \
 		columns = ['source', 'url', 'text', 'publish_date', 'category'])
 	frame = frame[frame['text'].apply(len) > 500]
-	frame = frame[frame['text'].apply(lambda x: 'legal' in x and 'marijuana' in x)]
-	frame = frame.drop_duplicates()
-	frame.to_csv('data/msnbc_drug_data.csv', index=False)
+	frame = frame[frame['text'].apply(lambda x: 'abortion' in x)]
+	#frame = frame.drop_duplicates()
+	frame.to_csv('data/msnbc_abortion_data.csv', index=False)
