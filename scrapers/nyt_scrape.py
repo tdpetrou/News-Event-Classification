@@ -77,8 +77,8 @@ def get_articles(links, pub_dates):
             text = ''
             for p in body:
                 text += p.text.encode('ascii','ignore')
-            text = str(re.sub('[^\w\s]+', '', text))
-            text = str(re.sub('[\n]+', '', text))
+            text = str(re.sub('[^\w\s]+', ' ', text))
+            text = str(re.sub('[\n]+', ' ', text))
             if len(text) < 500:
                 continue
             if i % 100 == 0:

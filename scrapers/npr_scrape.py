@@ -35,14 +35,14 @@ def get_articles(base, key, search_word):
                     if not story['text'].has_key('paragraph'):
                         continue
                     for par in story['text']['paragraph']:
-                        text += par.get('$text', '')
+                        text += par.get('$text', ' ')
                     pub_date = parser.parse(story['pubDate']['$text']).strftime("%Y%m%d")
                 if len(text) < 500:
                     continue
                 art_num += 1
                 if art_num % 50 == 0:
                     print "article scraped", art_num, endDate, startDate
-                full_article.append(str(re.sub('[^\w\s]+', '', text)))
+                full_article.append(str(re.sub('[^\w\s]+', ' ', text)))
                 links.append(story['link'][0]['$text'])
                 pub_dates.append(pub_date)
             start_num += 10

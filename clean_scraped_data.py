@@ -16,15 +16,17 @@ def get_sent_dict():
 				pass
 	return sent, sent_stemmed
 
-def score_sentiment(text, sent_dict):
+def score_sentiment(text, sent_dict, total=False):
 	total_sent = 0
 	words = text.split()
 	for word in words:
 		total_sent += sent_dict.get(word, 0)
+	if total:
+		return total_sent
 	return total_sent / len(words)
 
 def stem_text(text):
-	return [snowball.stem(word) for word in re.sub(r'[^\w\s]','',text).lower().split()]
+	return ' '.join([snowball.stem(word) for word in re.sub(r'[^\w\s]',' ',text).lower().split()])
 
 def join_data():
 	nyt_m = pd.read_csv('data/nyt_marijuana_data.csv').drop_duplicates()
@@ -40,6 +42,7 @@ def join_data():
 	combined_data['text'] = combined_data['text'].astype(str)
 
 	combined_data = combined_data[combined_data['text'].apply(len) > 500]
+	combined_data[(combined_data['category'] == 'abortion') | (combined_data['category'] == 'marijuana')]
 	return combined_data
 
 def add_columns(data):
@@ -47,7 +50,9 @@ def add_columns(data):
 	data['sentiment'] = data['text'].apply(lambda x: score_sentiment(x, sent))
 
 	data['text_stemmed'] = data['text'].apply(stem_text)
-	data['sentiment_stemmed'] = data['text_stemmed'].apply(lambda x: score_sentiment(x, sent_dict))
+	data['sentiment_stemmed'] = data['text_stemmed'].apply(lambda x: score_sentiment(x, sent_stemmed))
+
+	data['sentiment_total']=data['text_stemmed'].apply(lambda x: score_sentiment(x, sent_stemmed, True))
 	return data
 
 if __name__ == '__main__':

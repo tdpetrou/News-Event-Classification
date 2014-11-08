@@ -267,8 +267,8 @@ better	2
 bias	-1
 biased	-2
 big	1
-bitch	-5
-bitches	-5
+bitch	-4
+bitches	-4
 bitter	-2
 bitterly	-2
 bizarre	-2

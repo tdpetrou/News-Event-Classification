@@ -51,7 +51,7 @@ def get_articles(links):
 		if req.status_code == 200:
 			soup = BeautifulSoup(req.text)
 			try:
-				text = ' '.join([str(re.sub('[^\w\s]+', '', par.text)) for par in soup.findAll('div', {'itemprop': 'articleBody'})[0].findAll('p')])
+				text = ' '.join([str(re.sub('[^\w\s]+', ' ', par.text)) for par in soup.findAll('div', {'itemprop': 'articleBody'})[0].findAll('p')])
 			except IndexError:
 				continue
 			text = text.replace('ADVERTISEMENT', ' ')
