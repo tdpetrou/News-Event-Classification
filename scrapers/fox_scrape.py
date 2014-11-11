@@ -16,12 +16,12 @@ def create_base(start_date, end_date, search_term):
 def get_links(search_term):
 	start_date = "2014-10-01"
 	end_date = "2014-11-01"
-	earliest_date = "2011-01-01"
+	earliest_date = "2009-01-01"
 	date_diff = parser.parse(end_date) - parser.parse(start_date)
 	base = create_base(start_date, end_date, search_term)
 	links = []
 	total_links = 0
-	while start_date >= earliest_date and total_links < 1000:
+	while start_date >= earliest_date and total_links < 3000:
 		new_links =['temp']
 		i = 0
 		while new_links:
