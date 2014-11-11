@@ -12,11 +12,9 @@ Go to the live version of the [bias detector] (http://greeksquared.pythonanywher
 Scrape data with the following lines 
 
 
-`
-python scrapers/npr_scrape.py <search_term>
-python scrapers/nyt_scrape.py <search_term>
-python scrapers/fox_scrape.py <search_term>
-`
+`python scrapers/npr_scrape.py <search_term>`
+`python scrapers/nyt_scrape.py <search_term>`
+`python scrapers/fox_scrape.py <search_term>`
 
 You can edit the code to change the dates and the number of articles returned
 
