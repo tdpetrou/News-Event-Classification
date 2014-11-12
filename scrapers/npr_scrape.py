@@ -16,6 +16,7 @@ class npr_scrape():
         self.search_word = search_word
         self.links = []
         self.pub_dates = []
+        self.titles = []
     def get_articles(self):
         '''
         Get all articles with given search word taken from system argument
@@ -23,7 +24,7 @@ class npr_scrape():
         '''
         full_article = []
         endDate = '20141105'
-        startDate = '20141101'
+        startDate = '20090101'
         pub_date = endDate
         art_num = 1
         start_num = 1
@@ -57,10 +58,11 @@ class npr_scrape():
                     full_article.append(str(re.sub('[^\w\s]+', ' ', text)))
                     self.links.append(story['link'][0]['$text'])
                     self.pub_dates.append(pub_date)
+                    self.titles.append(str(re.sub('[^\w\s]+', ' ', story['title']['$text'])))
                 start_num += 10
                 if start_num > 300:
                     start_num = 1
-                    endDate = min(pub_dates)
+                    endDate = min(self.pub_dates)
                     
             else:
                 print "Sleepy..."
@@ -72,7 +74,11 @@ class npr_scrape():
 if __name__ == '__main__':
     npr = npr_scrape(sys.argv[1])
     articles = npr.get_articles()
-    frame = pd.DataFrame({'text' : articles, 'url' : npr.links, 'source' : 'NPR', 'publish_date': npr.pub_dates, 'category' : npr.search_word}, \
-             columns = ['source', 'url', 'text', 'publish_date', 'category'])
-    frame.to_csv('data/npr_' + npr.search_word + '_data.csv', index=False)
+    print npr.titles
+    print npr.links
+    frame = pd.DataFrame({'text' : articles, 'url' : npr.links, 'source' : 'NPR', 'publish_date': npr.pub_dates, 'category' : npr.search_word, 'title' : npr.titles}, columns = ['source', 'url', 'title', 'text', 'publish_date', 'category'])
+    print npr.search_word.replace(' ', '')
+    print frame
+    print 'data/npr_' + npr.search_word.replace(' ', '_') + '_data.csv'
+    frame.to_csv('data/npr_' + npr.search_word.replace(' ', '_') + '_data.csv', index=False)
 

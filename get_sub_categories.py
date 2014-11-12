@@ -12,20 +12,21 @@ class sub_categories():
 	def __init__(self):
 		pass
 
-	def stem_and_vectorize(self, sents, num_topics, category, stem=False):
+	def stem_and_vectorize(self, sents, category, stem=False):
+		current_df = sents[sents['category'] == category]
+		current_df = current_df.reset_index(drop=True)
 		snowball = SnowballStemmer('english')
-		stop = stopwords.words('english') 
-		extra_sw = ['new', 'mr', 'said', 'one', 'like', 'ms', 'would', 'use', 'people', 'say', 
-		            'says', 'thing', 'want', 'go', 'know', 'get', 'hes', 'because', 'going', 'its'
-		            , 'think', 'that', 'dont', 'im', 'make', 'way', 'time', 'thats', 'got', 'really', 'lot', 'see', 'many']
-		stop.extend(extra_sw)
+
+		with open('data/all_stops.txt', 'r') as f:
+			stop = [line for line in f]
+
 		if stem:
 			stop = [snowball.stem(word) for  word in stop]
 			vec = TfidfVectorizer(stop_words=stop, max_features=2000)
-			X = vec.fit_transform(sents[sents['category'] == category]['text_stemmed'].values)	
+			X = vec.fit_transform(current_df['text_stemmed'].values)	
 		else:
 			vec = TfidfVectorizer(stop_words=stop, max_features=2000)
-			X = vec.fit_transform(sents[sents['category'] == category]['text'].values)
+			X = vec.fit_transform(current_df['text'].values)
 		return X, vec
 
 	def add_subcategories(self, X, vec, df, topics, num_topics):
@@ -35,12 +36,9 @@ class sub_categories():
 		df['subcategory'] = ''
 		df['subcategory'] = doc_topics.apply(lambda x: topics[np.argmax(x)], axis=1)
 		return nmf, df
+		
 
-	def combine_data(self, df, df2):
-		combined_data = pd.concat([df, df2])
-		combined_data.to_csv('data/combined_data_subcategory')
-
-	def print_graph(self, model, topics, vec, num_topics):	
+	def print_graph(self, model, topics, vec, num_topics, main_topic):	
 		fig = plt.figure(figsize = (12,10))
 		n_top_words = 10
 		plt.figure(figsize=(10,18))
@@ -55,26 +53,29 @@ class sub_categories():
 		    plt.title(topics[topic_idx])
 		    print()
 		plt.tight_layout()
-		plt.show()
+		plt.savefig('graphs/' + main_topic + '.png')
 
 	def main(self):
 		sents = pd.read_csv('data/combined_data.csv')
 		abortion = sents[sents['category'] == 'abortion']
 		marijuana = sents[sents['category'] == 'marijuana']
+		abortion = abortion.reset_index(drop=True)
+		marijuana = marijuana.reset_index(drop=True)
 
-		X_abortion, vec_abortion = self.stem_and_vectorize(abortion, 3, 'abortion')
-		X_marijuana, vec_marijuana = self.stem_and_vectorize(marijuana, 5, 'marijuana')
+		#X_abortion, vec_abortion = self.stem_and_vectorize(abortion, 'abortion')
+		X_marijuana, vec_marijuana = self.stem_and_vectorize(marijuana, 'marijuana')
 
-		abortion_topics = np.array(['abortion clinics', 'religious opinion on abortion', 'campaign trail'])
-		marijuana_topics = np.array(['marijuana legalization', 'domestic violence', 'mexican cartel', 'marijuana in sports', 'campaign trail']) 
+		#abortion_topics = np.array(['Abortion Clinics', 'Religious Opinion on Abortion', 'Campaigning'])
+		marijuana_topics = np.array(['Drugs and Kids', 'Medical Legalization', 'Drug Cartels', 'Campaigning', 'Court Cases', 'Drugs in Sports'])
 		
-		nmf_abortion, abortion = self.add_subcategories(X_abortion, vec_abortion, abortion, abortion_topics, 3)
-		nmf_marijuana, marijuana = self.add_subcategories(X_marijuana, vec_marijuana, marijuana, marijuana_topics, 5)
+		#nmf_abortion, abortion = self.add_subcategories(X_abortion, vec_abortion, abortion, abortion_topics, 3)
+		nmf_marijuana, marijuana = self.add_subcategories(X_marijuana, vec_marijuana, marijuana, marijuana_topics, 6)
 
-		self.combine_data(abortion, marijuana)
+		marijuana.to_csv('data/marijuana_subtopics.csv', index=False)
+		
 
-		self.print_graph(nmf_abortion, abortion_topics, vec_abortion, 3)
-		self.print_graph(nmf_marijuana, marijuana_topics, vec_marijuana, 5)
+		#self.print_graph(nmf_abortion, abortion_topics, vec_abortion, 3, 'Abortion')
+		self.print_graph(nmf_marijuana, marijuana_topics, vec_marijuana, 6, 'Marijuana')
 
 	
 if __name__ == '__main__':

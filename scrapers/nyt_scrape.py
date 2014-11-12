@@ -17,10 +17,11 @@ class nyt_scrape():
         self.api_key = "06085d751562b32ec4929cc0537bf9cc:8:69947278"
         self.search_word = search_word
         self.base_url = 'http://api.nytimes.com/svc/search/v2/articlesearch.json?sort=newest&api-key=' + self.api_key + \
-                '&fq=source:("The New York Times") AND (body:' + self.search_word + ')  AND (word_count:>200)'
+                '&fq=source:("The New York Times") AND (body:"' + self.search_word + '")  AND (word_count:>200)'
         self.links = []
         self.pub_dates = []
         self.word_counts = []
+        self.titles = []
 
     def get_links(self):
         '''
@@ -31,7 +32,7 @@ class nyt_scrape():
         total_articles = articles_left = api.json()['response']['meta']['hits']
 
 
-        max_pages = 3
+        max_pages = 300
         page = 0
         final_page = 0
         page_count = 0
@@ -54,6 +55,7 @@ class nyt_scrape():
                     self.links.append(content.get('web_url', ''))
                     print "word count", content['word_count']
                     self.word_counts.append(content['word_count'])
+                    self.titles.append(content['headline']['main'])
                 articles_left -= 10
                 page += 1
                 page_count += 1
@@ -80,6 +82,7 @@ class nyt_scrape():
         new_links = []
         new_dates = []
         new_word_counts = []
+        new_titles = []
         articles_scraped = 0
         print "number of links", len(self.links)
         for i, link in enumerate(self.links):
@@ -107,6 +110,7 @@ class nyt_scrape():
                 new_links.append(link)
                 new_dates.append(self.pub_dates[i])
                 new_word_counts.append(self.word_counts[i])
+                new_titles.append(str(re.sub('[^\w\s]+', ' ', self.titles[i])))
                 articles_scraped += 1
                 print "actual articles scraped", articles_scraped
             else:
@@ -116,6 +120,7 @@ class nyt_scrape():
         self.links = new_links
         self.pub_dates = new_dates
         self.word_counts = new_word_counts
+        self.titles = new_titles
         return articles
 
 if __name__ == '__main__':
@@ -127,9 +132,11 @@ if __name__ == '__main__':
             f.write("%s" % link)
             f.write("\n")
     articles = nyt.get_articles()
-    frame = pd.DataFrame({'text' : articles, 'url' : nyt.links, 'source' : 'NYT', 'publish_date' : nyt.pub_dates, 'category' : nyt.search_word, 'word_counts': nyt.word_counts}, \
-             columns = ['source', 'url', 'text', 'publish_date', 'category', 'word_counts'])
+    frame = pd.DataFrame({'text' : articles, 'url' : nyt.links, 'source' : 'NYT', \
+        'publish_date' : nyt.pub_dates, 'category' : nyt.search_word, \
+        'word_counts': nyt.word_counts, 'title': nyt.titles}, \
+             columns = ['source', 'url', 'title',  'text', 'publish_date', 'category', 'word_counts'])
 
-    frame.to_csv('data/nyt_' + nyt.search_word + '_data.csv', index=False)
+    frame.to_csv('data/nyt_' + nyt.search_word.replace(' ', '_') + '_data.csv', index=False)
 
 

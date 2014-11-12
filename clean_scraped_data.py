@@ -1,7 +1,7 @@
 from __future__ import division
 import pandas as pd
 from nltk.stem import SnowballStemmer
-import re
+import re, sys
 
 def get_sent_dict():
 	sent = {}
@@ -29,20 +29,15 @@ def stem_text(text):
 	return ' '.join([snowball.stem(word) for word in re.sub(r'[^\w\s]',' ',text).lower().split()])
 
 def join_data():
-	nyt_m = pd.read_csv('data/nyt_marijuana_data.csv').drop_duplicates()
-	nyt_a = pd.read_csv('data/nyt_abortion_data.csv').drop_duplicates()
-	npr_m = pd.read_csv('data/npr_marijuana_data.csv').drop_duplicates()
-	npr_a = pd.read_csv('data/npr_abortion_data.csv').drop_duplicates()
-	fox_m = pd.read_csv('data/fox_marijuana_data.csv').drop_duplicates()
-	fox_a =pd.read_csv('data/fox_abortion_data.csv').drop_duplicates()
-	msnbc_m = pd.read_csv('data/msnbc_marijuana_data.csv').drop_duplicates()
-	msnbc_a = pd.read_csv('data/msnbc_abortion_data.csv').drop_duplicates()
+	nyt = pd.read_csv('data/nyt_' + major_category + '_data.csv').drop_duplicates()
+	npr = pd.read_csv('data/npr_' + major_category + '_data.csv').drop_duplicates()
+	fox = pd.read_csv('data/fox_' + major_category + '_data.csv').drop_duplicates()
+	msnbc = pd.read_csv('data/msnbc_' + major_category + '_data.csv').drop_duplicates()
 
-	combined_data = pd.concat([nyt_m, nyt_a, npr_a, npr_m, fox_m, fox_a, msnbc_a, msnbc_m])
+	combined_data = pd.concat([nyt, nyt, npr, npr])
 	combined_data['text'] = combined_data['text'].astype(str)
-
 	combined_data = combined_data[combined_data['text'].apply(len) > 500]
-	combined_data[(combined_data['category'] == 'abortion') | (combined_data['category'] == 'marijuana')]
+	# combined_data[(combined_data['category'] == 'obamacare') | (combined_data['category'] == 'affordable care act')]
 	return combined_data
 
 def add_columns(data):
@@ -56,9 +51,10 @@ def add_columns(data):
 	return data
 
 if __name__ == '__main__':
+	major_category = sys.argv[1]
 	snowball = SnowballStemmer('english')
 	sent, sent_stemmed = get_sent_dict()
 	data = join_data()
 	data = add_columns(data)
-	data.to_csv('data/combined_data.csv', index=False)
+	data.to_csv('data/combined_' + major_category + '.csv', index=False)
 

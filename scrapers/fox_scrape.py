@@ -8,20 +8,20 @@ from dateutil import parser
 
 
 def create_base(start_date, end_date, search_term):
-	base = 'http://www.foxnews.com/search-results/search?&sort=date&q=' + search_term + \
-			'&ss=fn&mediatype=Text&daterange=' + \
+	base = 'http://www.foxnews.com/search-results/search?&sort=date&q="' + search_term + \
+			'"&ss=fn&mediatype=Text&daterange=' + \
 				start_date + '%2C' + end_date + '&start='
 	return base
 
 def get_links(search_term):
-	start_date = "2014-10-01"
+	start_date = "2014-10-01" #make this one month before end_date. This is just the initial date difference date
 	end_date = "2014-11-01"
-	earliest_date = "2009-01-01"
+	earliest_date = "2014-01-01" #this is the very earliest that you want to search back till
 	date_diff = parser.parse(end_date) - parser.parse(start_date)
 	base = create_base(start_date, end_date, search_term)
 	links = []
 	total_links = 0
-	while start_date >= earliest_date and total_links < 3000:
+	while start_date >= earliest_date and total_links < 500:
 		new_links =['temp']
 		i = 0
 		while new_links:
@@ -42,6 +42,7 @@ def get_articles(links):
 	articles = []
 	pub_dates = []
 	final_links = []
+	titles = []
 	print "length of links", len(links)
 	for i, link in enumerate(links):
 		if (i + 1) % 50 == 0:
@@ -58,19 +59,19 @@ def get_articles(links):
 			articles.append(text)
 			pub_dates.append(soup.findAll('time')[0]['datetime'])
 			final_links.append(link)
+			titles.append(str(re.sub('[^\w\s]+', ' ', soup.findAll('meta', {'name' : 'dc.title'})[0]['content'])))
 		else:
 			print "sleeping"
 			time.sleep(5)
-	return articles, pub_dates, final_links
+	return articles, pub_dates, final_links, titles
 
 if __name__ == '__main__':
 	search_term = sys.argv[1]
 	print search_term
 	links = get_links(search_term)
-	articles, pub_dates, links = get_articles(links)
-	frame = pd.DataFrame({'text' : articles, 'url' : links, 'source' : 'Fox', 'publish_date' : pub_dates, 'category' : search_term}, \
-             columns = ['source', 'url', 'text', 'publish_date', 'category'])	
-	#frame = frame[frame['text'].apply(len) > 500]
-	#frame = frame[frame['text'].apply(lambda x: search_term in x)]
-	frame.to_csv('data/fox_' + search_term + '_data.csv', index = False)
+	articles, pub_dates, links, titles = get_articles(links)
+	frame = pd.DataFrame({'text' : articles, 'url' : links, 'source' : 'Fox', \
+		'publish_date' : pub_dates, 'category' : search_term, 'title' : titles}, \
+             columns = ['source', 'url', 'title', 'text', 'publish_date', 'category'])	
+	frame.to_csv('data/fox_' + search_term.replace('', '_') + '_data.csv', index = False)
 

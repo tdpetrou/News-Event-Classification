@@ -11,15 +11,16 @@ class msnbc_scrape():
 		Initialize base link
 		'''
 		self.search_term = search_term
-		self.base = 'http://www.msnbc.com/search/' + search_term + '?sm_field_issues=&sm_field_show=&date[min]&date[max]&date[date_selector]=&page='
+		self.base = 'http://www.msnbc.com/search/"' + search_term + '"?sm_field_issues=&sm_field_show=&date[min]&date[max]&date[date_selector]=&page='
 		self.links = []
 		self.pub_dates = []
+		self.titles = []
 
 	def get_links(self, base):
 		'''
 		return links with missing www.msnbc.com attached
 		'''
-		for i in range(3):
+		for i in range(50):
 			if (i + 1) % 50 == 0:
 				print "article page link", i
 				time.sleep(30)
@@ -38,11 +39,12 @@ class msnbc_scrape():
 		for i, link in enumerate(self.links):
 			if (i + 1) % 50 == 0:
 				print "article scraped",i
-				time.sleep(30)
+				time.sleep(3)
 			try:
 				req = requests.get(link)
+				print req.url
 			except:
-				time.sleep(33)
+				time.sleep(3)
 			if req.status_code == 200:
 				soup = BeautifulSoup(req.text)
 				try:
@@ -53,6 +55,10 @@ class msnbc_scrape():
 				text = str(re.sub('[^\w\s]+', ' ',text))
 				text = str(re.sub('[\n]+', ' ',text))
 				self.pub_dates.append(soup.findAll('div',  {'class' : "field field-name-field-publish-date field-type-datestamp field-label-hidden"})[0].find('time').text)
+				try:
+					self.titles.append(str(re.sub('[^\w\s]+', ' ',soup.findAll(attrs = {'class' : "is-title-pane panel-pane pane-node-title"})[0].text)))
+				except IndexError:
+					self.titles.append('None')
 				articles.append(text)
 				final_links.append(link)
 			else:
@@ -67,6 +73,7 @@ if __name__ == '__main__':
 	msnbc.get_links(msnbc.base)
 	print "num links is", len(msnbc.links)
 	articles = msnbc.get_articles()
-	frame = pd.DataFrame({'text' : articles, 'url' : msnbc.links, 'source' : 'MSNBC', 'publish_date': msnbc.pub_dates, 'category' : msnbc.search_term}, \
-		columns = ['source', 'url', 'text', 'publish_date', 'category'])
-	frame.to_csv('data/msnbc_' + msnbc.search_term + '_data.csv', index=False)
+	frame = pd.DataFrame({'text' : articles, 'url' : msnbc.links, 'source' : 'MSNBC', \
+		'publish_date': msnbc.pub_dates, 'category' : msnbc.search_term, 'title' : msnbc.titles}, \
+		columns = ['source', 'url', 'title', 'text', 'publish_date', 'category'])
+	frame.to_csv('data/msnbc_' + msnbc.search_term.replace(' ', '_') + '_data.csv', index=False)
