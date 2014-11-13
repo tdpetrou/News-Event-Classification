@@ -29,12 +29,13 @@ def stem_text(text):
 	return ' '.join([snowball.stem(word) for word in re.sub(r'[^\w\s]',' ',text).lower().split()])
 
 def join_data():
+	#add functionality to automatically detect all csv files
 	nyt = pd.read_csv('data/nyt_' + major_category + '_data.csv').drop_duplicates()
 	npr = pd.read_csv('data/npr_' + major_category + '_data.csv').drop_duplicates()
 	fox = pd.read_csv('data/fox_' + major_category + '_data.csv').drop_duplicates()
 	msnbc = pd.read_csv('data/msnbc_' + major_category + '_data.csv').drop_duplicates()
 
-	combined_data = pd.concat([nyt, nyt, npr, npr])
+	combined_data = pd.concat([nyt, npr, fox, msnbc])
 	combined_data['text'] = combined_data['text'].astype(str)
 	combined_data = combined_data[combined_data['text'].apply(len) > 500]
 	# combined_data[(combined_data['category'] == 'obamacare') | (combined_data['category'] == 'affordable care act')]
@@ -51,7 +52,7 @@ def add_columns(data):
 	return data
 
 if __name__ == '__main__':
-	major_category = sys.argv[1]
+	major_category = sys.argv[1].replace(' ', '_')
 	snowball = SnowballStemmer('english')
 	sent, sent_stemmed = get_sent_dict()
 	data = join_data()

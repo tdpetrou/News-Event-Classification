@@ -31,7 +31,6 @@ class nyt_scrape():
         api = requests.get(self.base_url)
         total_articles = articles_left = api.json()['response']['meta']['hits']
 
-
         max_pages = 300
         page = 0
         final_page = 0
@@ -127,10 +126,10 @@ if __name__ == '__main__':
     nyt = nyt_scrape(sys.argv[1])
     print nyt.search_word
     nyt.get_links()
-    with open('data/nyt_' + nyt.search_word + '_links.txt', 'wb') as f:
-        for link in nyt.links:
-            f.write("%s" % link)
-            f.write("\n")
+    # with open('data/nyt_' + nyt.search_word + '_links.txt', 'wb') as f:
+    #     for link in nyt.links:
+    #         f.write("%s" % link)
+    #         f.write("\n")
     articles = nyt.get_articles()
     frame = pd.DataFrame({'text' : articles, 'url' : nyt.links, 'source' : 'NYT', \
         'publish_date' : nyt.pub_dates, 'category' : nyt.search_word, \
