@@ -43,6 +43,6 @@ def create_nmf():
 	plt.savefig('data/explore_topics_nmf/explore_' + category + '.png')
 
 if __name__ == '__main__':
-	category = sys.argv[1]
+	category = sys.argv[1].replace(' ', '_')
 	num_topics = int(sys.argv[2])
 	nmf = create_nmf()

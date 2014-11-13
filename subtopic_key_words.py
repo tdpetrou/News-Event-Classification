@@ -2,6 +2,7 @@ import sys
 import pandas as pd
 import numpy as np
 from sklearn.feature_extraction.text import TfidfVectorizer
+import pickle
 
 
 def read_major_category():
@@ -18,6 +19,7 @@ def make_key_words(sub_df, sub_cat):
 	all_words = np.array(sub_cat_vec.get_feature_names())
 	key_words_df = pd.DataFrame({'word': all_words, 'score' : 0}, columns=['word', 'score'])
 	key_words_df.to_csv('data/key_words/key_words_' + major_category + '_' + sub_cat.replace(' ', '_') + '.csv', index=False)
+	pickle.dump(sub_cat_vec, open("pickles/vec_" + major_category + '_' + sub_cat.replace(' ', '_') + ".pkl", "wb"))
 
 
 if __name__ == '__main__':

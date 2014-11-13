@@ -44,3 +44,7 @@ This will also output the same graph as above but with the newly labeled topic i
 
 So, to deal with this domain specificity, a list of words is ouputted into a csv from a stemmed list of words of a new tf-idf vectorizer for the specific topic at hand. The top 200 words must be evaluated by hand. For each subtopic there will be a list that needs to be hand graded on some scale. I am choosing -5 to 5. These files are stored in data/keywords/key_words_<major category>_<subtopic>.csv
 
+10. Once you think you have correctly categorized the list of key words for each subtopic (this will take a long time) you will run attach_event_score.py <major category>
+
+This will grade each article based on its top 20 tf-idf stemmed words according to the grade you gave it.
+
