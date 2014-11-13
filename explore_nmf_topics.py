@@ -7,23 +7,21 @@ import matplotlib.pyplot as plt
 import pandas as pd
 import numpy as np
 from sklearn.feature_extraction.text import TfidfVectorizer
-from nltk.stem.snowball import SnowballStemmer
 import sys, pickle
 
 def create_nmf():
 	df_major = pd.read_csv('data/combined_' + category + '.csv')
-	# snowball = SnowballStemmer('english')
 
 	with open('data/all_stops.txt', 'r') as f:
 		stop_words = [line[:-1] for line in f]
 
-	stop_words.extend(['npr', 'one', 'two', 'new', 'fox', 'york', 'times'])
+	stop_words.extend(['npr', 'one', 'two', 'new', 'fox', 'york', 'times', 'las', 'se', 'por', 'un', \
+		'del', 'en', 'al', 'con', 'son', 'sin'])
 
 	vec = TfidfVectorizer(stop_words=stop_words, max_features=2000)
 	X = vec.fit_transform(df_major['text'].values)
 
 	nmf = NMF(n_components=num_topics, random_state=1)
-	#doc_topics = nmf.fit_transform(X)
 	nmf_matrix = nmf.fit_transform(X)
 
 	pickle.dump(nmf, open("pickles/nmf_" + category + ".pkl", "wb"))

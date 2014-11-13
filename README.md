@@ -26,6 +26,7 @@ This will output a file named combined_<major_category>.csv
 
 5. At this point a manual inspection of the data must be done using NMF to determine how many sub-topics there are and what the name of these subtopics are going to be. I used a random state of 1 to generate the same subtopics each time NMF was ran. 
 
+Sometimes it is necessary to combine multiple key word searches into one file. 'Affordable care act' and 'obamacare' where combined into just one file 'combined_aca.csv'
 
 6. Run file explore_nmf_topics.py arg1 arg2
 

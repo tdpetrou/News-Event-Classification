@@ -14,7 +14,7 @@ def read_major_category():
 		make_key_words(sub_df, sub_cat)
 
 def make_key_words(sub_df, sub_cat):
-	sub_cat_vec = TfidfVectorizer(stop_words=stop_stemmed, max_features=200) #specific just to sub-catgeroy
+	sub_cat_vec = TfidfVectorizer(stop_words=stop_stemmed, max_features=300) #specific just to sub-catgeroy
 	X_sub_cat = sub_cat_vec.fit_transform(sub_df['text_stemmed']).toarray()
 	all_words = np.array(sub_cat_vec.get_feature_names())
 	key_words_df = pd.DataFrame({'word': all_words, 'score' : 0}, columns=['word', 'score'])

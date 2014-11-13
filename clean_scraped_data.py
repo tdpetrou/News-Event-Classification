@@ -38,7 +38,6 @@ def join_data():
 	combined_data = pd.concat([nyt, npr, fox, msnbc])
 	combined_data['text'] = combined_data['text'].astype(str)
 	combined_data = combined_data[combined_data['text'].apply(len) > 500]
-	# combined_data[(combined_data['category'] == 'obamacare') | (combined_data['category'] == 'affordable care act')]
 	return combined_data
 
 def add_columns(data):
