@@ -1,9 +1,6 @@
 News-Bias
 =========
 
-Go to the live version of the [bias detector] (http://greeksquared.pythonanywhere.com)
-
-
 ###Step by step procedure for completing project
 
 1. Choose key words to search for in news articles
