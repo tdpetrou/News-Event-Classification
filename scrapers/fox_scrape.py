@@ -73,5 +73,5 @@ if __name__ == '__main__':
 	frame = pd.DataFrame({'text' : articles, 'url' : links, 'source' : 'Fox', \
 		'publish_date' : pub_dates, 'category' : search_term, 'title' : titles}, \
              columns = ['source', 'url', 'title', 'text', 'publish_date', 'category'])	
-	frame.to_csv('data/fox_' + search_term.replace('', '_') + '_data.csv', index = False)
+	frame.to_csv('data/fox_' + search_term.replace(' ', '_') + '_data.csv', index = False)
 

@@ -24,4 +24,4 @@ if __name__ == '__main__':
 	major_category = sys.argv[1]
 	with open('data/all_stops_stemmed.txt', 'r') as f:
 		stop_stemmed = [line[:-1] for line in f]
-	sub_df = read_major_category()
+	read_major_category()
