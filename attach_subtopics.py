@@ -20,7 +20,7 @@ def add_subtopics():
 
 	num_topics = len(topics)
 	feature_names = vec.get_feature_names()
-	fig = plt.figure(figsize = (10,24))
+	fig = plt.figure(figsize = (10,18))
 	n_top_words = 15
 	for topic_idx, topic in enumerate(nmf.components_):
 	    top_words = [feature_names[i] for i in topic.argsort()[:-n_top_words - 1:-1]]

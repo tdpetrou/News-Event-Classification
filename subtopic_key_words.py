@@ -23,7 +23,9 @@ def make_key_words(sub_df, sub_cat):
 
 
 if __name__ == '__main__':
-	major_category = sys.argv[1]
+	major_category = sys.argv[1].replace(' ', '_')
 	with open('data/all_stops_stemmed.txt', 'r') as f:
 		stop_stemmed = [line[:-1] for line in f]
+	stop_stemmed.extend(['npr', 'one', 'two', 'new', 'fox', 'york', 'time', 'las', 'la', 'se', 'por', 'un', \
+		'del', 'en', 'al', 'con', 'son', 'sin', 'nbc' ,'npr', 'msnbc'])
 	read_major_category()

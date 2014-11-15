@@ -37,7 +37,9 @@ def join_data():
 
 	combined_data = pd.concat([nyt, npr, fox, msnbc])
 	combined_data['text'] = combined_data['text'].astype(str)
-	combined_data = combined_data[combined_data['text'].apply(len) > 500]
+	combined_data = combined_data[combined_data['text'].apply(len) > 700]
+	search_term = major_category.replace('_',' ')
+	combined_data = combined_data[combined_data['text'].apply(lambda x: search_term in x.lower())]
 	return combined_data
 
 def add_columns(data):

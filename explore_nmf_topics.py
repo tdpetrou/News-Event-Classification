@@ -16,7 +16,7 @@ def create_nmf():
 		stop_words = [line[:-1] for line in f]
 
 	stop_words.extend(['npr', 'one', 'two', 'new', 'fox', 'york', 'times', 'las', 'se', 'por', 'un', \
-		'del', 'en', 'al', 'con', 'son', 'sin'])
+		'del', 'en', 'al', 'con', 'son', 'sin', 'nbc' ,'npr', 'msnbc', 'york'])
 
 	vec = TfidfVectorizer(stop_words=stop_words, max_features=2000)
 	X = vec.fit_transform(df_major['text'].values)
