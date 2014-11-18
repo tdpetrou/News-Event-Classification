@@ -11,14 +11,14 @@ import datetime
 
 class fox_scrape():
 	def __init__(self, day):
-		self.search_term = ''
 		self.day = day
+
+	def initialize(self):
 		self.pub_dates = []
 		self.links = []
 		self.titles = []
 		self.image_urls = []
 		self.descriptions = []
-		self.links = []
 
 	def create_base(self, start_date, end_date, search_term):
 		base = 'http://www.foxnews.com/search-results/search?&sort=date&q="' + search_term + \
@@ -94,6 +94,8 @@ class fox_scrape():
 		return articles
 
 	def run(self, search_term):
+		print "\n\n\n\nFox news"
+		self.initialize()
 		self.search_term = search_term
 		file_search_term =  'data/fox_' + self.search_term.replace(' ', '_') + '_data.csv'
 		self.get_links()

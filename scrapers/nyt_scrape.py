@@ -16,10 +16,9 @@ class nyt_scrape():
         initializes api key, base url and search term
         '''
         self.api_key = "06085d751562b32ec4929cc0537bf9cc:8:69947278"
-        self.search_word = ''
-        self.base_url = 'http://api.nytimes.com/svc/search/v2/articlesearch.json?sort=newest&api-key=' + self.api_key + \
-                '&fq=source:("The New York Times") AND (body:"' + self.search_word + '")  AND (word_count:>200)'
         self.day = day
+
+    def initialize(self):
         self.links = []
         self.pub_dates = []
         self.word_counts = []
@@ -62,7 +61,6 @@ class nyt_scrape():
                         break
                     self.pub_dates.append(latest_article)
                     self.links.append(content.get('web_url', ''))
-                    print "word count", content['word_count']
                     self.word_counts.append(content['word_count'])
                     self.titles.append(content['headline']['main'])
                 articles_left -= 10
@@ -147,7 +145,11 @@ class nyt_scrape():
         self.descriptions = descriptions
         return articles
     def run(self, search_word):
+        print "\n\n\n\nNYT"
+        self.initialize()
         self.search_word = search_word
+        self.base_url = 'http://api.nytimes.com/svc/search/v2/articlesearch.json?sort=newest&api-key=' + self.api_key + \
+                '&fq=source:("The New York Times") AND (body:"' + self.search_word + '")  AND (word_count:>200)'
         self.get_links()
         articles = self.get_articles()
         frame = pd.DataFrame({'text' : articles, 'url' : self.links, 'source' : 'NYT', \

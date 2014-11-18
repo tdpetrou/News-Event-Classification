@@ -11,21 +11,20 @@ class msnbc_scrape():
 		'''
 		Initialize base link
 		'''
-		self.search_term = ''
-		self.base = 'http://www.msnbc.com/search/"' + search_term + '"?sm_field_issues=&sm_field_show=&date[min]&date[max]&date[date_selector]=&page='
-		self.links = []
-		self.pub_dates = []
-		self.titles = []
-		self.image_urls = []
-		self.descriptions = []
 		self.day = day
 
 		today = datetime.datetime.now()
 		DD = datetime.timedelta(days=self.day)
 		self.earliest_date = (today - DD).strftime('%m/%d/%y')
-		
+	
+	def initialize(self):
+		self.links = []
+		self.pub_dates = []
+		self.titles = []
+		self.image_urls = []
+		self.descriptions = []
 
-	def get_links(self, base):
+	def get_links(self):
 		'''
 		return links with missing www.msnbc.com attached
 		'''
@@ -34,7 +33,7 @@ class msnbc_scrape():
 				print "article page link", i
 				time.sleep(30)
 			req = requests.get(self.base + str(i) + '&f[0]=bundle%3Aarticle')
-			print self.base + str(i) + '&f[0]=bundle%3Aarticle'
+			#print self.base + str(i) + '&f[0]=bundle%3Aarticle'
 			soup = BeautifulSoup(req.text)
 			#msnbc does not return the base link. must add it here
 			self.links.extend(['http://www.msnbc.com' + a['href'] for a in soup.findAll('a', {'class': 'search-result__teaser__title__link'})])
@@ -52,7 +51,6 @@ class msnbc_scrape():
 				time.sleep(3)
 			try:
 				req = requests.get(link)
-				print req.url
 			except:
 				time.sleep(3)
 			if req.status_code == 200:
@@ -66,7 +64,6 @@ class msnbc_scrape():
 				try:
 					text = soup.findAll('div', {'class':'field field-name-body field-type-text-with-summary field-label-hidden'})[0].text
 				except IndexError:
-					print link
 					continue
 				text = str(re.sub('[^\w\s]+', ' ',text))
 				text = str(re.sub('[\n]+', ' ',text))
@@ -95,9 +92,13 @@ class msnbc_scrape():
 
 		self.links =  final_links
 		return articles
+
 	def run(self, search_term):
+		print "\n\n\n\nMSNBC"
+		self.initialize()
 		self.search_term = search_term
-		self.get_links(self.base)
+		self.base = 'http://www.msnbc.com/search/"' + search_term + '"?sm_field_issues=&sm_field_show=&date[min]&date[max]&date[date_selector]=&page='
+		self.get_links()
 		print "num links is", len(self.links)
 
 		articles = self.get_articles()
@@ -106,7 +107,6 @@ class msnbc_scrape():
 			'image_url'  : self.image_urls, 'description' : self.descriptions}, \
 			columns = ['source', 'url', 'image_url', 'title', 'description', 'text', 'publish_date', 'category'])
 		frame.to_csv('data/msnbc_' + self.search_term.replace(' ', '_') + '_data.csv', index=False)
-
 
 if __name__ == '__main__':
 	pass

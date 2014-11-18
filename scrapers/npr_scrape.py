@@ -15,12 +15,14 @@ class npr_scrape():
 		self.api_key = 'MDE3MzEyOTEwMDE0MTUxMjU4MjczNTcwMw001'
 		self.base_url = 'http://api.npr.org/query'
 		self.day = day
-		self.search_word = ''
+
+	def initialize(self):
 		self.links = []
 		self.pub_dates = []
 		self.titles = []
 		self.image_urls = []
 		self.descriptions = []
+
 	def get_articles(self):
 		'''
 		Get all articles with given search word taken from system argument
@@ -90,6 +92,8 @@ class npr_scrape():
 		return all_articles
 
 	def run(self, search_word):
+		print "\n\n\n\nNPR"
+		self.initialize()
 		self.search_word = search_word
 		articles = self.get_articles()
 		frame = pd.DataFrame({'text' : articles, 'url' : self.links, 'source' : 'NPR', 'publish_date': self.pub_dates, \

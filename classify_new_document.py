@@ -15,9 +15,9 @@ class classify_document():
 	def predict_category(self):
 		with open('data/subtopics/' + self.category + '_subtopics.txt') as f:
 		    topics = [line[:-1] for line in f]
-		major_df = pd.read_csv('data/combined_' + self.category + '_subtopics.csv')
+		major_df = pd.read_csv('data/combined_' + self.category + '.csv')
 
-		rand = np.random.randint(0, len(major_df))
+		# rand = np.random.randint(0, len(major_df))
 		text = major_df['text'].ix[rand]
 		text_stemmed = major_df['text_stemmed'].ix[rand]
 		X = self.vec.transform([text]).toarray()
