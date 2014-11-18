@@ -4,7 +4,9 @@ import re
 from bs4 import BeautifulSoup
 import time
 import sys
-import datetime
+import unicodedata
+from time import mktime
+from datetime import datetime, timedelta
 
 class msnbc_scrape():
 	def __init__(self, day):
@@ -13,9 +15,9 @@ class msnbc_scrape():
 		'''
 		self.day = day
 
-		today = datetime.datetime.now()
-		DD = datetime.timedelta(days=self.day)
-		self.earliest_date = (today - DD).strftime('%m/%d/%y')
+		today = datetime.now()
+		DD = timedelta(days=self.day)
+		self.earliest_date = (today - DD).strftime('%Y-%m-%d')
 	
 	def initialize(self):
 		self.links = []
@@ -56,6 +58,9 @@ class msnbc_scrape():
 			if req.status_code == 200:
 				soup = BeautifulSoup(req.text)
 				pubdate = soup.findAll('div',  {'class' : "field field-name-field-publish-date field-type-datestamp field-label-hidden"})[0].find('time').text
+				pubdate = time.strptime(pubdate[:8], '%m/%d/%y')
+				pubdate = datetime.fromtimestamp(mktime(pubdate))
+				pubdate = pubdate.strftime('%Y-%m-%d')
 				if pubdate < self.earliest_date:
 					print "toooooooooo early"
 					print pubdate
@@ -65,14 +70,13 @@ class msnbc_scrape():
 					text = soup.findAll('div', {'class':'field field-name-body field-type-text-with-summary field-label-hidden'})[0].text
 				except IndexError:
 					continue
-				text = str(re.sub('[^\w\s]+', ' ',text))
-				text = str(re.sub('[\n]+', ' ',text))
+				text = self.decode_unicode(text)
 		
 				try:
-					self.titles.append(str(re.sub('[^\w\s]+', ' ',soup.findAll(attrs = {'class' : "is-title-pane panel-pane pane-node-title"})[0].text)))
+					title  = soup.findAll(attrs = {'class' : "is-title-pane panel-pane pane-node-title"})[0].text
 				except IndexError:
 					self.titles.append('None')
-
+				self.titles.append(self.decode_unicode(title))
 				#get image urls and descriptions
 				try:
 					self.image_urls.append(soup.findAll(attrs =  {'property' : 'og:image'})[0].attrs['content'])
@@ -80,10 +84,10 @@ class msnbc_scrape():
 					self.image_urls.append('#')
 				try:
 					desc = soup.findAll(attrs =  {'property' : 'og:description'})[0].attrs['content']
-					# print 'desc', desc
-					self.descriptions.append(str(re.sub('[^\w\s]+', ' ', desc)))
+					self.descriptions.append(self.decode_unicode(desc))					
 				except IndexError:
 					self.descriptions.append('None')
+				
 				articles.append(text)
 				final_links.append(link)
 			else:
@@ -92,6 +96,15 @@ class msnbc_scrape():
 
 		self.links =  final_links
 		return articles
+
+	def decode_unicode(self, text):
+		text = unicode(text)
+		a = '/'; b = '\''
+		text = unicodedata.normalize('NFKD', text).encode('ascii', 'ignore')
+		text = str(re.sub('[\n]+', ' ', text))
+		text = text.replace(a, '')
+		text = text.replace(b, '')
+		return text
 
 	def run(self, search_term):
 		print "\n\n\n\nMSNBC"
@@ -109,4 +122,6 @@ class msnbc_scrape():
 		frame.to_csv('data/msnbc_' + self.search_term.replace(' ', '_') + '_data.csv', index=False)
 
 if __name__ == '__main__':
-	pass
+	search_term = sys.argv[1]
+	msnbc = msnbc_scrape(10)
+	msnbc.run(search_term)

@@ -5,6 +5,7 @@ from dateutil import parser
 import time
 import sys
 import datetime
+import unicodedata
 
 class npr_scrape():
 
@@ -32,8 +33,8 @@ class npr_scrape():
 		today = datetime.datetime.now()
 		DD = datetime.timedelta(days=self.day)
 		
-		endDate = today.strftime('%Y%m%d')
-		startDate = (today - DD).strftime('%Y%m%d')
+		endDate = today.strftime('%Y-%m-%d')
+		startDate = (today - DD).strftime('%Y-%m-%d')
 		pub_date = endDate
 		art_num = 1
 		start_num = 1
@@ -51,14 +52,14 @@ class npr_scrape():
 				for story in j['list']['story']: 
 					try:
 						text = ' '.join([par['$text'] for par in story['text']['paragraph']])
-						pub_date = parser.parse(story['pubDate']['$text']).strftime("%Y%m%d")
+						pub_date = parser.parse(story['pubDate']['$text']).strftime("%Y-%m-%d")
 					except KeyError:
 						text = ''
 						if not story['text'].has_key('paragraph'):
 							continue
 						for par in story['text']['paragraph']:
 							text += par.get('$text', ' ')
-						pub_date = parser.parse(story['pubDate']['$text']).strftime("%Y%m%d")
+						pub_date = parser.parse(story['pubDate']['$text']).strftime("%Y-%m-%d")
 					if pub_date < startDate:
 						break
 					if len(text) < 500:
@@ -72,13 +73,15 @@ class npr_scrape():
 						self.image_urls.append('#')
 					try:
 						desc = story['teaser']['$text']
-						self.descriptions.append(str(re.sub('[^\w\s]+', ' ', desc)))
+						self.descriptions.append(self.decode_unicode(desc))
 					except:
 						self.descriptions.append('none')
-					all_articles.append(str(re.sub('[^\w\s]+', ' ', text)))
+					
+
+					all_articles.append(self.decode_unicode(text))
 					self.links.append(story['link'][0]['$text'])
 					self.pub_dates.append(pub_date)
-					self.titles.append(str(re.sub('[^\w\s]+', ' ', story['title']['$text'])))
+					self.titles.append(self.decode_unicode(story['title']['$text']))
 				start_num += 10
 				if start_num > 300:
 					start_num = 1
@@ -91,6 +94,15 @@ class npr_scrape():
 
 		return all_articles
 
+	def decode_unicode(self, text):
+		text = unicode(text)
+		a = '/'; b = '\''
+		text = unicodedata.normalize('NFKD', text).encode('ascii', 'ignore')
+		text = str(re.sub('[\n]+', ' ', text))
+		text = text.replace(a, '')
+		text = text.replace(b, '')
+		return text
+
 	def run(self, search_word):
 		print "\n\n\n\nNPR"
 		self.initialize()
@@ -102,5 +114,7 @@ class npr_scrape():
 		frame.to_csv('data/npr_' + self.search_word.replace(' ', '_') + '_data.csv', index=False)	
 
 if __name__ == '__main__':
-	pass
+	search_term = sys.argv[1]
+	npr = npr_scrape(10)
+	npr.run(search_term)
 

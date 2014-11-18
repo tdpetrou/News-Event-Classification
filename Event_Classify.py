@@ -20,6 +20,7 @@ class Event_Classify():
 			'marijuana', 'obamacare', 'palestine', 'terrorism']
 			#palestine not showing up much
 		#self.topic_list = ['palestine']
+		self.topic_list = self.topic_list[1:]
 
 	def run_scrapers(self, days=14):
 
@@ -69,8 +70,8 @@ class Event_Classify():
 
 if __name__ == '__main__':
 	EC = Event_Classify()
-	# EC.run_scrapers()
+	EC.run_scrapers(30)
 	# EC.clean_data()
-	EC.combine_data()
-	EC.attach_and_rank_topics()
+	# EC.combine_data()
+	# EC.attach_and_rank_topics()
 

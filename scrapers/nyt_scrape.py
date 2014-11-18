@@ -7,6 +7,7 @@ from itertools import izip
 import time
 import sys
 import datetime
+import unicodedata
 
 
 class nyt_scrape():
@@ -34,7 +35,7 @@ class nyt_scrape():
         api = requests.get(self.base_url)
         total_articles = articles_left = api.json()['response']['meta']['hits']
 
-        max_pages = 10
+        max_pages = 50 #max of 500 links for now
         page = 0
         final_page = 0
         page_count = 0
@@ -61,7 +62,7 @@ class nyt_scrape():
                         break
                     self.pub_dates.append(latest_article)
                     self.links.append(content.get('web_url', ''))
-                    self.word_counts.append(content['word_count'])
+                    # self.word_counts.append(content['word_count'])
                     self.titles.append(content['headline']['main'])
                 articles_left -= 10
                 page += 1
@@ -107,8 +108,7 @@ class nyt_scrape():
                 text = ''
                 for p in body:
                     text += p.text.encode('ascii','ignore')
-                text = str(re.sub('[^\w\s]+', ' ', text))
-                text = str(re.sub('[\n]+', ' ', text))
+                text = self.decode_unicode(text)
                 if len(text) < 500:
                     print "article too short", link
                     continue
@@ -124,13 +124,15 @@ class nyt_scrape():
                     image_urls.append('#')
                 try:
                     desc = soup.findAll(attrs =  {'property' : 'og:description'})[0].attrs['content']
-                    descriptions.append(str(re.sub('[^\w\s]+', ' ', desc)))
+                    descriptions.append(self.decode_unicode(desc))
                 except IndexError:
                     descriptions.append('None')
 
-                new_dates.append(self.pub_dates[i])
-                new_word_counts.append(self.word_counts[i])
-                new_titles.append(str(re.sub('[^\w\s]+', ' ', self.titles[i])))
+                
+                dt = self.pub_dates[i]
+                new_dates.append(dt[:4] + '-' + dt[4:6] + '-' + dt[6:])
+                # new_word_counts.append(self.word_counts[i])
+                new_titles.append(self.decode_unicode(self.titles[i]))
                 articles_scraped += 1
                 print "actual articles scraped", articles_scraped
             else:
@@ -139,11 +141,21 @@ class nyt_scrape():
                 time.sleep(3)
         self.links = new_links
         self.pub_dates = new_dates
-        self.word_counts = new_word_counts
+        # self.word_counts = new_word_counts
         self.titles = new_titles
         self.image_urls = image_urls
         self.descriptions = descriptions
         return articles
+
+    def decode_unicode(self, text):
+        text = unicode(text)
+        a = '/'; b = '\''
+        text = unicodedata.normalize('NFKD', text).encode('ascii', 'ignore')
+        text = str(re.sub('[\n]+', ' ', text))
+        text = text.replace(a, '')
+        text = text.replace(b, '')
+        return text
+
     def run(self, search_word):
         print "\n\n\n\nNYT"
         self.initialize()
@@ -152,6 +164,11 @@ class nyt_scrape():
                 '&fq=source:("The New York Times") AND (body:"' + self.search_word + '")  AND (word_count:>200)'
         self.get_links()
         articles = self.get_articles()
+        print "articles", len(articles)
+        print 'url', len(self.links)
+        print 'pub', len(self.pub_dates)
+        print 'img', len(self.image_urls)
+        print 'descr', len(self.descriptions)
         frame = pd.DataFrame({'text' : articles, 'url' : self.links, 'source' : 'NYT', \
             'publish_date' : self.pub_dates, 'category' : self.search_word, \
             'title': self.titles, 'image_url': self.image_urls, 'description' : self.descriptions}, \
@@ -160,6 +177,8 @@ class nyt_scrape():
         frame.to_csv('data/nyt_' + self.search_word.replace(' ', '_') + '_data.csv', index=False)
 
 if __name__ == '__main__':
-    pass
+    search_term = sys.argv[1]
+    nyt = nyt_scrape(5)
+    nyt.run(search_term)
 
 

@@ -1,6 +1,10 @@
 News Event Classification
 =========
 
+Access the app below
+
+[greeksquared.pythonanywhere.com](greeksquared.pythonanywhere.com)
+
 ### What this app does
 
 Online news sites are good at producing relavent articles when given a search term. Some sites even classify articles into subtopics. What is missing is the actual degree to which an event has occurred.  My app categorizes events for a search query into two polarizing sides. 
