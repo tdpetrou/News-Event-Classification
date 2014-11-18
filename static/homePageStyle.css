@@ -44,6 +44,7 @@
 
 .individualArticle {
 	display: inline-block;
+	vertical-align: top;
 	width: 45%;
 	padding:15px;
 }
