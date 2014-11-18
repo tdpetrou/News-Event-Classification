@@ -1,0 +1,184 @@
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+
+    <title>News Event Classification</title>
+    <link type="text/css" rel="stylesheet" href="static/homePageStyle.css"/>
+
+    <!-- Bootstrap core CSS -->
+    <link href="http://getbootstrap.com/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Just for debugging purposes. Don't actually copy these 2 lines! -->
+    <!--[if lt IE 9]><script src="../../assets/js/ie8-responsive-file-warning.js"></script><![endif]-->
+    <script src="http://getbootstrap.com/assets/js/ie-emulation-modes-warning.js"></script>
+
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+    <!-- Custom styles for this template -->
+    <link href="static/carousel.css" rel="stylesheet">
+    <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');
+    </script>
+
+    <script>
+    $( "p" ).append( $( "strong" ) );
+    </script>
+
+  </head>
+<!-- NAVBAR
+================================================== -->
+  <body>
+       <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+      <div class="container">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="#">News Event Classifier</a>
+        </div>
+        <div id="navbar" class="navbar-collapse collapse">
+        <ul class="nav navbar-nav navbar-right">
+         <!--      <li>
+                <div class="fb-like" data-send="true" data-width="120" show-faces="false" data-layout ="button_count" data-href="https://www.facebook.com/GameTheoryOptimalPoker" ></div>
+              </li> -->
+              <li>
+                    <a href="https://twitter.com/share" id = "twitter_icon" class="twitter-share-button" data-url="http://greeksquared.pythonanywhere.com" data-text="Found a rad way to find events in the news " data-via="GTO_Poker" data-size="large">Tweet</a>
+              </li>
+              <li>
+                <a href="https://www.linkedin.com/in/tedpetrou" class="logo" id="in-logo" target = "_blank">
+                  <img id = "linkedin_icon" src="static/linkedin_logo.ico"/>
+                </a>
+              </li>
+              <li>
+                <a href="https://github.com/tdpetrou/News-Event-Classification" class="logo" id="in-logo" target = "_blank">
+                  <img id = "github_icon" style = "height:32px" src="static/github_icon.png"/>
+                </a>
+              </li>
+            </ul>
+        </div><!--/.navbar-collapse -->
+      </div>
+    </nav>
+
+
+    <!-- Carousel
+    ================================================== -->
+    <div class="jumbotron">
+      <div class="container major-topics">
+        <h2 class = "headerTitle">Step 1: Choose a News Topic</h2>
+         <div class="row">
+          <div class="col-lg-3" id = "obamacareButton">
+            <p><a class="btn btn-default major-topics"  data-topic = 'aca' role="button">Obamacare</a></p>
+          </div>
+          <div class="col-lg-3">
+            <p><a class="btn btn-default major-topics" id = "gayButton" data-topic ='gay' role="button">Gay Rights</a></p>
+          </div>
+          <div class="col-lg-3">
+            <p><a class="btn btn-default major-topics" data-topic = 'immigration' role="button">Immigration</a></p>
+          </div>
+          <div class="col-lg-3">
+            <p><a class="btn btn-default major-topics" data-topic = 'gun control' role="button">Guns</a></p>
+          </div>
+         </div>
+      <div class="row">
+          <div class="col-lg-3">
+            <p><a class="btn btn-default major-topics" data-topic = 'palestine' role="button">Palestine</a></p>
+          </div>
+          <div class="col-lg-3">
+            <p><a class="btn btn-default major-topics" data-topic = 'abortion' role="button">Abortion</a></p>
+          </div>
+          <div class="col-lg-3">
+            <p><a class="btn btn-default major-topics" data-topic = 'marijuana' role="button">Drugs</a></p>
+          </div>
+          <div class="col-lg-3">
+            <p><a class="btn btn-default major-topics" data-topic = 'terrorism' role="button">Terrorism</a></p>
+          </div>
+      </div>
+    </div>
+  </div>
+
+    <!-- Marketing messaging and featurettes
+    ================================================== -->
+    <!-- Wrap the rest of the page in another container to center all the content. -->
+
+    <!-- My JavaScipt -->
+    <script>
+    // $( "p" ).append( document.createTextNode( "Hello" ) );
+    
+    $SCRIPT_ROOT = {{ request.script_root|tojson|safe }};
+
+    $(function() {
+      $('.major-topics').bind('click', function() {
+        var $category = $(this).attr("data-topic");
+        $.getJSON($SCRIPT_ROOT + '/_get_subtopics', {
+          category: $(this).attr("data-topic")
+        }, function(data) {
+            $('.subtopicContainer').remove();
+            $('.subtopicArticles').remove();
+            var NewContent = '<div class = "container subtopicContainer"><h2 class = "headerTitle">Step 2: Choose a subtopic</h2><div class="row_subtopics"></div></div>';
+            var $jumbo = $('.jumbotron');
+            $(NewContent).insertAfter($jumbo).hide().slideDown("slow");
+          $.each(data, function() {
+            $.each(this, function(k, v) {
+              $(".row_subtopics").append('<div class="col-md-2"><p><a class="btn btn-default major-subtopics"' + 
+                ' role = "button" data-topic = "' + $category + '"">' 
+                + v + '</a></p></div>').hide().slideDown("slow");
+            });
+          });
+          clickSubtopic();
+        });
+        return false;
+      });
+    });
+
+    function clickSubtopic() {
+      $('.major-subtopics').bind('click', function() {
+        var $category = $(this).attr("data-topic");
+        var $category_text = $('*[data-topic="' + $category + '"]').first().text();
+        var $subtopic = $(this).text();
+        $.get($SCRIPT_ROOT + '/_get_subtopic_data', {
+          subtopic: $subtopic,
+          category: $category
+        }, function(data) {
+            $('.subtopicArticles').remove();
+            var $insertDiv = $('.subtopicContainer');
+            var NewContent = data
+            // $(NewContent).insertAfter($insertDiv).hide().slideDown("slow");
+            $(NewContent).insertAfter($insertDiv);
+         
+        });
+        return false;
+      });
+    };
+
+
+    // function testReturnTemplate() {
+    //   $.get( $SCRIPT_ROOT + '/_testReturnTemplate', function( data ) {
+    //     $( ".result" ).html( data );
+    //     alert( "Load was performed." );
+    //   });
+    // }
+
+    </script>
+    <!-- Bootstrap core JavaScript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+    <script src="http://getbootstrap.com/dist/js/bootstrap.min.js"></script>
+    <script src="http://getbootstrap.com/assets/js/docs.min.js"></script>
+    <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
+    <script src="http://getbootstrap.com/assets/js/ie10-viewport-bug-workaround.js"></script>
+  </body>
+</html>

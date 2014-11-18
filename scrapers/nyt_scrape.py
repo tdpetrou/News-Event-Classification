@@ -6,22 +6,26 @@ from dateutil import parser
 from itertools import izip
 import time
 import sys
+import datetime
 
 
 class nyt_scrape():
 
-    def __init__(self, search_word):
+    def __init__(self, day):
         '''
         initializes api key, base url and search term
         '''
         self.api_key = "06085d751562b32ec4929cc0537bf9cc:8:69947278"
-        self.search_word = search_word
+        self.search_word = ''
         self.base_url = 'http://api.nytimes.com/svc/search/v2/articlesearch.json?sort=newest&api-key=' + self.api_key + \
                 '&fq=source:("The New York Times") AND (body:"' + self.search_word + '")  AND (word_count:>200)'
+        self.day = day
         self.links = []
         self.pub_dates = []
         self.word_counts = []
         self.titles = []
+        self.image_urls = []
+        self.descriptions = []
 
     def get_links(self):
         '''
@@ -31,15 +35,19 @@ class nyt_scrape():
         api = requests.get(self.base_url)
         total_articles = articles_left = api.json()['response']['meta']['hits']
 
-        max_pages = 300
+        max_pages = 10
         page = 0
         final_page = 0
         page_count = 0
         cursor_count = 0
         articles_left = total_articles
-        last_date = "20141105"
+
+        today = datetime.datetime.now()
+        DD = datetime.timedelta(days=self.day)
+        
+        last_date = today.strftime('%Y%m%d')
         latest_article = last_date
-        earliest_date = "20070101"
+        earliest_date = (today - DD).strftime('%Y%m%d')
 
         # let us loop (and hopefully not hit our rate limit)
         while articles_left > 0 and page_count < max_pages and latest_article >= earliest_date:
@@ -50,6 +58,8 @@ class nyt_scrape():
             if more_articles.status_code == 200:
                 for content in more_articles.json()['response']['docs']:
                     latest_article = parser.parse(content['pub_date']).strftime("%Y%m%d")
+                    if latest_article < earliest_date:
+                        break
                     self.pub_dates.append(latest_article)
                     self.links.append(content.get('web_url', ''))
                     print "word count", content['word_count']
@@ -82,6 +92,8 @@ class nyt_scrape():
         new_dates = []
         new_word_counts = []
         new_titles = []
+        image_urls = []
+        descriptions = []
         articles_scraped = 0
         print "number of links", len(self.links)
         for i, link in enumerate(self.links):
@@ -107,6 +119,17 @@ class nyt_scrape():
                     time.sleep(30)
                 articles.append(text)
                 new_links.append(link)
+
+                try:
+                    image_urls.append(soup.findAll(attrs =  {'property' : 'og:image'})[0].attrs['content'])
+                except IndexError:
+                    image_urls.append('#')
+                try:
+                    desc = soup.findAll(attrs =  {'property' : 'og:description'})[0].attrs['content']
+                    descriptions.append(str(re.sub('[^\w\s]+', ' ', desc)))
+                except IndexError:
+                    descriptions.append('None')
+
                 new_dates.append(self.pub_dates[i])
                 new_word_counts.append(self.word_counts[i])
                 new_titles.append(str(re.sub('[^\w\s]+', ' ', self.titles[i])))
@@ -120,22 +143,21 @@ class nyt_scrape():
         self.pub_dates = new_dates
         self.word_counts = new_word_counts
         self.titles = new_titles
+        self.image_urls = image_urls
+        self.descriptions = descriptions
         return articles
+    def run(self, search_word):
+        self.search_word = search_word
+        self.get_links()
+        articles = self.get_articles()
+        frame = pd.DataFrame({'text' : articles, 'url' : self.links, 'source' : 'NYT', \
+            'publish_date' : self.pub_dates, 'category' : self.search_word, \
+            'title': self.titles, 'image_url': self.image_urls, 'description' : self.descriptions}, \
+            columns = ['source', 'url', 'image_url', 'title', 'description', 'text', 'publish_date', 'category'])
+
+        frame.to_csv('data/nyt_' + self.search_word.replace(' ', '_') + '_data.csv', index=False)
 
 if __name__ == '__main__':
-    nyt = nyt_scrape(sys.argv[1])
-    print nyt.search_word
-    nyt.get_links()
-    # with open('data/nyt_' + nyt.search_word + '_links.txt', 'wb') as f:
-    #     for link in nyt.links:
-    #         f.write("%s" % link)
-    #         f.write("\n")
-    articles = nyt.get_articles()
-    frame = pd.DataFrame({'text' : articles, 'url' : nyt.links, 'source' : 'NYT', \
-        'publish_date' : nyt.pub_dates, 'category' : nyt.search_word, \
-        'word_counts': nyt.word_counts, 'title': nyt.titles}, \
-             columns = ['source', 'url', 'title',  'text', 'publish_date', 'category', 'word_counts'])
-
-    frame.to_csv('data/nyt_' + nyt.search_word.replace(' ', '_') + '_data.csv', index=False)
+    pass
 
 

@@ -1,0 +1,49 @@
+
+#linkedin_icon {
+	height: 32px;
+	margin-left: -30px;
+}
+
+#twitter_icon {
+	margin-left: 10px;
+	margin-top: 16px;	
+}
+
+#github_icon {
+	height:32px;
+}
+
+.headerTitle {
+	text-align: center;
+}
+
+.headerSplit {
+	display: inline-block;
+	text-align: center;
+	width: 48%;
+}
+
+.articleSplit {
+	display: inline-block;
+	width: 48%;
+}
+
+#rightArticleSplit {
+	border-left: 2px black dashed;
+	float: right;
+}
+
+#leftArticleSplit {
+	border-right: 2px black dashed;
+	float:left;
+}
+
+.articleCircle {
+	text-align: center;
+}
+
+.individualArticle {
+	display: inline-block;
+	width: 45%;
+	padding:15px;
+}
