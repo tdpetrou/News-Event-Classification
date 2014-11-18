@@ -3,7 +3,7 @@ News Event Classification
 
 Access the app below
 
-[greeksquared.pythonanywhere.com](greeksquared.pythonanywhere.com)
+[greeksquared.pythonanywhere.com](http://greeksquared.pythonanywhere.com)
 
 ### What this app does
 
