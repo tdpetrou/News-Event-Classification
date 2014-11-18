@@ -12,9 +12,6 @@ import requests
 import json
 import MySQLdb
 from sqlalchemy import create_engine
-'dialect+driver://username:password@host:port/database'
-
-
 
 app = Flask(__name__)
 
@@ -23,13 +20,6 @@ app = Flask(__name__)
 # our home page
 @app.route('/')
 def index():
-    r = requests.get('http://www.foxnews.com/politics/2014/11/15/gop-mulls-options-to-stop-obama-from-acting-alone-on-immigration-with-spending/')
-    soup = BeautifulSoup(r.text, 'html.parser')
-    image_url = soup.findAll(attrs =  {'property' : 'og:image'})[0].attrs['content']
-    title =  soup.findAll(attrs =  {'property' : 'og:title'})[0].attrs['content']
-    description = soup.findAll(attrs =  {'property' : 'og:description'})[0].attrs['content']
-    url = soup.findAll(attrs =  {'property' : 'og:url'})[0].attrs['content']
-    #pdb.set_trace()
     return render_template('home_page_headline.html')
 
 @app.route('/_get_subtopics')
@@ -48,7 +38,6 @@ def get_subtopic_data():
     category = request.args.get('category', '', type=str)
     subtopic_cat = subtopic.lower().replace(' ', '_')
     category = category.lower().replace(' ', '_')
-    df = pd.read_csv('data/event_scores/' + category + '_' + subtopic_cat + '_event_score.csv').sort('event score scaled')
     
     with open('data/subtopics/' + category + '_sides.txt') as json_data:
         sides = json.load(json_data)
@@ -70,9 +59,6 @@ def get_subtopic_data():
     return_df = pd.DataFrame(result.fetchall())
     return_df.columns = result.keys()
     print return_df['event score scaled'].values
-    #df_top = add_meta_info(df_top)
-    #df_bottom = add_meta_info(df_bottom)
-    #return jsonify(side1 = both_sides[0], side2 = both_sides[1], df_bottom = list(df_bottom['event score scaled'].values)) #, df_top = df_top)
     return render_template('subtopic_headlines.html', image_url = return_df['image_url'].values, 
         title = return_df['title'].values, description = return_df['description'].values, 
         url = return_df['url'].values, sides = both_sides, category = category, subtopic = subtopic)

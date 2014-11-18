@@ -45,6 +45,7 @@ class Event_Classify():
 		o = pd.read_csv('data/combined_obamacare.csv')
 		aca = pd.concat([a,o])
 		aca = aca.drop_duplicates()
+		aca['category'] = 'aca'
 		aca.to_csv('data/combined_aca.csv', index=False)
 
 	#explore topics separately 
