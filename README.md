@@ -9,6 +9,8 @@ Access the app below
 
 Online news sites are good at producing relavent articles when given a search term. Some sites even classify articles into subtopics. What is missing is the actual degree to which an event has occurred.  My app categorizes events for a search query into two polarizing sides. 
 
+![alt tag](https://raw.githubusercontent.com/tdpetrou/News-Event-Classification/master/images/news_search.png =700x300)
+
 ###Specifics
 
 My app gives the user a list of major political and social issues (Obamacare, gun control, abortion, marijuana, etc..) to choose from. From here the user is given a choice of subtopics. If the user has chosen marijuana, the suptopics 'drug cartels', 'marijuana legalization', 'drugs in sports', 'drugs and kids', etc... would be supplied as a choice for the user.

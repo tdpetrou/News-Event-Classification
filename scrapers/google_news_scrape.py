@@ -107,7 +107,10 @@ class google_scrape():
         frame.to_csv('data/google_' + self.search_term.replace(' ', '_') + '_data.csv', index=False)
         
     def get_date(self, text):
-        date_reg_exp = re.compile('2014[-/]\d{2}[-/]\d{2}')
+        try:
+            date_reg_exp = re.compile('2014[-/]\d{2}[-/]\d{2}')
+        except:
+            return 0
         matches_list=date_reg_exp.findall(text)
         if matches_list:
             return matches_list[0].replace('/', '-')
