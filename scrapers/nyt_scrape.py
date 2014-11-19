@@ -164,11 +164,6 @@ class nyt_scrape():
                 '&fq=source:("The New York Times") AND (body:"' + self.search_word + '")  AND (word_count:>200)'
         self.get_links()
         articles = self.get_articles()
-        print "articles", len(articles)
-        print 'url', len(self.links)
-        print 'pub', len(self.pub_dates)
-        print 'img', len(self.image_urls)
-        print 'descr', len(self.descriptions)
         frame = pd.DataFrame({'text' : articles, 'url' : self.links, 'source' : 'NYT', \
             'publish_date' : self.pub_dates, 'category' : self.search_word, \
             'title': self.titles, 'image_url': self.image_urls, 'description' : self.descriptions}, \

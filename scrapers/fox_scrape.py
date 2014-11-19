@@ -54,6 +54,7 @@ class fox_scrape():
 			base = self.create_base(start_date, end_date, self.search_term)
 			print "new dates ", start_date, end_date
 		self.links =  list(set(links))
+		self.links = [link for link in self.links if 'latino.foxnews' not in link]
 
 	def get_articles(self):
 		articles = []

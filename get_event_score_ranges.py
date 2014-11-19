@@ -3,6 +3,9 @@ import pandas as pd
 import pdb
 
 class Event_Score_Range():
+	'''
+	Only need to run thus periodically if the data significantly changes or classes change
+	'''
 	def __init__(self):
 		pass
 

@@ -47,11 +47,11 @@ def get_subtopic_data():
         password =  [line for line in f][0]
     engine = create_engine('mysql://EventClassify:' + password + '@EventClassify.db.5920383.hostedresource.com/EventClassify', pool_recycle=True)
     connection = engine.connect()
-    statement = "(SELECT url, image_url, title, description, `event score scaled` FROM `test_append` " +  \
+    statement = "(SELECT url, image_url, title, description, `event score scaled` FROM `test_event3` " +  \
                 "WHERE category = '" + category +  "' and subcategory = '" + subtopic + \
                     "' order by `event score scaled` limit 4)" + \
             " union " + \
-            "(SELECT url, image_url, title, description, `event score scaled` FROM `test_append` " + \
+            "(SELECT url, image_url, title, description, `event score scaled` FROM `test_event3` " + \
             "WHERE category = '" + category +  "' and subcategory = '" + subtopic + \
             "' order by `event score scaled` desc limit 4)"
     result = connection.execute(statement)

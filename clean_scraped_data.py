@@ -38,6 +38,7 @@ class clean_data():
 		npr = pd.read_csv('data/npr_' + self.major_category + '_data.csv').drop_duplicates()
 		fox = pd.read_csv('data/fox_' + self.major_category + '_data.csv').drop_duplicates()
 		msnbc = pd.read_csv('data/msnbc_' + self.major_category + '_data.csv').drop_duplicates()
+		goog = pd.read_csv('data/google_' + self.major_category + '_data.csv').drop_duplicates()
 
 		combined_data = pd.concat([nyt, npr, fox, msnbc])
 		combined_data['text'] = combined_data['text'].astype(str)
