@@ -9,40 +9,39 @@ import ipdb
 import time
 import sys
 
-class google_scrape():
+class bing_scrape():
 
     def __init__(self):
-        pass
-
-    def get_links(self):
-        self.all_dates = []
-        DD = datetime.timedelta(2)
-        links = []
         current_day = datetime.datetime.now()
-
         self.start_date = current_day.strftime('%Y-%m-%d')
-        for page in range(0, 300, 10):
-            base = self.create_base_url(page)
-            print base
-            req = requests.get(base) 
-            time.sleep(1)
+
+    def reuters_links(self):
+        links - []
+        base = 'http://www.reuters.com/search?blob=' + self.search_term +   '&pn='
+        for page in range(1,50):
+            base += str(page)
+            req = requests.get(base)
             soup = BeautifulSoup(req.text, 'html.parser')
-            for a in soup.findAll('a'):
-                h = a['href']
-                if 'q=http' in h:
-                    start = h.index('http')
-                    end = h.index('&')
-                    links.append(h[start:end])
-                    
+            for li in soup.findAll(_class = 'SearchHeadline'):
+                for a in li.findAll('a'):
+                    links.append(a['href'])
         self.links = list(set(links))
 
-    def get_unique_links(self):
-        df = pd.DataFrame([self.links, self.all_dates]).T
-        df = df.drop_duplicates()
-        df = df.groupby([0]).min()
-        df = df.reset_index()
-        self.links = df[0].values.tolist()
-        self.all_dates = df[1].values.tolist()
+    def bing_links(self):
+        page = 1
+        links = []
+        results = 150
+        while page * 10 < results:
+            req = requests.get('http://www.bing.com/news/search?q=' + self.search_term.replace(' ', '+') + '&qft=interval%3d%"9"&first=' + str(page))
+            page += 10
+            soup = BeautifulSoup(req.text)
+            results = int(soup.findAll('span', {'class': 'ResultsCount'})[0].text.split()[0].replace(',', ''))
+            print results
+            for div in soup.findAll('div', {'class' : 'newstitle'}):
+                for a in div.findAll('a'):
+                    links.append(a['href'])
+            
+        self.links = list(set(links))
 
     def get_articles(self):
         descriptions = []
@@ -55,7 +54,6 @@ class google_scrape():
         print "num links", len(self.links)
 
         for i, link in enumerate(self.links):
-            print i
             try:
                 req = requests.get(link)
             except:
@@ -89,30 +87,33 @@ class google_scrape():
             descriptions.append(desc)
             try:
                 image_urls.append(soup.findAll(attrs =  {'property' : 'og:image'})[0].attrs['content'])
-            except IndexError:
+            except:
                 image_urls.append('#')
 
             date = self.get_date(req.text) 
-            new_dates.append(date)
             if not date:
-                new_dates[-1] = new_dates[-2]
+                try:
+                    new_dates.append(new_dates[-1])
+                except IndexError:
+                    new_dates.append(self.start_date)
+            else:
+                new_dates.append(date)
 
             sources.append(self.get_source(link))
-
+        # print "art", len(articles)
+        # print "links", len(new_links)
+        # print "source", len(sources)
+        # print "titles", len(titles)
+        # print "image_urls", len(image_urls)
+        # print "description", len(descriptions)
+        # print "dates", len(new_dates)
         frame = pd.DataFrame({'text' : articles, 'url' : new_links, 'source' : sources, \
                 'publish_date' : new_dates, 'category' : self.search_term, \
                 'title': titles, 'image_url': image_urls, 'description' : descriptions}, \
                 columns = ['source', 'url', 'image_url', 'title', 'description', 'text', 'publish_date', 'category'])
         frame = frame.dropna()
-        frame.to_csv('data/google_' + self.search_term.replace(' ', '_') + '_data.csv', index=False)
+        frame.to_csv('data/bing_' + self.search_term.replace(' ', '_') + '_data.csv', index=False)
         
-    def get_date(self, text):
-        date_reg_exp = re.compile('2014[-/]\d{2}[-/]\d{2}')
-        matches_list=date_reg_exp.findall(text)
-        if matches_list:
-            return matches_list[0].replace('/', '-')
-        return 0
-
     def get_source(self, url):
         pieces = []
         for seg in url.split('.'):
@@ -128,6 +129,13 @@ class google_scrape():
             return 'None'
         return pieces[ind - 1]
 
+    def get_date(self, text):
+        date_reg_exp = re.compile('2014[-/]\d{2}[-/]\d{2}')
+        matches_list = date_reg_exp.findall(text)
+        if matches_list:
+            return matches_list[0].replace('/', '-')
+        return 0
+
     def decode_unicode(self, text):
         text = unicode(text)
         a = '/'; b = '\''
@@ -138,17 +146,17 @@ class google_scrape():
         text = text.replace(b, '')
         return text
 
-    def create_base_url(self, page=0):
-        base = 'https://www.google.com/search?hl=en&gl=us&tbm=nws&authuser=0&q=' \
-            + self.search_term.replace(' ', '_') + ' &start=' + str(page)
+    def create_base_url(self, date, search_term, page=0):
+        date = date.split('-')
+        base = 'http://www.bing.com/news/search?q=marijuana&first=11'
         return base
 
     def run(self, search_term):
         self.search_term = search_term
-        self.get_links()
+        self.bing_links()
         self.get_articles()
 
 if __name__ == '__main__':
     search_term = sys.argv[1]
-    google = google_scrape()
-    google.run(search_term)
+    bing = bing_scrape()
+    bing.run(search_term)

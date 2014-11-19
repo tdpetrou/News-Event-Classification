@@ -60,6 +60,7 @@ class Event_Classify():
 	def attach_and_rank_topics(self):
 		self.topic_list = ['abortion', 'aca', 'gay', 'gun', 'immigration', \
 			'marijuana', 'palestine', 'terrorism']
+		self.topic_list = ['marijuana']
 		for topic in self.topic_list:
 			classify = classify_document(topic)
 			classify.run()
@@ -68,7 +69,7 @@ class Event_Classify():
 if __name__ == '__main__':
 	EC = Event_Classify()
 	# EC.run_scrapers(30)
-	EC.clean_data()
-	EC.combine_data()
+	# EC.clean_data()
+	# EC.combine_data()
 	EC.attach_and_rank_topics()
 

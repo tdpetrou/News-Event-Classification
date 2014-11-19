@@ -40,7 +40,7 @@ class clean_data():
 		msnbc = pd.read_csv('data/msnbc_' + self.major_category + '_data.csv').drop_duplicates()
 		goog = pd.read_csv('data/google_' + self.major_category + '_data.csv').drop_duplicates()
 
-		combined_data = pd.concat([nyt, npr, fox, msnbc])
+		combined_data = pd.concat([nyt, npr, fox, msnbc, goog])
 		combined_data['text'] = combined_data['text'].astype(str)
 		combined_data = combined_data[combined_data['text'].apply(len) > 700]
 		search_term = self.major_category.replace('_',' ')
@@ -67,6 +67,8 @@ class clean_data():
 
 
 if __name__ == '__main__':
-	pass
+	category = sys.argv[1]
+	clean = clean_data()
+	clean.run(category)
 
 
