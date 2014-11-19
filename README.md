@@ -9,7 +9,7 @@ Access the app below
 
 Online news sites are good at producing relavent articles when given a search term. Some sites even classify articles into subtopics. What is missing is the actual degree to which an event has occurred.  My app categorizes events for a search query into two polarizing sides. 
 
-![alt tag](https://raw.githubusercontent.com/tdpetrou/News-Event-Classification/master/images/news_search.png =700x300)
+![alt tag](https://raw.githubusercontent.com/tdpetrou/News-Event-Classification/master/images/news_search.png)
 
 ###Specifics
 
