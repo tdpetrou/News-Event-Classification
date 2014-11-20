@@ -130,8 +130,9 @@ class bing_scrape():
         return pieces[ind - 1]
 
     def get_date(self, text):
-        date_reg_exp = re.compile('2014[-/]\d{2}[-/]\d{2}')
+        date_reg_exp = re.compile('2014[-/][0-1]\d{1}[-/][0-3]\d{1}')
         matches_list = date_reg_exp.findall(text)
+        matches_list = [m for m in matches_list if m[-2] <= '31']
         if matches_list:
             return matches_list[0].replace('/', '-')
         return 0

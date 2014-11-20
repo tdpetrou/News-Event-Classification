@@ -48,3 +48,21 @@
 	width: 45%;
 	padding:15px;
 }
+
+.article_date {
+	color: #a4a4A4;
+	font-size: 12px;
+}
+
+.article_title {
+	font-family: "Tahoma", Geneva, sans-serif
+}
+
+.description {
+	font-weight: normal;
+}
+
+
+#start_button {
+	background-color: Transparent;
+}

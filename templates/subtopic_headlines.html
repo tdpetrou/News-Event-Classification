@@ -1,5 +1,5 @@
 <div class = "subtopicArticles"> 
-            <h2 class = "headerTitle">Articles on  {{ category }}   for {{ subtopic }}    </h2> 
+            <h2 class = "headerTitle">Articles on {{ subtopic }} NewVentified   </h2> 
             <div class = "headerContainer"> 
               <div class = headerSplit>  
                 <p class = headerTitle> The articles below rated the highest for {{ sides[0] }}    </p>  
@@ -13,40 +13,44 @@
               <div class = "myRow"> 
                 <div class= "individualArticle">  
                   <div class = "articleCircle"> 
-                    <img class="img-circle" src= " {{ image_url[0] }} " alt="Generic placeholder image" style="width: 140px;  height: 140px;"> 
-                  </div>  
-                  <h4>{{ title[0] }}</h4>  
-                  <p>{{ description[0] }}</p>  
-                  <p><a class="btn btn-default" href=" {{ url[0] }}" role="button" target = "_blank">View article &raquo;</a></p> 
+                    <a href = "{{ url[0] }}" target = "_blank"><img class="img-circle" src= " {{ image_url[0] }} " alt="Generic placeholder image" style="width: 110px;  height: 110px;"></a>
+                  </div>
+                  <div class = "article_date"><p>{{ source[0] }} - {{ date[0] }} </p>  </div>
+                  <a href = "{{ url[0] }}" target = "_blank"><h4 class = 'article_title'>{{ title[0] }}</h4></a>  
+                  <p class = "description">{{ description[0] }}</p>  
+                  </p> 
                 </div> 
 
                 <div class= "individualArticle">  
                  <div class = "articleCircle"> 
-                  <img class="img-circle" src= " {{ image_url[1] }} " alt="Generic placeholder image" style="width: 140px;  height: 140px;"> 
-                  </div> 
-                  <h4>{{ title[1] }}</h4>  
-                  <p>{{ description[1] }}</p>  
-                  <p><a class="btn btn-default" href=" {{ url[1] }}" role="button" target = "_blank">View article &raquo;</a></p> 
+                  <a href = "{{ url[0] }}" target = "_blank"><img class="img-circle" src= " {{ image_url[1] }} " alt="Generic placeholder image" style="width: 110px;  height: 110px;"></a> 
+                  </div>
+                  <div class = "article_date"><p>{{ source[1] }} - {{ date[1] }} </p>  </div>
+                  <a href = "{{ url[0] }}" target = "_blank"><h4 class = 'article_title'>{{ title[1] }}</h4></a>  
+                  <p class = "description">{{ description[1] }}</p>  
+                  </p> 
                 </div> 
               </div>  
 
               <div class = "myRow"> 
                 <div class= "individualArticle">  
                   <div class = "articleCircle"> 
-                    <img class="img-circle" src= " {{ image_url[2] }} " alt="Generic placeholder image" style="width: 140px;  height: 140px;"> 
-                  </div>  
-                  <h4>{{ title[2] }}</h4>  
-                  <p>{{ description[2] }}</p>  
-                  <p><a class="btn btn-default" href=" {{ url[2] }}" role="button" target = "_blank">View article &raquo;</a></p> 
+                    <a href = "{{ url[0] }}" target = "_blank"><img class="img-circle" src= " {{ image_url[2] }} " alt="Generic placeholder image" style="width: 110px;  height: 110px;"></a> 
+                  </div>
+                  <div class = "article_date"><p>{{ source[2] }} - {{ date[2] }} </p>  </div>  
+                  <a href = "{{ url[0] }}" target = "_blank"><h4 class = 'article_title'>{{ title[2] }}</h4></a>  
+                  <p class = "description">{{ description[2] }}</p>  
+                  </p> 
                 </div> 
 
                 <div class= "individualArticle">  
                  <div class = "articleCircle"> 
-                  <img class="img-circle" src= " {{ image_url[3] }} " alt="Generic placeholder image" style="width: 140px;  height: 140px;"> 
+                  <a href = "{{ url[0] }}" target = "_blank"><img class="img-circle" src= " {{ image_url[3] }} " alt="Generic placeholder image" style="width: 110px;  height: 110px;"></a> 
                   </div> 
-                  <h4>{{ title[3] }}</h4>  
-                  <p>{{ description[3] }}</p>  
-                  <p><a class="btn btn-default" href=" {{ url[3] }}" role="button" target = "_blank">View article &raquo;</a></p> 
+                  <div class = "article_date"><p>{{ source[3] }} - {{ date[3] }} </p>  </div>
+                  <a href = "{{ url[0] }}" target = "_blank"><h4 class = 'article_title'>{{ title[3] }}</h4></a>  
+                  <p class = "description">{{ description[3] }}</p>  
+                  </p> 
                 </div> 
               </div>
             </div>  
@@ -55,40 +59,44 @@
                 <div class = "myRow"> 
                 <div class= "individualArticle">  
                   <div class = "articleCircle"> 
-                    <img class="img-circle" src= " {{ image_url[4] }} " alt="Generic placeholder image" style="width: 140px;  height: 140px;"> 
-                  </div>  
-                  <h4>{{ title[4] }}</h4>  
-                  <p>{{ description[4] }}</p>  
-                  <p><a class="btn btn-default" href=" {{ url[4] }}" role="button" target = "_blank">View article &raquo;</a></p> 
+                    <a href = "{{ url[0] }}" target = "_blank"><img class="img-circle" src= " {{ image_url[4] }} " alt="Generic placeholder image" style="width: 110px;  height: 110px;"></a> 
+                  </div>
+                  <div class = "article_date"><p>{{ source[4] }} - {{ date[4] }} </p>  </div> 
+                  <a href = "{{ url[0] }}" target = "_blank"><h4 class = 'article_title'>{{ title[4] }}</h4></a>  
+                  <p class = "description">{{ description[4] }}</p>  
+                  </p> 
                 </div> 
 
                 <div class= "individualArticle">  
                  <div class = "articleCircle"> 
-                  <img class="img-circle" src= " {{ image_url[5] }} " alt="Generic placeholder image" style="width: 140px;  height: 140px;"> 
-                  </div> 
-                  <h4>{{ title[5] }}</h4>  
-                  <p>{{ description[5] }}</p>  
-                  <p><a class="btn btn-default" href=" {{ url[5] }}" role="button" target = "_blank">View article &raquo;</a></p> 
+                  <a href = "{{ url[0] }}" target = "_blank"><img class="img-circle" src= " {{ image_url[5] }} " alt="Generic placeholder image" style="width: 110px;  height: 110px;"></a> 
+                  </div>
+                  <div class = "article_date"><p>{{ source[5] }} - {{ date[5] }} </p>  </div>
+                  <a href = "{{ url[0] }}" target = "_blank"><h4 class = 'article_title'>{{ title[5] }}</h4></a>  
+                  <p class = "description">{{ description[5] }}</p>  
+                  </p> 
                 </div> 
               </div>  
 
               <div class = "myRow"> 
                 <div class= "individualArticle">  
                   <div class = "articleCircle"> 
-                    <img class="img-circle" src= " {{ image_url[6] }} " alt="Generic placeholder image" style="width: 140px;  height: 140px;"> 
-                  </div>  
-                  <h4>{{ title[6] }}</h4>  
-                  <p>{{ description[6] }}</p>  
-                  <p><a class="btn btn-default" href=" {{ url[6] }}" role="button" target = "_blank">View article &raquo;</a></p> 
+                    <a href = "{{ url[0] }}" target = "_blank"><img class="img-circle" src= " {{ image_url[6] }} " alt="Generic placeholder image" style="width: 110px;  height: 110px;"></a> 
+                  </div> 
+                  <div class = "article_date"><p>{{ source[6] }} - {{ date[6] }} </p>  </div>
+                  <a href = "{{ url[0] }}" target = "_blank"><h4 class = 'article_title'>{{ title[6] }}</h4></a>  
+                  <p class = "description">{{ description[6] }}</p>  
+                  </p> 
                 </div> 
 
                 <div class= "individualArticle">  
                  <div class = "articleCircle"> 
-                  <img class="img-circle" src= " {{ image_url[7] }} " alt="Generic placeholder image" style="width: 140px;  height: 140px;"> 
+                  <a href = "{{ url[0] }}" target = "_blank"><img class="img-circle" src= " {{ image_url[7] }} " alt="Generic placeholder image" style="width: 110px;  height: 110px;"></a>
                   </div> 
-                  <h4>{{ title[7] }}</h4>  
-                  <p>{{ description[7] }}</p>  
-                  <p><a class="btn btn-default" href=" {{ url[7] }}" role="button" target = "_blank">View article &raquo;</a></p> 
+                  <div class = "article_date"><p>{{ source[7] }} - {{ date[7] }} </p>  </div>
+                  <a href = "{{ url[0] }}" target = "_blank"><h4 class = 'article_title'>{{ title[7] }}</h4></a>  
+                  <p class = "description">{{ description[7] }}</p>  
+                  </p> 
                 </div> 
               </div>  
             </div>  

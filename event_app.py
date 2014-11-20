@@ -36,6 +36,7 @@ def get_subtopics():
 def get_subtopic_data():
     subtopic = request.args.get('subtopic', '', type=str)
     category = request.args.get('category', '', type=str)
+    subtopic_text = request.args.get('subtopic_text', '', type=str)
     subtopic_cat = subtopic.lower().replace(' ', '_')
     category = category.lower().replace(' ', '_')
     
@@ -47,13 +48,17 @@ def get_subtopic_data():
         password =  [line for line in f][0]
     engine = create_engine('mysql://EventClassify:' + password + '@EventClassify.db.5920383.hostedresource.com/EventClassify', pool_recycle=True)
     connection = engine.connect()
-    statement = "(SELECT url, image_url, title, description, `event score scaled` FROM `test_event3` " +  \
+    statement = "(SELECT  max(source) as source, max(url) as url, max(image_url) as image_url, " + \
+                "title, max(left(description, 250)) as description, max(publish_date) as publish_date," + \
+                " max(`event score scaled`) as `event score scaled` FROM `test_event3` " +  \
                 "WHERE category = '" + category +  "' and subcategory = '" + subtopic + \
-                    "' order by `event score scaled` limit 4)" + \
+                    "' group by title order by `event score scaled` limit 4)" + \
             " union " + \
-            "(SELECT url, image_url, title, description, `event score scaled` FROM `test_event3` " + \
+            "(SELECT  max(source) as source, max(url) as url, max(image_url) as image_url, " + \
+            " title, max(left(description, 250)) as description, max(publish_date) as publish_date," + \
+            " max(`event score scaled`) as `event score scaled` FROM `test_event3` " +  \
             "WHERE category = '" + category +  "' and subcategory = '" + subtopic + \
-            "' order by `event score scaled` desc limit 4)"
+            "' group by title order by `event score scaled` desc limit 4)"
     result = connection.execute(statement)
     print statement
     return_df = pd.DataFrame(result.fetchall())
@@ -61,16 +66,17 @@ def get_subtopic_data():
     print return_df['event score scaled'].values
     return render_template('subtopic_headlines.html', image_url = return_df['image_url'].values, 
         title = return_df['title'].values, description = return_df['description'].values, 
-        url = return_df['url'].values, sides = both_sides, category = category, subtopic = subtopic)
+        url = return_df['url'].values, date = return_df['publish_date'].values, sides = both_sides, 
+        category = category, subtopic = subtopic_text, source= return_df['source'].values)
 
 
 if __name__ == '__main__':
     #comments below are for pythonanywhere
     ######## WSGI Web file #############
     # import sys
-    # path = '/home/greeksquared/News-bias'
+    # path = '/home/greeksquared/News-Event-Classification'
     # if path not in sys.path:
     #     sys.path.append(path)
-    # from bias_app import app as application
+    # from event_app import app as application
     
     app.run(host='0.0.0.0', port=7070, debug=True)

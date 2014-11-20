@@ -108,7 +108,7 @@ class google_scrape():
         
     def get_date(self, text):
         try:
-            date_reg_exp = re.compile('2014[-/]\d{2}[-/]\d{2}')
+            date_reg_exp = re.compile('2014[-/][0-1]\d{1}[-/][0-3]\d{1}')
         except:
             return 0
         matches_list=date_reg_exp.findall(text)

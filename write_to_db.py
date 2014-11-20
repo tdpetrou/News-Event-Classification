@@ -20,7 +20,7 @@ for infile in listing:
 
 df = df.fillna('')
 df = df.drop_duplicates()
-
+print df.shape
 with open('data/ted.txt') as f:
 	password =  [line for line in f][0]
 
