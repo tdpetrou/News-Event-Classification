@@ -123,7 +123,7 @@ class fox_scrape():
 			'publish_date' : self.pub_dates, 'category' : self.search_term, 'title' : self.titles, \
 			'image_url' : self.image_urls, 'description' : self.descriptions}, \
 				 columns = ['source', 'url', 'image_url', 'title', 'description', 'text', 'publish_date', 'category'])	
-		frame.to_csv(file_search_term, index=False)
+		frame.to_csv(file_search_term, index=False, encoding='utf-8')
 
 if __name__ == '__main__':
 	search_term = sys.argv[1]

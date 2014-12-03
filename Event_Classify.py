@@ -5,10 +5,13 @@ from fox_scrape import fox_scrape
 from msnbc_scrape import msnbc_scrape
 from npr_scrape import npr_scrape
 from nyt_scrape import nyt_scrape
+from bing_scrape import bing_scrape
+from google_news_scrape import google_scrape
 
 from clean_scraped_data import clean_data
 from classify_and_score_articles import classify_document
 from get_event_score_ranges import Event_Score_Range
+from write_to_db import write_to_db
 import pandas as pd
 
 
@@ -19,8 +22,11 @@ class Event_Classify():
 		self.topic_list = ['abortion', 'affordable care act', 'gay', 'gun', 'immigration', \
 			'marijuana', 'obamacare', 'palestine', 'terrorism']
 
+
 	def run_scrapers(self, days=14):
 
+		bing = bing_scrape(days)
+		google = google_scrape(days)
 		fox = fox_scrape(days)
 		msnbc = msnbc_scrape(days)
 		npr = npr_scrape(days)
@@ -28,6 +34,8 @@ class Event_Classify():
 
 		for topic in self.topic_list:
 			print "\n\n", topic, "\n\n"
+			bing.run(topic)
+			google.run(topic)
 			fox.run(topic)
 			msnbc.run(topic)
 			npr.run(topic)
@@ -64,11 +72,17 @@ class Event_Classify():
 			classify = classify_document(topic)
 			classify.run()
 
+	def write_db(self):
+		wdb = write_to_db()
+		wdb.run()
+
+
 
 if __name__ == '__main__':
 	EC = Event_Classify()
-	# EC.run_scrapers(30)
-	# EC.clean_data()
-	# EC.combine_data()
+	EC.run_scrapers(1)
+	EC.clean_data()
+	EC.combine_data()
 	EC.attach_and_rank_topics()
+	EC.write_db()
 

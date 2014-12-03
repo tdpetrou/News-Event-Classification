@@ -11,9 +11,17 @@ import sys
 
 class bing_scrape():
 
-    def __init__(self):
+    def __init__(self, days):
         current_day = datetime.datetime.now()
         self.start_date = current_day.strftime('%Y-%m-%d')
+        self.days=days
+        self.search_date = '7'
+        if self.days == 7:
+            self.search_date = '8'
+        elif self.days == 30:
+            self.search_date = '9'
+
+
 
     def reuters_links(self):
         links - []
@@ -32,7 +40,10 @@ class bing_scrape():
         links = []
         results = 150
         while page * 10 < results:
-            req = requests.get('http://www.bing.com/news/search?q=' + self.search_term.replace(' ', '+') + '&qft=interval%3d%"9"&first=' + str(page))
+            req_text = 'http://www.bing.com/news/search?q=' + self.search_term.replace(' ', '+') + '&qft=interval%3d"'
+            # req = 'http://www.bing.com/news/search?q=' + self.search_term.replace(' ', '+') + '&qft=interval%3d'
+            req_text += self.search_date + '"&first=' + str(page)
+            req = requests.get(req_text)
             page += 10
             soup = BeautifulSoup(req.text)
             results = int(soup.findAll('span', {'class': 'ResultsCount'})[0].text.split()[0].replace(',', ''))
@@ -90,14 +101,17 @@ class bing_scrape():
             except:
                 image_urls.append('#')
 
-            date = self.get_date(req.text) 
-            if not date:
-                try:
-                    new_dates.append(new_dates[-1])
-                except IndexError:
-                    new_dates.append(self.start_date)
+            if self.days != 1:
+                date = self.get_date(req.text) 
+                if not date:
+                    try:
+                        new_dates.append(new_dates[-1])
+                    except IndexError:
+                        new_dates.append(self.start_date)
+                else:
+                    new_dates.append(date)
             else:
-                new_dates.append(date)
+                new_dates.append(self.start_date)
 
             sources.append(self.get_source(link))
         # print "art", len(articles)
@@ -112,7 +126,7 @@ class bing_scrape():
                 'title': titles, 'image_url': image_urls, 'description' : descriptions}, \
                 columns = ['source', 'url', 'image_url', 'title', 'description', 'text', 'publish_date', 'category'])
         frame = frame.dropna()
-        frame.to_csv('data/bing_' + self.search_term.replace(' ', '_') + '_data.csv', index=False)
+        frame.to_csv('data/bing_' + self.search_term.replace(' ', '_') + '_data.csv', index=False, encoding='utf-8')
         
     def get_source(self, url):
         pieces = []
@@ -146,11 +160,6 @@ class bing_scrape():
         text = text.replace(a, '')
         text = text.replace(b, '')
         return text
-
-    def create_base_url(self, date, search_term, page=0):
-        date = date.split('-')
-        base = 'http://www.bing.com/news/search?q=marijuana&first=11'
-        return base
 
     def run(self, search_term):
         self.search_term = search_term

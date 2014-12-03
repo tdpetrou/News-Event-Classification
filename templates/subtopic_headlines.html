@@ -1,6 +1,10 @@
-<div class = "subtopicArticles"> 
-            <h2 class = "headerTitle">Articles on {{ subtopic }} NewVentified   </h2> 
+<div class = "subtopicArticles">             
+      
             <div class = "headerContainer"> 
+              <br><br><br>
+              <div>
+              <h2 class = "headerTitle">   Articles on {{ subtopic }} NewVentified   </h2> 
+            </div>
               <div class = headerSplit>  
                 <p class = headerTitle> The articles below rated the highest for {{ sides[0] }}    </p>  
               </div> 
@@ -9,6 +13,7 @@
               </div> 
             </div> 
 
+          <div class = "allArticles">
             <div class = "articleSplit" id = "leftArticleSplit"> 
               <div class = "myRow"> 
                 <div class= "individualArticle">  
@@ -23,10 +28,10 @@
 
                 <div class= "individualArticle">  
                  <div class = "articleCircle"> 
-                  <a href = "{{ url[0] }}" target = "_blank"><img class="img-circle" src= " {{ image_url[1] }} " alt="Generic placeholder image" style="width: 110px;  height: 110px;"></a> 
+                  <a href = "{{ url[1] }}" target = "_blank"><img class="img-circle" src= " {{ image_url[1] }} " alt="Generic placeholder image" style="width: 110px;  height: 110px;"></a> 
                   </div>
                   <div class = "article_date"><p>{{ source[1] }} - {{ date[1] }} </p>  </div>
-                  <a href = "{{ url[0] }}" target = "_blank"><h4 class = 'article_title'>{{ title[1] }}</h4></a>  
+                  <a href = "{{ url[1] }}" target = "_blank"><h4 class = 'article_title'>{{ title[1] }}</h4></a>  
                   <p class = "description">{{ description[1] }}</p>  
                   </p> 
                 </div> 
@@ -35,20 +40,20 @@
               <div class = "myRow"> 
                 <div class= "individualArticle">  
                   <div class = "articleCircle"> 
-                    <a href = "{{ url[0] }}" target = "_blank"><img class="img-circle" src= " {{ image_url[2] }} " alt="Generic placeholder image" style="width: 110px;  height: 110px;"></a> 
+                    <a href = "{{ url[2] }}" target = "_blank"><img class="img-circle" src= " {{ image_url[2] }} " alt="Generic placeholder image" style="width: 110px;  height: 110px;"></a> 
                   </div>
                   <div class = "article_date"><p>{{ source[2] }} - {{ date[2] }} </p>  </div>  
-                  <a href = "{{ url[0] }}" target = "_blank"><h4 class = 'article_title'>{{ title[2] }}</h4></a>  
+                  <a href = "{{ url[2] }}" target = "_blank"><h4 class = 'article_title'>{{ title[2] }}</h4></a>  
                   <p class = "description">{{ description[2] }}</p>  
                   </p> 
                 </div> 
 
                 <div class= "individualArticle">  
                  <div class = "articleCircle"> 
-                  <a href = "{{ url[0] }}" target = "_blank"><img class="img-circle" src= " {{ image_url[3] }} " alt="Generic placeholder image" style="width: 110px;  height: 110px;"></a> 
+                  <a href = "{{ url[3] }}" target = "_blank"><img class="img-circle" src= " {{ image_url[3] }} " alt="Generic placeholder image" style="width: 110px;  height: 110px;"></a> 
                   </div> 
                   <div class = "article_date"><p>{{ source[3] }} - {{ date[3] }} </p>  </div>
-                  <a href = "{{ url[0] }}" target = "_blank"><h4 class = 'article_title'>{{ title[3] }}</h4></a>  
+                  <a href = "{{ url[3] }}" target = "_blank"><h4 class = 'article_title'>{{ title[3] }}</h4></a>  
                   <p class = "description">{{ description[3] }}</p>  
                   </p> 
                 </div> 
@@ -59,21 +64,21 @@
                 <div class = "myRow"> 
                 <div class= "individualArticle">  
                   <div class = "articleCircle"> 
-                    <a href = "{{ url[0] }}" target = "_blank"><img class="img-circle" src= " {{ image_url[4] }} " alt="Generic placeholder image" style="width: 110px;  height: 110px;"></a> 
+                    <a href = "{{ url[link_count - 1] }}" target = "_blank"><img class="img-circle" src= " {{ image_url[ link_count  - 1] }} " alt="Generic placeholder image" style="width: 110px;  height: 110px;"></a> 
                   </div>
-                  <div class = "article_date"><p>{{ source[4] }} - {{ date[4] }} </p>  </div> 
-                  <a href = "{{ url[0] }}" target = "_blank"><h4 class = 'article_title'>{{ title[4] }}</h4></a>  
-                  <p class = "description">{{ description[4] }}</p>  
+                  <div class = "article_date"><p>{{ source[link_count - 1] }} - {{ date[link_count - 1] }} </p>  </div> 
+                  <a href = "{{ url[link_count - 1] }}" target = "_blank"><h4 class = 'article_title'>{{ title[link_count - 1] }}</h4></a>  
+                  <p class = "description">{{ description[link_count - 1] }}</p>  
                   </p> 
                 </div> 
 
                 <div class= "individualArticle">  
                  <div class = "articleCircle"> 
-                  <a href = "{{ url[0] }}" target = "_blank"><img class="img-circle" src= " {{ image_url[5] }} " alt="Generic placeholder image" style="width: 110px;  height: 110px;"></a> 
+                  <a href = "{{ url[link_count - 2] }}" target = "_blank"><img class="img-circle" src= " {{ image_url[link_count - 2] }} " alt="Generic placeholder image" style="width: 110px;  height: 110px;"></a> 
                   </div>
-                  <div class = "article_date"><p>{{ source[5] }} - {{ date[5] }} </p>  </div>
-                  <a href = "{{ url[0] }}" target = "_blank"><h4 class = 'article_title'>{{ title[5] }}</h4></a>  
-                  <p class = "description">{{ description[5] }}</p>  
+                  <div class = "article_date"><p>{{ source[link_count - 2] }} - {{ date[link_count - 2] }} </p>  </div>
+                  <a href = "{{ url[link_count - 2] }}" target = "_blank"><h4 class = 'article_title'>{{ title[link_count - 2] }}</h4></a>  
+                  <p class = "description">{{ description[link_count - 2] }}</p>  
                   </p> 
                 </div> 
               </div>  
@@ -81,24 +86,67 @@
               <div class = "myRow"> 
                 <div class= "individualArticle">  
                   <div class = "articleCircle"> 
-                    <a href = "{{ url[0] }}" target = "_blank"><img class="img-circle" src= " {{ image_url[6] }} " alt="Generic placeholder image" style="width: 110px;  height: 110px;"></a> 
+                    <a href = "{{ url[link_count - 3] }}" target = "_blank"><img class="img-circle" src= " {{ image_url[link_count - 3] }} " alt="Generic placeholder image" style="width: 110px;  height: 110px;"></a> 
                   </div> 
-                  <div class = "article_date"><p>{{ source[6] }} - {{ date[6] }} </p>  </div>
-                  <a href = "{{ url[0] }}" target = "_blank"><h4 class = 'article_title'>{{ title[6] }}</h4></a>  
-                  <p class = "description">{{ description[6] }}</p>  
+                  <div class = "article_date"><p>{{ source[link_count - 3] }} - {{ date[link_count - 3] }} </p>  </div>
+                  <a href = "{{ url[link_count - 3] }}" target = "_blank"><h4 class = 'article_title'>{{ title[link_count - 3] }}</h4></a>  
+                  <p class = "description">{{ description[link_count - 3] }}</p>  
                   </p> 
                 </div> 
 
                 <div class= "individualArticle">  
                  <div class = "articleCircle"> 
-                  <a href = "{{ url[0] }}" target = "_blank"><img class="img-circle" src= " {{ image_url[7] }} " alt="Generic placeholder image" style="width: 110px;  height: 110px;"></a>
+                  <a href = "{{ url[link_count - 4] }}" target = "_blank"><img class="img-circle" src= " {{ image_url[link_count - 4] }} " alt="Generic placeholder image" style="width: 110px;  height: 110px;"></a>
                   </div> 
-                  <div class = "article_date"><p>{{ source[7] }} - {{ date[7] }} </p>  </div>
-                  <a href = "{{ url[0] }}" target = "_blank"><h4 class = 'article_title'>{{ title[7] }}</h4></a>  
-                  <p class = "description">{{ description[7] }}</p>  
+                  <div class = "article_date"><p>{{ source[link_count - 4] }} - {{ date[link_count - 4] }} </p>  </div>
+                  <a href = "{{ url[link_count - 4] }}" target = "_blank"><h4 class = 'article_title'>{{ title[link_count - 4] }}</h4></a>  
+                  <p class = "description">{{ description[link_count - 4] }}</p>  
                   </p> 
                 </div> 
               </div>  
             </div>  
-            <div class = "result"></div> 
           </div>
+
+</div>
+
+<br><br><br>
+
+        <div class = "articleTables">
+            <h3 id = "articleTableHeader">
+              More top articles on {{ subtopic.lower() }} sorted by score
+            </h3>
+          <div class = 'articleTableRow' id = "leftArticleTable">
+
+            <table class = "table table_bordered actualArticleTable">
+              <tr>
+                <th>News Source</th>
+                <th>Article Title</th>
+                <th>Short Description</th>
+              </tr>
+              {% for i in range(4, link_count_half)  %}
+              <tr>
+                <td>{{ source[i] }}</td>
+                <td><a href = "{{ url[i] }}" target = "_blank"> {{ title[i] }}</a></td>
+                <td>{{ ' '.join(description[i].split()[:12]) + '...' }}</td>
+              </tr>
+              {% endfor %}
+            </table>
+          </div>
+          <div class = 'articleTableRow' id = "rightArticleTable">
+            <table class = "table table_bordered actualArticleTable">
+              <tr>
+                <th>News Source</th>
+                <th>Article Title</th>
+                <th>Short Description</th>
+              </tr>
+              {% for i in range(link_count - 5, link_count_half, -1)  %}
+              <tr>
+                <td>{{ source[i] }}</td>
+                <td><a href = "{{ url[i] }}" target = "_blank"> {{ title[i] }}</a></td>
+                <td>{{ ' '.join(description[i].split()[:12]) + '...' }}</td>
+              </tr>
+              {% endfor %}
+            </table>
+          </div>
+        </div>
+

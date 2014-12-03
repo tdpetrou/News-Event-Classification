@@ -80,7 +80,7 @@
                 </a>
               </li>
             </ul>
-        </div><!--/.navbar-collapse -->
+        </div><!-- /.navbar-collapse  -->
       </div>
     </nav>
 
@@ -104,12 +104,14 @@
         </div><!-- /.container -->
     </div>
 
+   
+
 
 
     <!-- Carousel
     ================================================== -->
-    <div class="major_topics_outside">
-      <div class="container major-topics">
+    <div class=" container major_topics_outside">
+      <div class="container major-topics-container">
         <h2 class = "headerTitle">Step 1: Choose a News Topic</h2>
          <div class="row">
           <div class="col-lg-3" id = "obamacareButton">
@@ -158,18 +160,25 @@
       $('.major-topics').bind('click', function() {
         var $category = $(this).attr("data-topic");
         selected_topic = $(this).text();
+        unshadeButtons('.major-topics');
+        $(this).css("background","green");
         $.getJSON($SCRIPT_ROOT + '/_get_subtopics', {
           category: $(this).attr("data-topic")
         }, function(data) {
             $('.subtopicContainer').remove();
             $('.subtopicArticles').remove();
-            var NewContent = '<div class = "container subtopicContainer"><h2 class = "headerTitle">Step 2: Choose a subtopic</h2><div class="row_subtopics"></div></div>';
+            $('.articleTables').remove();
+            var NewContent = '<div class = "subtopicContainer"><h2 class = "headerTitle">Step 2: Choose a subtopic</h2><div class="row_subtopics"></div></div>';
             var $major_topics = $('.major_topics_outside');
-            $(NewContent).insertAfter($major_topics).hide().slideDown("slow");
+            // var $major_topics = $('.foot');
+            $(NewContent).insertAfter($major_topics) //.hide().slideDown("slow");
+            // $(NewContent).insertBefore('.foot').hide().slideDown("slow");
+            // $('.foot').after($(NewContent))
+
           $.each(data, function() {
             $.each(this, function(k, v) {
               $(".row_subtopics").append('<div class="col-md-2"><p><a class="btn btn-default major-subtopics"' + 
-                ' role = "button" data-topic = "' + $category + '"">' 
+                ' role = "button" data-topics = "' + $category + '"">' 
                 + v + '</a></p></div>').hide().slideDown("slow");
             });
           });
@@ -180,47 +189,72 @@
       });
     });
 
+    function unshadeButtons(class_name){
+      $(class_name).each(function() {
+        $(this).css("background","white");
+      });
+    }
+
     function clickSubtopic() {
       $('.major-subtopics').bind('click', function() {
-        var $category = $(this).attr("data-topic");
+        var $category = $(this).attr("data-topics");
         var $category_text = $('*[data-topic="' + $category + '"]').first().text();
         var $subtopic = $(this).text();
+        unshadeButtons('.major-subtopics')
+        $(this).css("background","green");
         $.get($SCRIPT_ROOT + '/_get_subtopic_data', {
           subtopic: $subtopic,
           category: $category,
           subtopic_text: selected_topic
         }, function(data) {
             $('.subtopicArticles').remove();
+            $('.articleTables').remove();
+
             var $insertDiv = $('.subtopicContainer');
+            // var $insertDiv = $('.foot');
             var NewContent = data
-            // $(NewContent).insertAfter($insertDiv).hide().slideDown("slow");
-            $(NewContent).insertAfter($insertDiv);
+            $(NewContent).insertAfter($insertDiv);//.hide().slideDown("slow");
+
+         shadeButton($category, 2)
          scrollToArticles();
-         attachTable();
+         changeHeight('.articleSplit');
+         changeHeight('.articleTableRow'); 
         });
         return false;
       });
     };
 
-    function attachTable(){
-        var NewContent = 'ack im an extra';
-        var $major_topics = $('.subtopicArticles');
-        $(NewContent).insertAfter($major_topics).hide().slideDown("slow");
-    }
 
     function scrollToSubtopics(){
       $("html, body").animate({ scrollTop: $(document).height() }, "slow");
     }
 
     function scrollToArticles(){
-      // var $anchor = $('.subtopicArticles').offset();
-      // window.scrollTo($anchor.left, $anchor.bottom);
       $('html, body').animate({
-              // window.scrollTo($anchor.left, $anchor.bottom);
-              // scrollTop: $('.subtopicArticles').height()
               scrollTop: $(".major-subtopics").offset().top - 100
         }, 'slow');
     }
+
+
+    function changeHeight(class_name){
+
+      var $max_height = 0;
+      var $cur_height = 0;
+
+     $(class_name).each(function() {
+
+       $cur_div = $(this);
+       $cur_height = $cur_div.height();
+       
+       if ($cur_height > $max_height) {
+        $max_height = $cur_height;
+       }
+    });
+
+    $(class_name).each(function() {
+        $(this).css("height", $max_height); 
+      });
+   }
 
     </script>
     <!-- Bootstrap core JavaScript

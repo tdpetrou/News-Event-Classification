@@ -169,7 +169,7 @@ class nyt_scrape():
             'title': self.titles, 'image_url': self.image_urls, 'description' : self.descriptions}, \
             columns = ['source', 'url', 'image_url', 'title', 'description', 'text', 'publish_date', 'category'])
 
-        frame.to_csv('data/nyt_' + self.search_word.replace(' ', '_') + '_data.csv', index=False)
+        frame.to_csv('data/nyt_' + self.search_word.replace(' ', '_') + '_data.csv', index=False, encoding='utf-8')
 
 if __name__ == '__main__':
     search_term = sys.argv[1]

@@ -11,8 +11,16 @@ import sys
 
 class google_scrape():
 
-    def __init__(self):
-        pass
+    def __init__(self, days=7):
+        self.days = days
+        self.url_add = '&tbs=qdr:d'
+        if days == 7:
+            self.url_add = '&tbs=qdr:w'
+        elif days == 30:
+            self.url_add = '&tbs=qdr:m'
+        
+
+
 
     def get_links(self):
         self.all_dates = []
@@ -21,7 +29,7 @@ class google_scrape():
         current_day = datetime.datetime.now()
 
         self.start_date = current_day.strftime('%Y-%m-%d')
-        for page in range(0, 300, 10):
+        for page in range(0, 70, 10):
             base = self.create_base_url(page)
             print base
             req = requests.get(base) 
@@ -92,10 +100,17 @@ class google_scrape():
             except IndexError:
                 image_urls.append('#')
 
-            date = self.get_date(req.text) 
-            new_dates.append(date)
-            if not date:
-                new_dates[-1] = new_dates[-2]
+            #new dates
+            if self.days != 1:
+                date = self.get_date(req.text) 
+                new_dates.append(date)
+                if not date:
+                    try:
+                        new_dates[-1] = new_dates[-2]
+                    except IndexError:
+                        new_dates[-1] = self.start_date                    
+            else:
+                new_dates.append(self.start_date)
 
             sources.append(self.get_source(link))
 
@@ -104,7 +119,7 @@ class google_scrape():
                 'title': titles, 'image_url': image_urls, 'description' : descriptions}, \
                 columns = ['source', 'url', 'image_url', 'title', 'description', 'text', 'publish_date', 'category'])
         frame = frame.dropna()
-        frame.to_csv('data/google_' + self.search_term.replace(' ', '_') + '_data.csv', index=False)
+        frame.to_csv('data/google_' + self.search_term.replace(' ', '_') + '_data.csv', index=False, encoding='utf-8')
         
     def get_date(self, text):
         try:
@@ -143,7 +158,7 @@ class google_scrape():
 
     def create_base_url(self, page=0):
         base = 'https://www.google.com/search?hl=en&gl=us&tbm=nws&authuser=0&q=' \
-            + self.search_term.replace(' ', '_') + ' &start=' + str(page)
+            + self.search_term.replace(' ', '_') + ' &start=' + str(page) + self.url_add
         return base
 
     def run(self, search_term):
