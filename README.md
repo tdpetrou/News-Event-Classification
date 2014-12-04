@@ -38,3 +38,8 @@ A large cohort of articles must be obtained to train the model to help precisely
 * Now that a training set of articles has been created, new articles can be scraped, given suptopics, event scores and are stored online in a mysql db.
 
 * This mysql db is accessed through ajax requests which then display the articles by event type on the web.
+
+
+####Screenshot
+
+![alt tag](https://github.com/tdpetrou/News-Event-Classification/blob/master/static/preview.png)
