@@ -1,3 +1,8 @@
+
+<div class = "timeContainer">
+<br><br>
+
+<h2 class = "headerTitle">Step 3: Choose Date Range </h2>
 <div class = "dropDownAndTitle">
     <div class="dropdown">
     <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-expanded="true">
@@ -5,9 +10,44 @@
       <span class="caret"></span>
     </button>
     <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1">
-      <li role="presentation"><a class = "dropDownTime" role="menuitem" tabindex="-1" >Any Time</a></li>
-      <li role="presentation"><a class = "dropDownTime" role="menuitem" tabindex="-1" >Past 7 Days</a></li>
-      <li role="presentation"><a class = "dropDownTime" role="menuitem" tabindex="-1" >Past 30 Days</a></li>
+      <li role="presentation"><a class = "dropDownTime" role="menuitem" tabindex="-1" data-days = "1000">Any Time</a></li>
+      <li role="presentation"><a class = "dropDownTime" role="menuitem" tabindex="-1" data-days = "7">Past 7 Days</a></li>
+      <li role="presentation"><a class = "dropDownTime" role="menuitem" tabindex="-1" data-days = "30">Past 30 Days</a></li>
     </ul>
   </div>   
 </div>
+
+</div>
+
+<div class = "emptyDiv"></div>
+
+<script type="text/javascript">
+$(function() {  
+    $(".dropDownTime").css('cursor', 'pointer');
+    $(".dropDownTime").bind('click', function() {
+      $(".emptyDiv").remove();
+      $days = $(this).attr("data-days");
+      var timeText = $(this).text();
+      $("#dropdownMenu1").html(timeText  + " <span class = 'caret'></span>"); 
+
+      $.get($SCRIPT_ROOT + '/_get_subtopic_data', {
+        subtopic: selected_subtopic,
+        category: selected_topic,
+        subtopic_text: selected_category_text,
+        days: $days
+      }, function(data) {
+          $('.subtopicArticles').remove();
+          $('.articleTables').remove();
+
+          var $insertDiv = $('.timeContainer');
+          var NewContent = data
+          $(NewContent).insertAfter($insertDiv);
+
+       scrollToArticles();
+       changeHeight('.articleSplit');
+       changeHeight('.articleTableRow'); 
+      });
+      
+    });
+  });
+</script>

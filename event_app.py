@@ -40,6 +40,7 @@ def get_subtopic_data():
     subtopic = request.args.get('subtopic', '', type=str)
     category = request.args.get('category', '', type=str)
     subtopic_text = request.args.get('subtopic_text', '', type=str)
+    days = request.args.get('days', '', type=str)
     subtopic_cat = subtopic.lower().replace(' ', '_')
     category = category.lower().replace(' ', '_')
     
@@ -56,14 +57,16 @@ def get_subtopic_data():
                 "title, max(left(description, 250)) as description, max(publish_date) as publish_date," + \
                 " max(`event score scaled`) as `event score scaled` FROM `unique_url` " +  \
                 "WHERE category = '" + category +  "' and subcategory = '" + subtopic + \
-                    "' group by title order by `event score scaled` limit 14)" + \
+                "' and publish_date > DATE_ADD(curdate(), interval -" + days + " day) " + \
+                " group by title order by `event score scaled` limit 14)" + \
             " union " + \
             "(SELECT * FROM" + \
             "(SELECT  max(source) as source, max(url) as url, max(image_url) as image_url, " + \
             " title, max(left(description, 250)) as description, max(publish_date) as publish_date," + \
             " max(`event score scaled`) as `event score scaled` FROM `unique_url` " +  \
             "WHERE category = '" + category +  "' and subcategory = '" + subtopic + \
-            "' group by title order by `event score scaled` desc limit 14) as temp " + \
+            "' and publish_date > DATE_ADD(curdate(), interval -" + days + " day) " + \
+            " group by title order by `event score scaled` desc limit 14) as temp " + \
             "ORDER BY `event score scaled`)"
     result = connection.execute(statement)
     print statement

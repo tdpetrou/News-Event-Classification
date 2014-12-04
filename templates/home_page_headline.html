@@ -152,6 +152,7 @@
             $('.subtopicContainer').remove();
             $('.subtopicArticles').remove();
             $('.articleTables').remove();
+            $(".timeContainer").remove();
             var NewContent = '<div class = "subtopicContainer"><h2 class = "headerTitle">Step 2: Choose a Subtopic</h2><div class="row_subtopics"></div></div>';
             var $major_topics = $('.major_topics_outside');
             $(NewContent).insertAfter($major_topics)
@@ -170,8 +171,6 @@
       });
     });
 
-
-
     function clickSubtopic() {
       $('.major-subtopics').bind('click', function() {
         var $category = $(this).attr("data-topics");
@@ -187,42 +186,12 @@
           }, function(data) {
               var $insertDiv = $('.subtopicContainer');
               var NewContent = data
-              $(NewContent).insertAfter($insertDiv);
+              $(NewContent).insertAfter($insertDiv).hide().slideDown("slow");
           });
-        changeTime();
+        $(".timeContainer").remove();
+        scrollToSubtopics();
       });
     }
-
-   function changeTime(){
-    $(function() {
-      $(".dropDownTime").css('cursor', 'pointer');
-      $(".dropDownTime").bind('click', function() {
-        var timeText = $(this).text();
-        if (timeText != $("#dropdownMenu1").text()){
-          $("#dropdownMenu1").html(timeText  + " <span class = 'caret'></span>"); 
-
-          $.get($SCRIPT_ROOT + '/_get_subtopic_data', {
-            subtopic: selected_subtopic,
-            category: selected_topic,
-            subtopic_text: selected_topic
-          }, function(data) {
-              $('.subtopicArticles').remove();
-              $('.articleTables').remove();
-              // alert('howdy');
-
-              var $insertDiv = $('.subtopicContainer');
-              var NewContent = data
-              $(NewContent).insertAfter($insertDiv);
-
-           scrollToArticles();
-           changeHeight('.articleSplit');
-           changeHeight('.articleTableRow'); 
-          });
-        }
-      });
-
-    });
-   }
 
     function unshadeButtons(class_name){
       $(class_name).each(function() {
@@ -237,7 +206,7 @@
 
     function scrollToArticles(){
       $('html, body').animate({
-              scrollTop: $(".major-subtopics").offset().top - 100
+              scrollTop: $(".timeContainer").offset().top - 100
         }, 'slow');
     }
 
