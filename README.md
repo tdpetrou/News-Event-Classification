@@ -9,7 +9,7 @@ Access the app below
 
 Online news sites are good at producing relevant articles when given a search term. Some sites even classify articles into subtopics. What is missing is the actual degree to which an event has occurred.  The image below is a Fox News search query result that is typical of major news outlets. Though the articles returned to the user are relevant to the search term, there is no method to search for the degree of the event within the topic searched.
 
-![alt tag](https://raw.githubusercontent.com/tdpetrou/News-Event-Classification/master/images/news_search.png)
+![alt tag](https://raw.githubusercontent.com/tdpetrou/News-Event-Classification/master/static/news_search.png)
 
 Instead of showing articles by relevance, NewVentify returns articles to the user based on degree of events contained within the search. For instance, if the user searches for 'drug cartels', they will be returned articles that best represent the events 'cartel violence' and 'cartel capture and seizure'. These are the two most prominent and polarizing events within the drug cartel category.
 
