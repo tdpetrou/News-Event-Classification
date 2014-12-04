@@ -21,11 +21,12 @@ class Event_Classify():
 	def __init__(self):
 		self.topic_list = ['abortion', 'affordable care act', 'gay', 'gun', 'immigration', \
 			'marijuana', 'obamacare', 'palestine', 'terrorism']
+		# self.topic_list = ['marijuana', 'obamacare', 'palestine', 'terrorism']
 
 
 	def run_scrapers(self, days=14):
 
-		bing = bing_scrape(days)
+		# bing = bing_scrape(days)
 		google = google_scrape(days)
 		fox = fox_scrape(days)
 		msnbc = msnbc_scrape(days)
@@ -34,7 +35,7 @@ class Event_Classify():
 
 		for topic in self.topic_list:
 			print "\n\n", topic, "\n\n"
-			bing.run(topic)
+			# bing.run(topic)
 			google.run(topic)
 			fox.run(topic)
 			msnbc.run(topic)
@@ -80,9 +81,9 @@ class Event_Classify():
 
 if __name__ == '__main__':
 	EC = Event_Classify()
-	EC.run_scrapers(1)
+	# EC.run_scrapers(5)
 	EC.clean_data()
 	EC.combine_data()
-	EC.attach_and_rank_topics()
-	EC.write_db()
+	# EC.attach_and_rank_topics()
+	# EC.write_db()
 

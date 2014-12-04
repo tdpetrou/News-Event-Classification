@@ -188,6 +188,8 @@
               var NewContent = data
               $(NewContent).insertAfter($insertDiv).hide().slideDown("slow");
           });
+        $('.articleTables').remove();
+        $('.subtopicArticles').remove();
         $(".timeContainer").remove();
         scrollToSubtopics();
       });

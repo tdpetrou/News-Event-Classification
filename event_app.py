@@ -53,21 +53,20 @@ def get_subtopic_data():
     # engine = create_engine('mysql://EventClassify:' + password + '@EventClassify.db.5920383.hostedresource.com/EventClassify', pool_recycle=True)
     engine = create_engine('mysql://gamethe2:' + password + '@box969.bluehost.com/gamethe2_EventClassify', pool_recycle=True)
     connection = engine.connect()
-    statement = "(SELECT  max(source) as source, max(url) as url, max(image_url) as image_url, " + \
+    statement = "(SELECT max(source) as source, max(url) as url, max(image_url) as image_url, " + \
                 "title, max(left(description, 250)) as description, max(publish_date) as publish_date," + \
                 " max(`event score scaled`) as `event score scaled` FROM `unique_url` " +  \
                 "WHERE category = '" + category +  "' and subcategory = '" + subtopic + \
                 "' and publish_date > DATE_ADD(curdate(), interval -" + days + " day) " + \
                 " group by title order by `event score scaled` limit 14)" + \
             " union " + \
-            "(SELECT * FROM" + \
             "(SELECT  max(source) as source, max(url) as url, max(image_url) as image_url, " + \
             " title, max(left(description, 250)) as description, max(publish_date) as publish_date," + \
             " max(`event score scaled`) as `event score scaled` FROM `unique_url` " +  \
             "WHERE category = '" + category +  "' and subcategory = '" + subtopic + \
             "' and publish_date > DATE_ADD(curdate(), interval -" + days + " day) " + \
-            " group by title order by `event score scaled` desc limit 14) as temp " + \
-            "ORDER BY `event score scaled`)"
+            " group by title order by `event score scaled` desc limit 14) " + \
+            "ORDER BY `event score scaled` "
     result = connection.execute(statement)
     print statement
     return_df = pd.DataFrame(result.fetchall())
