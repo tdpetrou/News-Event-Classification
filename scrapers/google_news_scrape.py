@@ -20,8 +20,6 @@ class google_scrape():
             self.url_add = '&tbs=qdr:m'
         
 
-
-
     def get_links(self):
         self.all_dates = []
         DD = datetime.timedelta(2)
@@ -110,6 +108,7 @@ class google_scrape():
                     except IndexError:
                         new_dates[-1] = self.start_date                    
             else:
+                print('date is', self.start_date)
                 new_dates.append(self.start_date)
 
             sources.append(self.get_source(link))

@@ -81,7 +81,7 @@ class Event_Classify():
 
 if __name__ == '__main__':
 	EC = Event_Classify()
-	# EC.run_scrapers(5)
+	EC.run_scrapers(1)
 	EC.clean_data()
 	EC.combine_data()
 	# EC.attach_and_rank_topics()
