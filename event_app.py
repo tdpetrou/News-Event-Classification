@@ -28,8 +28,11 @@ def get_subtopics():
     category = category.lower().replace(' ', '_')
     with open('data/subtopics/' + category + '_subtopics.txt', 'r') as f:
         all_sub_cats = [line[:-1] for line in f]
-    # print all_sub_cats
     return jsonify(result=all_sub_cats)
+
+@app.route('/_show_time')
+def show_time():
+    return render_template('drop_down_time.html')
 
 
 @app.route('/_get_subtopic_data')

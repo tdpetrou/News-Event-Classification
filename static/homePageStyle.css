@@ -17,6 +17,20 @@
 	/*border: 1px blue dashed;*/
 }
 
+.dropdown {
+	/*border: 1px red dotted;*/
+	display: inline-block;
+}
+
+.titleContainer {
+	/*border: 1px red dotted;*/
+	text-align: center;
+}
+
+.dropDownAndTitle {
+	text-align: center;
+}
+
 .headerTitle {
 	text-align: center;
 }
