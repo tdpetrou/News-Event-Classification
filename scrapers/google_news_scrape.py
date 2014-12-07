@@ -17,8 +17,7 @@ class google_scrape():
         if days == 7:
             self.url_add = '&tbs=qdr:w'
         elif days == 30:
-            self.url_add = '&tbs=qdr:m'
-        
+            self.url_add = '&tbs=qdr:m' 
 
     def get_links(self):
         self.all_dates = []
@@ -31,7 +30,7 @@ class google_scrape():
             base = self.create_base_url(page)
             print base
             req = requests.get(base) 
-            time.sleep(1)
+            time.sleep(3)
             soup = BeautifulSoup(req.text, 'html.parser')
             for a in soup.findAll('a'):
                 h = a['href']
@@ -97,6 +96,8 @@ class google_scrape():
                 image_urls.append(soup.findAll(attrs =  {'property' : 'og:image'})[0].attrs['content'])
             except IndexError:
                 image_urls.append('#')
+            except KeyError:
+                image_urls.append('#')
 
             #new dates
             if self.days != 1:
@@ -108,7 +109,6 @@ class google_scrape():
                     except IndexError:
                         new_dates[-1] = self.start_date                    
             else:
-                print('date is', self.start_date)
                 new_dates.append(self.start_date)
 
             sources.append(self.get_source(link))
@@ -131,19 +131,20 @@ class google_scrape():
         return 0
 
     def get_source(self, url):
-        pieces = []
-        for seg in url.split('.'):
-            for piece in seg.split('/'):
-                pieces.append(piece)
-        if 'com' in pieces:
-            ind = pieces.index('com')
-        elif 'net' in pieces:
-            ind = pieces.index('net')
-        elif len(pieces) >=2:
-            ind = 2
-        else:
+        segs = url.split('.')
+        all_pieces = []
+        for seg in segs:
+            pieces = [piece for piece in seg.split('/') if piece != '']
+            all_pieces.extend(pieces)
+        url_dests = ['com', 'net', 'co', 'org', 'edu', 'gov', 'ie', 'ca', 'intoday']
+        ind = 2
+        for url_dest in url_dests:
+            if url_dest in all_pieces:
+                ind = all_pieces.index(url_dest)
+                break
+        if len(all_pieces) < 2:
             return 'None'
-        return pieces[ind - 1]
+        return all_pieces[ind - 1]
 
     def decode_unicode(self, text):
         text = unicode(text)

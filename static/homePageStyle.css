@@ -14,7 +14,16 @@
 }
 
 .subtopicContainer {
-	/*border: 1px blue dashed;*/
+	/*background-color: #D8D8D8;*/
+}
+
+.major_topics_outside{
+	background-color: #E0E0E0;
+}
+
+.highestRated {
+	color: blue;
+	text-align: center;
 }
 
 .dropdown {
@@ -41,6 +50,10 @@
 
 .row_subtopics {
 	text-align: center;
+}
+
+.timeContainer {
+	/*background-color: #D8D8D8;*/
 }
 
 .headerSplit {

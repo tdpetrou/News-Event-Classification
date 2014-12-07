@@ -10,8 +10,14 @@ import os
 import pickle
 import requests
 import json
-import MySQLdb
 from sqlalchemy import create_engine
+import sys
+import traceback
+import MySQLdb
+
+# path = '/home4/gamethe2/public_html/newventify'
+# if path not in sys.path:
+#     sys.path.append(path)
 
 app = Flask(__name__)
 
@@ -26,7 +32,7 @@ def index():
 def get_subtopics():
     category = request.args.get('category', '', type=str)
     category = category.lower().replace(' ', '_')
-    with open('data/subtopics/' + category + '_subtopics.txt', 'r') as f:
+    with open('/home4/gamethe2/public_html/newventify/data/subtopics/' + category + '_subtopics.txt', 'r') as f:
         all_sub_cats = [line[:-1] for line in f]
     return jsonify(result=all_sub_cats)
 
@@ -44,20 +50,25 @@ def get_subtopic_data():
     subtopic_cat = subtopic.lower().replace(' ', '_')
     category = category.lower().replace(' ', '_')
     
-    with open('data/subtopics/' + category + '_sides.txt') as json_data:
+    with open('/home4/gamethe2/public_html/newventify/data/subtopics/' + category + '_sides.txt') as json_data:
         sides = json.load(json_data)
     both_sides = sides[subtopic]
 
-    with open('data/ted.txt') as f:
+    with open('/home4/gamethe2/public_html/newventify/data/ted.txt') as f:
         password =  [line for line in f][0]
     # engine = create_engine('mysql://EventClassify:' + password + '@EventClassify.db.5920383.hostedresource.com/EventClassify', pool_recycle=True)
-    engine = create_engine('mysql://gamethe2:' + password + '@box969.bluehost.com/gamethe2_EventClassify', pool_recycle=True)
-    connection = engine.connect()
+    # engine = create_engine('mysql://gamethe2:' + password + '@box969.bluehost.com/gamethe2_EventClassify', pool_recycle=True)
+    try:
+        engine = create_engine('mysql://gamethe2:' + password + '@localhost/gamethe2_EventClassify', pool_recycle=True)
+        connection = engine.connect()
+    except Exception, err:
+        return traceback.format_exc()
     statement = "(SELECT max(source) as source, max(url) as url, max(image_url) as image_url, " + \
                 "title, max(left(description, 250)) as description, max(publish_date) as publish_date," + \
                 " max(`event score scaled`) as `event score scaled` FROM `unique_url` " +  \
                 "WHERE category = '" + category +  "' and subcategory = '" + subtopic + \
                 "' and publish_date > DATE_ADD(curdate(), interval -" + days + " day) " + \
+                " and num_words > 300 " + \
                 " group by title order by `event score scaled` limit 14)" + \
             " union " + \
             "(SELECT  max(source) as source, max(url) as url, max(image_url) as image_url, " + \
@@ -65,6 +76,7 @@ def get_subtopic_data():
             " max(`event score scaled`) as `event score scaled` FROM `unique_url` " +  \
             "WHERE category = '" + category +  "' and subcategory = '" + subtopic + \
             "' and publish_date > DATE_ADD(curdate(), interval -" + days + " day) " + \
+             " and num_words > 300 " + \
             " group by title order by `event score scaled` desc limit 14) " + \
             "ORDER BY `event score scaled` "
     result = connection.execute(statement)

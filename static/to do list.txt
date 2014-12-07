@@ -1,0 +1,43 @@
+to do
+-----
+recreate files for new site
+
+have header with 8 major categories
+carousel for main article
+
+	Get top and bottom article of the week for each subtopic.
+	There are around 22 subtopics and so this would produce 44 possible articles
+	In the sql query label each article 0 or 1 based on whether they are negative or positive
+    Randomly get 8 articles for the carousel and 4 for side panel
+
+underneath carousel have all 8 categories - possibly in random order
+need to incorprate subtopic - possibly in dropdown menu and date in drop down menu
+have 4 highest and lowest scoring articles in both sections with their title for what the event is. "most violent" for example
+
+links at top would go to separate page that would show a more complete list of the top articles in a list like I 
+currently have on my page.
+
+
+
+
+
+update test_event3
+set description = 
+replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(description, '&lsquo;', ''''), '&rsquo;', ''''), '&apos;', ''''), '&#39;', ''''), '&#8217;', ''''), '&#8216;', ''''), '&#9733;', ''), '&nbsp;', ' '), '&raquo;', ''''), '&#039;', ''''), '&mdash;', '-'), '&#8212;', ''''), '&ldquo;', ''''), '&rdquo;', ''''), '&amp;', '&'), '&#8221;', ''''), '&#8220;', ''''), '&quot;', ''''), '&GT;', '>'), '&LT;', '<'), '&ndash;', '-'), '&#0146;', ''''), '&#8211;', ','), '&#34;', ''), '&#8230;', ''), '&eacute;', 'e'), '&iacute;', 'i'), '&ntilde;', 'n'), '&ccedil;', 'c')
+
+
+
+select description
+from test_event3
+where description like '%&%' and description like '%;%'
+
+update test_event3
+set description = 
+replace(replace(replace(replace(replace(replace(replace(replace(description, '<b>', ''), '<p>', ''), '<em>', ''), '<i>', ''), '<br >', ''), '<br>', ''), '<a>', ''), '<span>', '')
+
+
+
+update unique_url
+set description = 
+replace(replace(replace(replace(replace(replace(description, '<span class="Dateline">', ''), '<span>', ''), '<!-- [if !supportLineBreakNewLine]--> <!--[endif]-->', ''), '<!-- -->', ''), '<a href="http:www.breitbart.comInstaBlog20141117Jonathan-Gruber-1-Year-Ago-Short-Attention-Span-Of-American-Public-Will-Help-Them-Forget-About-Disastrous-ACA-Rollout-Video">', ''), '<a>', '') 
+

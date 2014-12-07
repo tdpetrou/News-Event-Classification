@@ -4,6 +4,12 @@ from nltk.stem import SnowballStemmer
 import re, sys
 from langid import classify
 from bs4 import BeautifulSoup
+import ipdb
+import sys
+sys.path.append("/home4/gamethe2/public_html/newventify")
+
+import os
+print os.path.dirname(os.path.abspath(__file__))
 
 class clean_data():
     def __init__(self):
@@ -35,6 +41,8 @@ class clean_data():
         return ' '.join([self.snowball.stem(word) for word in re.sub(r'[^\w\s]',' ',text).lower().split()])
 
     def join_data(self):
+        # print os.path.dirname(os.path.abspath(__file__))
+        # ipdb.set_trace()
         #add functionality to automatically detect all csv files
         nyt = pd.read_csv('data/nyt_' + self.major_category + '_data.csv').drop_duplicates()
         npr = pd.read_csv('data/npr_' + self.major_category + '_data.csv').drop_duplicates()
@@ -70,7 +78,7 @@ class clean_data():
             ('&#8217;', "'"), ('&#8216;', "'"), ('&#9733;', ''), ('&nbsp;', ' '), ('&raquo;', "'"), 
             ('&#039;', "'"), ('&mdash;', '-'), ('&#8212;', "'"), ('&ldquo;', "'"), ('&rdquo;', "'"), 
             ('&amp;', '&'), ('&#8221;', "'"), ('&#8220;', "'"),  ('&GT;', '>'), ('&LT;', '<'), 
-            ('&ndash;', '-'), ('&#0146;', "'"), ('&#8211;', ','), ('&#34;', ''), ('&#8230;', ''), 
+            ('&ndash;', '-'), ('&#0146;', "'"), ('&#8211;', ' '), ('&#34;', ''), ('&#8230;', ''), 
             ('&eacute;', 'e'), ('&iacute;', 'i'), ('&ntilde;', 'n'), ('&ccedil;', 'c')
             ]
 
@@ -93,17 +101,41 @@ class clean_data():
         data['description'] = data['description'].apply(lambda x: BeautifulSoup(x).text)
         return data
 
+    def increase_description(self, data):
+        data['description'] = data.apply(self.more_description, axis = 1)
+        return data
+
+    def more_description(self, row):
+        try:
+            if row['description'] is None or len(str(row['description'])) < 10:
+                return str(row['text'])[:200]
+        except:
+            print row['text']
+        return row['text']
+
     def run(self, category):
         self.major_category = category.replace(' ', '_')
         self.snowball = SnowballStemmer('english')
         sent, sent_stemmed = self.get_sent_dict()
         data = self.join_data()
+        print data.shape, sum(data['text'].isnull())
+        print data['text'].values[88]
         data = self.add_columns(data, sent, sent_stemmed)
+        print data.shape, sum(data['text'].isnull())
+        print 'text', data['text'].values[88]
         data = self.keep_english(data)
+        print data.shape, sum(data['text'].isnull())
+        print 'text', data['text'].values[88]
         data = self.replace_all(data)
+        print data.shape, sum(data['text'].isnull())
+        print 'text', data['text'].values[88]
         data = self.remove_nonproper_html(data)
-        data.to_csv('data/combined_' + self.major_category + '.csv', index=False)
-
+        print data.shape, sum(data['text'].isnull())
+        print 'text', data['text'].values[88]
+        data = self.increase_description(data)
+        print data.shape, sum(data['text'].isnull())
+        print 'text', data['text'].values[88]
+        data.to_csv('data/combined_' + self.major_category + '.csv', index=False, encoding='utf-8')
 
 if __name__ == '__main__':
     category = sys.argv[1]

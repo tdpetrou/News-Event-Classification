@@ -20,12 +20,16 @@ class classify_document():
 		with open('data/subtopics/' + self.category + '_subtopics.txt') as f:
 		    self.subtopics = np.array([line[:-1] for line in f])
 		major_df = pd.read_csv('data/combined_' + self.category + '.csv')
+		#There are some problems reading in the data that add random nulls. I remove them here
+		# major_df = major_df[major_df['text'].isnull() == False]
+		major_df['text'] = major_df['text'].astype(str)
+		major_df['text_stemmed'] = major_df['text_stemmed'].astype(str)
+		major_df = major_df[major_df['text'].apply(len) > 200]
 
-		# rand = np.random.randint(0, len(major_df))
 		all_text = major_df['text'].values
-		all_text_stemmed = major_df['text_stemmed'].values
+		# all_text_stemmed = major_df['text_stemmed'].values
 
-
+		print 'category ', self.category, ' all_text len', len(all_text)
 		X = self.vec.transform(all_text).toarray()
 		topic_id = np.argmax(self.nmf.transform(X), axis = 1)
 		sub_topic = self.subtopics[topic_id]

@@ -15,13 +15,12 @@ from write_to_db import write_to_db
 import pandas as pd
 
 
-
 class Event_Classify():
 
 	def __init__(self):
 		self.topic_list = ['abortion', 'affordable care act', 'gay', 'gun', 'immigration', \
 			'marijuana', 'obamacare', 'palestine', 'terrorism']
-		# self.topic_list = ['marijuana', 'obamacare', 'palestine', 'terrorism']
+		#self.topic_list = ['gun', 'immigration', 'marijuana', 'obamacare', 'palestine', 'terrorism']
 
 
 	def run_scrapers(self, days=14):
@@ -81,9 +80,10 @@ class Event_Classify():
 
 if __name__ == '__main__':
 	EC = Event_Classify()
-	EC.run_scrapers(1)
-	EC.clean_data()
-	EC.combine_data()
-	# EC.attach_and_rank_topics()
-	# EC.write_db()
+
+	# EC.run_scrapers(1)
+	# EC.clean_data()
+	# EC.combine_data()
+	EC.attach_and_rank_topics()
+	EC.write_db()
 

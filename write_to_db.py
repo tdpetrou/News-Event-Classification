@@ -1,8 +1,6 @@
 #write to mysql db
-import MySQLdb
 import pandas as pd
 import os
-import MySQLdb
 from sqlalchemy import create_engine
 
 class write_to_db():
