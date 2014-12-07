@@ -5,6 +5,10 @@ Access the app below
 
 [www.NewVentify.com](http://www.newventify.com)
 
+####Screenshot of app
+
+![alt tag](https://github.com/tdpetrou/News-Event-Classification/blob/master/static/preview.png)
+
 ### App Purpose
 
 Online news sites are good at producing relevant articles when given a search term. Some sites even classify articles into subtopics. What is missing is the actual degree to which an event has occurred.  The image below is a Fox News search query result that is typical of major news outlets. Though the articles returned to the user are relevant to the search term, there is no method to search for the degree of the event within the topic searched.
@@ -39,7 +43,7 @@ A large cohort of articles must be obtained to train the model to help precisely
 
 * This mysql db is accessed through ajax requests which then display the articles by event type on the web.
 
+* A daily cron job is run to execute scraping, cleaning, labeling and writing to database on a daily basis.
 
-####Screenshot
 
-![alt tag](https://github.com/tdpetrou/News-Event-Classification/blob/master/static/preview.png)
+
