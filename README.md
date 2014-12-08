@@ -15,7 +15,7 @@ Online news sites are good at producing relevant articles when given a search te
 
 ![alt tag](https://raw.githubusercontent.com/tdpetrou/News-Event-Classification/master/static/news_search.png)
 
-Instead of showing articles by relevance, NewVentify returns articles to the user based on degree of events contained within the search. For instance, if the user searches for 'drug cartels', they will be returned articles that best represent the events 'cartel violence' and 'cartel capture and seizure'. These are the two most prominent and polarizing events within the drug cartel category.
+Instead of showing articles by relevance, NewVentify returns articles to the user based on degree of events contained within the search.
 
 ###Specifics
 
@@ -31,7 +31,9 @@ A large cohort of articles must be obtained to train the model to help precisely
 
 * For each of the major topics a list of subtopics was generated. This was an iterative process using natural language processing to create a feature matrix based on tf-idf scores and split into topics with non-negative matrix factorization.
 
-* Bar plots showing nmf scores next to the top 15 words for each subtopic were generaged to easily put a label to the topic.
+* Bar plots showing nmf scores next to the top 15 words for each subtopic were generaged to easily put a label to the topic. A sample bar plot for words in the 4 subtopics from the gun category are shown below.
+
+![alt tag](https://github.com/tdpetrou/News-Event-Classification/blob/master/static/nmf_words_by_topic.png)
 
 * Once a final group of subtopics were selected, the nmf and tf-idf objects for each subtopic were saved (pickled) to use on future articles.
 
