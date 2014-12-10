@@ -45,7 +45,7 @@ A large cohort of articles must be obtained to train the model to help precisely
 
 * This mysql db is accessed through ajax requests which then display the articles by event type on the web.
 
-* A daily cron job is run to execute scraping, cleaning, labeling and writing to database on a daily basis.
+* A daily cron job is run to execute scraping, cleaning, labeling and writing to the database.
 
 
 
