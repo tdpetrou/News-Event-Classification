@@ -1,15 +1,13 @@
-
 <!DOCTYPE html>
 <html lang="en">
   <head prefix="og: http://ogp.me/ns#">
     <meta property="og:type" content="website" />
     <meta property="og:title" content="News Event Detection and Classification" />
     <meta property="og:site_name" content="News Event Detection"/>
-    <meta property="og:url" content="http://greeksquared.pythonanywhere.com" />
-    <meta property="og:image" content="static/preview.png"/>
+    <meta property="og:url" content="http://www.newventify.com" />
+    <meta property="og:image" content="http://www.newventify.com/static/preview.png"/>
     <meta property="og:image:type" content="image/png">
     <meta property="og:description" content="Reveal news articles with the most polarizing events from the hottest issues around today." />
-
 
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -20,7 +18,7 @@
 
     <title>News Event Classification</title>
     <link type="text/css" rel="stylesheet" href="static/homePageStyle.css"/>
-    <link href="static/landing-page.css" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="static/slick/slick.css"/>
     <link rel="shortcut icon" href="static/favicon.ico">
 
     <!-- Bootstrap core CSS -->
@@ -31,209 +29,171 @@
 
     <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');
     </script>
-
-    <script>
-    $( "p" ).append( $( "strong" ) );
-    </script>
-
   </head>
 <!-- NAVBAR
 ================================================== -->
   <body>
-       <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+    <nav class="navbar navbar-inverse navbar-fixed-top my-navbar" role="navigation">
       <div class="container">
         <div class="navbar-header">
           <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
             <span class="sr-only">Toggle navigation</span>
-            <span class="icon-bar"></span>
+            <span class="icon-bar"></span> <!--  three bar stack -->
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </button>
-          <a class="navbar-brand" href="#">News Event Classifier</a>
+          <div>
+            <a class="navbar-brand top-header" href="#">NewVentify<h4 class = "intro-message">Aggregating News at the Event Level</h4></a>
+          </div>
         </div>
         <div id="navbar" class="navbar-collapse collapse">
-        <ul class="nav navbar-nav navbar-right">
-         <!--      <li>
+          <ul class="nav navbar-nav navbar-right">
+            <!--      <li>
                 <div class="fb-like" data-send="true" data-width="120" show-faces="false" data-layout ="button_count" data-href="https://www.facebook.com/GameTheoryOptimalPoker" ></div>
               </li> -->
-              <li>
-                    <a href="https://twitter.com/share" id = "twitter_icon" class="twitter-share-button" data-url="http://www.newventify.com" data-text="Found a rad way to find events in the news " data-via="GTO_Poker" data-size="large">Tweet</a>
-              </li>
-              <li>
-                <a href="https://www.linkedin.com/in/tedpetrou" class="logo" id="in-logo" target = "_blank">
+            <li>
+              <a href="https://twitter.com/share" id = "twitter_icon" class="twitter-share-button" data-url="http://www.newventify.com" data-text="Found a rad way to find events in the news " data-via="GTO_Poker" data-size="large">Tweet</a>
+            </li>
+            <li>
+              <a href="https://www.linkedin.com/in/tedpetrou" target = "_blank">
                   <img id = "linkedin_icon" src="static/linkedin_logo.ico"/>
-                </a>
-              </li>
-              <li>
-                <a href="https://github.com/tdpetrou/News-Event-Classification" class="logo" id="in-logo" target = "_blank">
-                  <img id = "github_icon" style = "height:32px" src="static/github_white.png"/>
-                </a>
-              </li>
-            </ul>
+              </a>
+            </li>
+            <li>
+              <a href="https://github.com/tdpetrou/News-Event-Classification" target = "_blank">
+                <img id = "github_icon" src="static/github_white.png"/>
+              </a>
+            </li>
+          </ul>
         </div><!-- /.navbar-collapse  -->
       </div>
     </nav>
 
-
-      <div class="intro-header">
-        <div class="container">
-          <div class="row">
-              <div class="col-lg-12">
-                  <div class="intro-message">
-                      <h1>NewVentify</h1>
-                      <h3>Aggregating News at the Event Level</h3>         
-                  </div>
-
-              </div>
-
-          </div>
-
-        </div><!-- /.container -->
+    <div class = "main-topic-links">
+      <div class = "topic-list">
+        
+          <ul class="list-inline">
+            <li><a href = "#marijuana">Marijuana</a></li>
+            <li><a href = "#abortion">Abortion</a></li>
+            <li><a href = "#terrorism">Terrorism</a></li>
+            <li><a href = "#obamacare">Obamacare</a></li>
+            <li><a href = "#gay">Gay Rights</a></li>
+            <li><a href = "#guns">Guns</a></li>
+            <li><a href = "#palestine">Palestine</a></li>
+            <li><a href = "#immigration">Immigration</a></li>
+          </ul>
+        </div>
     </div>
 
-   
+  
+    <div class="intro-header">
+      <div class = "big-article-container">
+        <h3>Polarizing News Events</h3>
+        <div class = "big-carousel">
+          <div class = "big-article">
+            <p class = "big-article-side">{{ sides[0] }}</p>
+            <a href = "{{ url[0] }}" target = "_blank" style = "text-align:center"><img class="img-big" src= " {{ image_url[0] }} " alt="Generic placeholder image" ></a>
+            <div class = "article_date"><p>{{ source[0] }} - {{ date[0] }} </p></div>
+            <a href = "{{ url[0] }}" target = "_blank"><h4 class = 'article_title'>{{ title[0] }}</h4></a>  
+          </div> <!-- end big article -->
 
-    <div class=" major_topics_outside">
-      <div class="container major-topics-container">
-        <h2 class = "headerTitle">Step 1: Choose a News Topic</h2>
-         <div class="row">
-          <div class="col-lg-3" id = "obamacareButton">
-            <p><a class="btn btn-default major-topics"  data-topic = 'aca' role="button">Obamacare</a></p>
-          </div>
-          <div class="col-lg-3">
-            <p><a class="btn btn-default major-topics" id = "gayButton" data-topic ='gay' role="button">Gay Rights</a></p>
-          </div>
-          <div class="col-lg-3">
-            <p><a class="btn btn-default major-topics" data-topic = 'immigration' role="button">Immigration</a></p>
-          </div>
-          <div class="col-lg-3">
-            <p><a class="btn btn-default major-topics" data-topic = 'gun' role="button">Guns</a></p>
-          </div>
-         </div>
-      <div class="row">
-          <div class="col-lg-3">
-            <p><a class="btn btn-default major-topics" data-topic = 'palestine' role="button">Palestine</a></p>
-          </div>
-          <div class="col-lg-3">
-            <p><a class="btn btn-default major-topics" data-topic = 'abortion' role="button">Abortion</a></p>
-          </div>
-          <div class="col-lg-3">
-            <p><a class="btn btn-default major-topics" data-topic = 'marijuana' role="button">Drugs</a></p>
-          </div>
-          <div class="col-lg-3">
-            <p><a class="btn btn-default major-topics" data-topic = 'terrorism' role="button">Terrorism</a></p>
-          </div>
-      </div>
-    </div>
-  </div>
+          <div class = "big-article">
+            <p class = "big-article-side">{{ sides[1] }}</p>
+            <a href = "{{ url[1] }}" target = "_blank"><img class="img-big" src= " {{ image_url[1] }} " alt="Generic placeholder image" ></a>
+      
+            <div class = "article_date"><p>{{ source[1] }} - {{ date[1] }} </p></div>
+            <a href = "{{ url[1] }}" target = "_blank"><h4 class = 'article_title'>{{ title[1] }}</h4></a>  
+          </div> <!-- end big article -->
 
-    <!-- Marketing messaging and featurettes
-    ================================================== -->
-    <!-- Wrap the rest of the page in another container to center all the content. -->
+          <div class = "big-article">
+            <p class = "big-article-side">{{ sides[2] }}</p>
+            <a href = "{{ url[2] }}" target = "_blank"><img class="img-big" src= " {{ image_url[2] }} " alt="Generic placeholder image" ></a>
+            <div class = "article_date"><p>{{ source[2] }} - {{ date[2] }} </p></div>
+            <a href = "{{ url[2] }}" target = "_blank"><h4 class = 'article_title'>{{ title[2] }}</h4></a>  
+          </div> <!-- end big article -->
+
+          <div class = "big-article">
+            <p class = "big-article-side">{{ sides[3] }}</p>
+            <a href = "{{ url[3] }}" target = "_blank"><img class="img-big" src= " {{ image_url[3] }} " alt="Generic placeholder image" ></a>
+            <div class = "article_date"><p>{{ source[3] }} - {{ date[3] }} </p></div>
+            <a href = "{{ url[3] }}" target = "_blank"><h4 class = 'article_title'>{{ title[3] }}</h4></a>  
+          </div> <!-- end big article -->
+
+          <div class = "big-article">
+            <p class = "big-article-side">{{ sides[4] }}</p> 
+            <a href = "{{ url[4] }}" target = "_blank"><img class="img-big" src= " {{ image_url[4] }} " alt="Generic placeholder image" ></a>
+            <div class = "article_date"><p>{{ source[4] }} - {{ date[4] }} </p></div>
+            <a href = "{{ url[4] }}" target = "_blank"><h4 class = 'article_title'>{{ title[4] }}</h4></a>  
+          </div> <!-- end big article -->
+
+          <div class = "big-article">
+            <p class = "big-article-side">{{ sides[5] }}</p>
+            <a href = "{{ url[5] }}" target = "_blank"><img class="img-big" src= " {{ image_url[5] }} " alt="Generic placeholder image" ></a>
+            <div class = "article_date"><p>{{ source[5] }} - {{ date[5] }} </p></div>
+            <a href = "{{ url[5] }}" target = "_blank"><h4 class = 'article_title'>{{ title[5] }}</h4></a>  
+          </div> <!-- end big article -->
+        </div> <!-- end carousel -->
+      </div> <!-- end big-article-container -->
+
+      <div class = "other-main-articles">
+        <div class ='row-other-articles'>
+          <div class= "individualArticleTop"> 
+              <p class ="sides-descr">{{ sides[6] }}</p>
+              <a href = "{{ url[6] }}" target = "_blank"><img class="img-medium" src= " {{ image_url[6] }} " alt="Generic placeholder image" ></a>
+            <div class = "article_date"><p>{{ source[6] }} - {{ date[6] }} </p>  </div>
+              <a href = "{{ url[6] }}" target = "_blank"><h5 class = 'article_title'>{{ title[6] }}</h5></a>  
+          </div>
+
+          <div class= "individualArticleTop"> 
+              <p class ="sides-descr">{{ sides[7] }}</p>
+              <a href = "{{ url[7] }}" target = "_blank"><img class="img-medium" src= " {{ image_url[7] }} " alt="Generic placeholder image" ></a>
+            <div class = "article_date"><p>{{ source[7] }} - {{ date[7] }} </p>  </div>
+            <a href = "{{ url[7] }}" target = "_blank"><h5 class = 'article_title'>{{ title[7] }}</h5></a>  
+          </div>
+        </div> <!-- end row -->
+
+        <div class ='row-other-articles'>
+          <div class= "individualArticleTop">
+              <p class ="sides-descr">{{ sides[8] }}</p>
+              <a href = "{{ url[8] }}" target = "_blank"><img class="img-medium" src= " {{ image_url[8] }} " alt="Generic placeholder image" ></a>
+            <div class = "article_date"><p>{{ source[8] }} - {{ date[8] }} </p>  </div>
+            <a href = "{{ url[8] }}" target = "_blank"><h5 class = 'article_title'>{{ title[8] }}</h5></a>  
+            </div>
+
+          <div class= "individualArticleTop">
+              <p class ="sides-descr">{{ sides[9] }}</p>
+              <a href = "{{ url[4] }}" target = "_blank"><img class="img-medium" src= " {{ image_url[9] }} " alt="Generic placeholder image" ></a>
+            <div class = "article_date"><p>{{ source[9] }} - {{ date[9] }} </p>  </div>
+              <a href = "{{ url[9] }}" target = "_blank"><h5 class = 'article_title'>{{ title[9] }}</h5></a>  
+          </div>
+        </div> <!-- end row articles -->
+      </div> <!-- end other-main-articles -->
+    </div> <!-- end intro header -->
 
     <!-- My JavaScipt -->
     <script>
     
     $SCRIPT_ROOT = {{ request.script_root|tojson|safe }};
 
-    var selected_topic = '';
-    var selected_subtopic = '';
-    var selected_category_text;
-
-    $(function() {
-      $('.major-topics').bind('click', function() {
-        var $category = $(this).attr("data-topic");
-        selected_topic = $(this).text();
-        unshadeButtons('.major-topics');
-        $(this).css("background","gray");
-        $.getJSON($SCRIPT_ROOT + '/_get_subtopics', {
-          category: $(this).attr("data-topic")
-        }, function(data) {
-            $('.subtopicContainer').remove();
-            $('.subtopicArticles').remove();
-            $('.articleTables').remove();
-            $(".timeContainer").remove();
-            var NewContent = '<div class = "subtopicContainer"><h2 class = "headerTitle">Step 2: Choose a Subtopic</h2><div class="row_subtopics"></div></div>';
-            var $major_topics = $('.major_topics_outside');
-            $(NewContent).insertAfter($major_topics)
-
-          $.each(data, function() {
-            $.each(this, function(k, v) {
-              $(".row_subtopics").append('<div class="col-md-2"><p><a class="btn btn-default major-subtopics"' + 
-                ' role = "button" data-topics = "' + $category + '"">' 
-                + v + '</a></p></div>').hide().slideDown("slow");
+    $(document).ready(function(){
+            $('.big-carousel').slick({
+                  infinite: true,
+                  slidesToShow: 1,
+                  slidesToScroll: 1,
+                  autoplay: true,
+                  autoplaySpeed: 3500,
+                  // appendArrows: $('.article_title'),
             });
-          });
-          clickSubtopic();
-          scrollToSubtopics();
         });
-        return false;
-      });
-    });
-
-    function clickSubtopic() {
-      $('.major-subtopics').bind('click', function() {
-        var $category = $(this).attr("data-topics");
-        var $category_text = $('*[data-topic="' + $category + '"]').first().text();
-        var $subtopic = $(this).text();
-        selected_topic = $category;
-        selected_subtopic = $subtopic;
-        selected_category_text = $category_text
-        unshadeButtons('.major-subtopics')
-        $(this).css("background","gray");
-        
-        $.get($SCRIPT_ROOT + '/_show_time', {
+    
+    $(document).ready(function(){     
+        $.get($SCRIPT_ROOT + '/_get_next_topic', {
           }, function(data) {
-              var $insertDiv = $('.subtopicContainer');
+              var $insertDiv = $('.intro-header');
               var NewContent = data
-              $(NewContent).insertAfter($insertDiv).hide().slideDown("slow");
+              $(NewContent).insertAfter($insertDiv);
           });
-        $('.articleTables').remove();
-        $('.subtopicArticles').remove();
-        $(".timeContainer").remove();
-        scrollToSubtopics();
       });
-    }
-
-    function unshadeButtons(class_name){
-      $(class_name).each(function() {
-        $(this).css("background","white");
-      });
-    }
-
-
-    function scrollToSubtopics(){
-      $("html, body").animate({ scrollTop: $(document).height() }, "slow");
-    }
-
-    function scrollToArticles(){
-      $('html, body').animate({
-              scrollTop: $(".timeContainer").offset().top - 100
-        }, 'slow');
-    }
-
-
-    function changeHeight(class_name){
-
-      var $max_height = 0;
-      var $cur_height = 0;
-
-     $(class_name).each(function() {
-
-       $cur_div = $(this);
-       $cur_height = $cur_div.height();
-       
-       if ($cur_height > $max_height) {
-        $max_height = $cur_height;
-       }
-    });
-
-    $(class_name).each(function() {
-        $(this).css("height", $max_height); 
-      });
-   }
-
-
 
     </script>
     <!-- Bootstrap core JavaScript
@@ -242,7 +202,7 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
     <script src="http://getbootstrap.com/dist/js/bootstrap.min.js"></script>
     <script src="http://getbootstrap.com/assets/js/docs.min.js"></script>
-    <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
+    <script type="text/javascript" src="static/slick/slick.min.js"></script>
     <script src="http://getbootstrap.com/assets/js/ie10-viewport-bug-workaround.js"></script>
   </body>
 </html>

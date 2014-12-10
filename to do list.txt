@@ -27,11 +27,25 @@ carousel for main article
 
 underneath carousel have all 8 categories - possibly in random order
 need to incorprate subtopic - possibly in dropdown menu and date in another drop down menu
-Subtopics can just be
-have 4 highest and lowest scoring articles in both sections with their title for what the event is. "most violent" for example
+Subtopics can just be listed in smaller sized font, bolded with the other categories faded and not bolded.
+Not sure what is best way to display these. I think the drop down menu would not be used too much
+Have 4 highest and lowest scoring articles in both sections with their title for what the event is. "most violent" for example
 
 links at top would go to separate page that would show a more complete list of the top articles in a list like I 
 currently have on my page.
+
+
+fix drop down menu at the top for github, etc.. icons when screen is small
+add indexes to database - make much faster
+heavily comment each function
+
+
+
+
+
+
+best suptopics
+Coverage and Benefits (Both), Drug Cartels (Both), Medical Legalization (Both), Legislation (Gay Rights both), Social Interests (most social), Immigration (Both), Armed Forces (Most Violent), Second Ammendment (turmoil), Domestic Violence (most violent), Israel vs Palestine (Both), Abortion Clinics and Health (Both), Religious View on Abortion (most religious), Middle East (both)
 
 
 
