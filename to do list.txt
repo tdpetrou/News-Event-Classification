@@ -1,8 +1,5 @@
 to do
 -----
-put image of bar plots with nmf scores on readme
-remove redundancy in readme
-
 have header with 8 major categories
 carousel for main article
 

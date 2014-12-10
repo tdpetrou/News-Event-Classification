@@ -1,9 +1,7 @@
 News Event Classification
 =========
 
-Access the app below
-
-[www.NewVentify.com](http://www.newventify.com)
+Access the app here: [www.NewVentify.com](http://www.newventify.com)
 
 ####Screenshot of app
 
