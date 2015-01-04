@@ -1,3 +1,11 @@
+'''
+This is the major front end publishing code that uses flask to neatly return the top scored 
+articles from each category to the index page. A sql query is run on page load that returns the top 
+scored article from each subcategory. There are around 22 event types that are used. Many of the less
+interesting event types are disregarded. It randomly displays 6 of 
+these articles to be in the carousel and 4 to be in the side panel at the top. It then displays at
+most 8 articles for each event type and allows the user to scroll to view all of them.
+'''
 from flask import Flask, request, render_template, jsonify
 import pandas as pd
 import numpy as np

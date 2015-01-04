@@ -1,3 +1,7 @@
+'''
+Gets the highest and lowest total raw score for each subcategory so that it can be used to scale the articles on 
+an approximately 0 to 1
+'''
 import os
 import pandas as pd
 import pdb

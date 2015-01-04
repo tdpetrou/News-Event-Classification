@@ -1,4 +1,9 @@
-#write to mysql db
+'''
+This script writes the pertinent data to the database. It leaves out the article text in order to save space.
+It imports only 300 rows at a time because the connection times out if too many are done at the same time.
+It then recreates a new table that drops any duplicate data. This unique table is used to pull article
+info from the website.
+'''
 import pandas as pd
 import os
 from sqlalchemy import create_engine

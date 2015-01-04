@@ -1,5 +1,13 @@
-#Explore the topics
-
+'''
+This script is used to explore possible subtopics of the articles by major category.
+Two parameters are passed, the first being the major category and the second the estimated
+number of subtopics. Returned is a plot that has the estimated number of subtopics each plotted
+with the top 15 words. From here, the user would examine the plots by hand to determine an
+appropriate name for the subtopic. This is an iterative process that could take running the
+script multiple times to get an sensible number of subtopics that make sense to a human.
+Also, the TfidfVectorizer and the nmf model are pickled to be used on new articles to quickly
+classify them.
+'''
 
 from sklearn.decomposition import NMF
 import seaborn
@@ -15,7 +23,7 @@ def create_nmf():
 	with open('data/all_stops.txt', 'r') as f:
 		stop_words = [line[:-1] for line in f]
 
-	stop_words.extend(['npr', 'one', 'two', 'new', 'fox', 'york', 'times', 'las', 'se', 'por', 'un', \
+	stop_words.extend(['npr', 'one', 'two', 'new', 'fox', 'times', 'las', 'se', 'por', 'un', \
 		'del', 'en', 'al', 'con', 'son', 'sin', 'nbc' ,'npr', 'msnbc', 'york'])
 
 	vec = TfidfVectorizer(stop_words=stop_words, max_features=2000)

@@ -1,3 +1,10 @@
+'''
+This script is used to get a preliminary number of keywords that appear in the article to be used in the 
+scoring dictionary. These words were just a start and more words were added later through a manual
+iterative process of looking at articles that were miscategorized and attempt to find a better way of 
+scoring words to categorize the articles correctly.
+'''
+
 import sys
 import pandas as pd
 import numpy as np
