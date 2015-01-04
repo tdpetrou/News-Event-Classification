@@ -1,4 +1,7 @@
-#attach event score
+'''
+Each articles is scored by a domain specific dictionary based on its subtopic classification.
+This script was used during the training data collection period and is not used on a daily basis.
+'''
 import pandas as pd
 import numpy as np
 from sklearn.feature_extraction.text import TfidfVectorizer
@@ -6,6 +9,10 @@ from nltk.stem.snowball import SnowballStemmer
 import pickle, sys
 
 def get_event_score():
+	'''
+	For each subtopic, each article is scored after stemming from a domain specific dictionary.
+	The score is then scaled for to get values between 0 and 1.
+	'''
 
 	#vec = pickle.load(open("pickles/vec_" + category + ".pkl", "rb"))
 	with open('data/subtopics/' + category + '_subtopics.txt', 'r') as f:

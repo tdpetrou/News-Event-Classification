@@ -1,3 +1,6 @@
+'''
+Cleans data and finds sentiment
+'''
 from __future__ import division
 import pandas as pd
 from nltk.stem import SnowballStemmer
@@ -79,7 +82,7 @@ class clean_data():
             ('&#039;', "'"), ('&mdash;', '-'), ('&#8212;', "'"), ('&ldquo;', "'"), ('&rdquo;', "'"), 
             ('&amp;', '&'), ('&#8221;', "'"), ('&#8220;', "'"),  ('&GT;', '>'), ('&LT;', '<'), 
             ('&ndash;', '-'), ('&#0146;', "'"), ('&#8211;', ' '), ('&#34;', ''), ('&#8230;', ''), 
-            ('&eacute;', 'e'), ('&iacute;', 'i'), ('&ntilde;', 'n'), ('&ccedil;', 'c')
+            ('&eacute;', 'e'), ('&iacute;', 'i'), ('&ntilde;', 'n'), ('&ccedil;', 'c'), (''2329')
             ]
 
         for entity, replacement in REPLACEMENTS:
@@ -106,12 +109,14 @@ class clean_data():
         return data
 
     def more_description(self, row):
-        try:
-            if row['description'] is None or len(str(row['description'])) < 10:
+        if row['description'] is None or len(str(row['description'])) < 10:
+            try:
                 return str(row['text'])[:200]
-        except:
-            print row['text']
-        return row['text']
+            except:
+                print row['text']
+                return row['text']
+        else:
+            return row['text']
 
     def run(self, category):
         self.major_category = category.replace(' ', '_')

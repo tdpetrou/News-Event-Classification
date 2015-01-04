@@ -1,39 +1,14 @@
 to do
 -----
-have header with 8 major categories
-carousel for main article
-
-	Get top and bottom article of the week for each subtopic.
-	There are around 22 subtopics and so this would produce 44 possible articles
-	article must have image - look at fox news to see if you can get better images
-	In the sql query label each article 0 or 1 based on whether they are negative or positive
-    Randomly get 8 articles for the carousel and 4 for side panel
-    The large main articles in the carousel - title of "Polarizing Topics"
-    Show picture underneath
-    Have Article title
-    Subtitle - Most Violent
-
-    Probably would pick articles with good subtitles - drug cartels, etc..
-    Would not use all 44 sub
-
-    Maybe in my database I can find the median value for each subtopic and label the event in the database
-    instead of labeling it in python
-    put subtopics in a table on their own with their event descriptions
-
-    shorten description of events or make them better
-
-underneath carousel have all 8 categories - possibly in random order
-need to incorprate subtopic - possibly in dropdown menu and date in another drop down menu
-Subtopics can just be listed in smaller sized font, bolded with the other categories faded and not bolded.
-Not sure what is best way to display these. I think the drop down menu would not be used too much
-Have 4 highest and lowest scoring articles in both sections with their title for what the event is. "most violent" for example
-
-links at top would go to separate page that would show a more complete list of the top articles in a list like I 
-currently have on my page.
-
+Change sides
+use articles that images that begin with http:...
+Have link to go to separate page to display next 20 articles for that section
+fix link to subtopic section - use jquery
+fix articles at top when they wrap to the next line
+remove subsection when there are no articles for that week
 
 fix drop down menu at the top for github, etc.. icons when screen is small
-add indexes to database - make much faster
+add indexes to database - make much faster. it actually loads pretty fast under a second
 heavily comment each function
 
 

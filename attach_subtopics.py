@@ -1,4 +1,9 @@
-#attach subtopics
+'''
+This script attaches the names of the subtopics to the dataframe holding all the article data.
+This script was used for the training data and is not used in the nightly processing.
+This script also attaches the subtopic name to the bar graphs of the top words for those
+subtopic found through nmf.
+'''
 import pandas as pd
 import numpy as np
 import sys, pickle

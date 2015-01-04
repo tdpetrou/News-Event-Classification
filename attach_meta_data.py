@@ -1,8 +1,6 @@
-#loop through each file in event scores
-#get url
-#get ogs
-#attach image url, headline, description
-#save as complete datt
+'''
+Attempt at getting meta data from html but found other methods. This file not used.
+'''
 
 
 import os

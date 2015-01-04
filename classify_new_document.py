@@ -1,4 +1,6 @@
-#classify new document
+'''
+older version of classify and score script.
+'''
 import pickle
 import sys
 import pandas as pd

@@ -1,4 +1,8 @@
-#classify new document
+'''
+This script iterates through all the major categories and assigns each article a subtopic.
+After assigning a subtopic, the article is scored through the domain specific dictionary.
+This script is used in the nightly job.
+'''
 import pickle
 import sys
 import pandas as pd
@@ -9,6 +13,12 @@ from sklearn.feature_extraction.text import TfidfVectorizer
 class classify_document():
 
 	def __init__(self, category):
+		'''
+		Each major category has its own pickled files where the tfidf vectorizer and the nmf model are saved.
+		The pickled tfidf vectorizer transforms the new article words into a matrix with the same columns.
+		The pickled nmf model transofrms the newly created tfidf matrix into the same number of topics
+		in the same order.
+		'''
 		self.category = category
 		self.category_replace = self.category.replace(' ', '_')
 
